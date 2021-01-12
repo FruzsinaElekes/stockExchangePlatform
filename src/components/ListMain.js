@@ -15,5 +15,6 @@ export default function ListMain(props) {
 const List = styled.div`
     position: sticky;
     display: flex;
-    justify-content: space-evenly
+    justify-content: space-evenly;
+    padding: 1em;
 `
