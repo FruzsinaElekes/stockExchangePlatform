@@ -16,7 +16,7 @@ export default function ListItem(props) {
             .then (res => {
                 console.log("fetching")
                 setSymbolData(res.data)
-                sessionStorage.setItem(props.symbol, res.data)
+                sessionStorage.setItem(props.symbol, JSON.stringify(res.data))
             })
         }
     }, [])
