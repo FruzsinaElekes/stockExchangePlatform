@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import styled from 'styled-components';
 import StockData from './detailedView/StockData';
 import Video from './detailedView/Video';
 import News from './detailedView/News';
@@ -8,6 +9,7 @@ import Graph from './detailedView/Graph';
 
 export default function DetailedView(props) {
     const {symbol} = useParams();
+    const [isLoading, setLoading] = useState(true)
     const [stockData, setStockData] = useState(null)
 
     useEffect(()=> {
@@ -17,20 +19,36 @@ export default function DetailedView(props) {
                 setStockData(res.data)
                 sessionStorage.setItem(symbol, JSON.stringify(res.data))
             })
-            console.log(1)
         }
         else {
             setStockData(JSON.parse(sessionStorage.getItem(symbol)))
-            console.log(2)
         }
+        setLoading(false)
     },[symbol])
 
     return (
+        isLoading ? <div>Loading...</div> :
         <div>
-            <StockData data={stockData}></StockData>
-            <Graph></Graph>
+            <StockDiv>
+                <StyledStockData data={stockData}></StyledStockData>
+                <StyledGraph></StyledGraph>
+            </StockDiv>
             <Video></Video>
             <News></News>
         </div>
     )
 }
+
+const StyledStockData = styled(StockData)`
+    width: 50%;
+`
+
+const StyledGraph = styled(Graph)`
+    width: 50%;
+`
+
+const StockDiv = styled.div`
+    display: grid;
+    width: 80%;
+    grid-template-columns: auto auto;
+`
