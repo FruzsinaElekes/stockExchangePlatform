@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
+import axios from 'axios';
 import StockData from './detailedView/StockData';
 import Video from './detailedView/Video';
 import News from './detailedView/News';
@@ -12,7 +13,16 @@ export default function DetailedView() {
     //TODO: when switching between stocks it renders the previous stock page again
     // would a Context solve this?
     useEffect(() => {
-        setDetails(JSON.parse(sessionStorage.getItem(symbol)))
+        const cached = JSON.parse(sessionStorage.getItem(symbol))
+        if (cached) setDetails(cached)
+        else {
+            axios.get(`https://cloud.iexapis.com/stable/stock/${symbol}/quote?token=${process.env.REACT_APP_IEX_API_KEY}`)
+            .then (res => {
+                console.log("fetching")
+                setDetails(res.data)
+                sessionStorage.setItem(symbol, JSON.stringify(res.data))
+            })
+        }
     }, [symbol])
 
     return (
