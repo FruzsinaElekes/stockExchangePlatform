@@ -1,14 +1,17 @@
-import React, { useState, useEffect, useMemo } from 'react';
+
+import React, {useState, useEffect} from 'react'
+import {useParams} from 'react-router-dom';
 import axios from 'axios';
+import styled from 'styled-components';
 import StockData from './detailedView/StockData';
 import Video from './detailedView/Video';
 import News from './detailedView/News';
 import Graph from './detailedView/Graph';
 
+
 export default function DetailedView() {
     const [details, setDetails] = useState({});
-    const url = window.location.href;
-    const symbol = url.slice(url.lastIndexOf('/')+1, url.length);
+    const {symbol} = useParams();
     
     //TODO: when switching between stocks it renders the previous stock page again
     // would a Context solve this?
@@ -29,8 +32,10 @@ export default function DetailedView() {
         <div>
             {details &&
             <React.Fragment>
-            <StockData></StockData>
-            <Graph></Graph>
+            <StockDiv>
+                <StyledStockData data={details}></StyledStockData>
+                <StyledGraph></StyledGraph>
+            </StockDiv>
             <Video></Video>
             <News data={details}></News>
             </React.Fragment>
@@ -38,3 +43,18 @@ export default function DetailedView() {
         </div>
     )
 }
+
+const StockDiv = styled.div`
+    display: grid;
+    margin: auto;
+    width: 85vw;
+    grid-template-columns: auto auto;
+`
+
+const StyledStockData = styled(StockData)`
+    width: 40vw;
+`
+
+const StyledGraph = styled(Graph)`
+    width: 40vw;
+`
