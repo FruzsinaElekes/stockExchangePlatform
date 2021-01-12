@@ -1,10 +1,19 @@
-import React from 'react'
+import React from 'react'; 
+import ListItem from './ListItem';
+import styled from 'styled-components';
+
 
 export default function ListMain(props) {
-    console.log(props.symbols)
     return (
-        <div>
-            
-        </div>
+        <List>
+            {props.symbols.map(s => <ListItem key={props.symbols.indexOf(s)} symbol={s}></ListItem>)}
+        </List>
     )
 }
+
+
+const List = styled.div`
+    position: sticky;
+    display: flex;
+    justify-content: space-evenly
+`
