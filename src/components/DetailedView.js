@@ -39,16 +39,17 @@ export default function DetailedView(props) {
     )
 }
 
+const StockDiv = styled.div`
+    display: grid;
+    margin: auto;
+    width: 80vw;
+    grid-template-columns: auto auto;
+`
+
 const StyledStockData = styled(StockData)`
-    width: 50%;
+    width: 40vw;
 `
 
 const StyledGraph = styled(Graph)`
-    width: 50%;
-`
-
-const StockDiv = styled.div`
-    display: grid;
-    width: 80%;
-    grid-template-columns: auto auto;
+    width: 40vw;
 `
