@@ -10,34 +10,47 @@ import Graph from './detailedView/Graph';
 
 
 export default function DetailedView() {
-    const [details, setDetails] = useState({});
+    const [symbolDetails, setDetails] = useState({});
+    const [chartData, setData] = useState({});
+    const [isChartLoading, setChartLoading] = useState(true);
     const {symbol} = useParams();
     
     //TODO: when switching between stocks it renders the previous stock page again
     // would a Context solve this?
     useEffect(() => {
-        const cached = JSON.parse(sessionStorage.getItem(symbol))
-        if (cached) setDetails(cached)
+        const symbolCache = JSON.parse(sessionStorage.getItem(symbol))
+        const chartCache = JSON.parse(sessionStorage.getItem(symbol + "ChartData"))
+        if (symbolCache) setDetails(symbolCache)
         else {
             axios.get(`https://cloud.iexapis.com/stable/stock/${symbol}/quote?token=${process.env.REACT_APP_IEX_API_KEY}`)
             .then (res => {
-                console.log("fetching")
                 setDetails(res.data)
                 sessionStorage.setItem(symbol, JSON.stringify(res.data))
+            })
+        }
+        if (chartCache) setData(chartCache)
+        else {
+            axios.get(`https://cloud.iexapis.com/stable/stock/${symbol}/chart/1m?token=${process.env.REACT_APP_IEX_API_KEY}`)
+            .then (res => {
+                const data = res.data.map(daily => ({x: new Date(daily.date), y: daily.close}))
+                setData(data)
+                setChartLoading(false)
+                console.log(data)
+                sessionStorage.setItem(symbol + "ChartData", JSON.stringify(data))
             })
         }
     }, [symbol])
 
     return (
         <div>
-            {details &&
+            {symbolDetails &&
             <React.Fragment>
             <StockDiv>
-                <StyledStockData data={details}></StyledStockData>
-                <StyledGraph></StyledGraph>
+                <StyledStockData data={symbolDetails}></StyledStockData>
+                {isChartLoading ? "" : <StyledGraph timeseries={chartData}></StyledGraph>}
             </StockDiv>
             <Video></Video>
-            <News data={details}></News>
+            <News data={symbolDetails}></News>
             </React.Fragment>
             }
         </div>

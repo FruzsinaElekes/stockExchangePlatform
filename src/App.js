@@ -5,7 +5,6 @@ import SearchBar from './components/SearchBar';
 import DetailedView from './components/DetailedView';
 import Favourites from './components/Favourites';
 import Navbar from './components/Navbar';
-import axios from 'axios';
 
 
 function App() {
