@@ -14,7 +14,6 @@ export default function ListItem(props) {
         if (!sessionStorage.getItem(props.symbol) || !symbolData){
             axios.get(`https://cloud.iexapis.com/stable/stock/${props.symbol}/quote?token=${process.env.REACT_APP_IEX_API_KEY}`)
             .then (res => {
-                console.log("fetching")
                 setSymbolData(res.data)
                 sessionStorage.setItem(props.symbol, JSON.stringify(res.data))
             })

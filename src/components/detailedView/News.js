@@ -3,8 +3,6 @@ import axios from 'axios';
 import NewsItem from './NewsItem';
 
 export default function News(props) {
-    console.log(props.data.symbol + " printed from news")
-
     const [newsState, setNewsState] = useState([])
 
     useEffect(() => {
@@ -14,7 +12,6 @@ export default function News(props) {
                 const filtered = res.data.filter(news => news.lang==="en")
                 setNewsState(filtered)
                 sessionStorage.setItem(props.data.symbol + "_news", JSON.stringify(filtered))
-                console.log(filtered)
                 })
         } else {
             setNewsState(JSON.parse(sessionStorage.getItem(props.data.symbol + "_news")))

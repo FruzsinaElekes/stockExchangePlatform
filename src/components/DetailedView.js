@@ -4,54 +4,71 @@ import {useParams} from 'react-router-dom';
 import axios from 'axios';
 import styled from 'styled-components';
 import StockData from './detailedView/StockData';
+import StockHeader from './detailedView/StockHeader';
 import Video from './detailedView/Video';
 import News from './detailedView/News';
-import Graph from './detailedView/Graph';
+import Chart from './detailedView/Chart';
 
 
 export default function DetailedView() {
-    const [symbolDetails, setDetails] = useState({});
-    const [chartData, setData] = useState({});
-    const [isChartLoading, setChartLoading] = useState(true);
+    const [stockData, setStockData] = useState({});
+    const [chartData, setChartData] = useState({});
     const {symbol} = useParams();
     
     //TODO: when switching between stocks it renders the previous stock page again
     // would a Context solve this?
     useEffect(() => {
-        const symbolCache = JSON.parse(sessionStorage.getItem(symbol))
-        const chartCache = JSON.parse(sessionStorage.getItem(symbol + "ChartData"))
-        if (symbolCache) setDetails(symbolCache)
+        fetchStockData()
+        fetchChartData()
+    }, [symbol])
+
+    function fetchStockData() {
+        const stockCache = JSON.parse(sessionStorage.getItem(symbol))
+        if (stockCache) setStockData(stockCache)
         else {
             axios.get(`https://cloud.iexapis.com/stable/stock/${symbol}/quote?token=${process.env.REACT_APP_IEX_API_KEY}`)
             .then (res => {
-                setDetails(res.data)
+                setStockData(res.data)
                 sessionStorage.setItem(symbol, JSON.stringify(res.data))
             })
         }
-        if (chartCache) setData(chartCache)
+    }
+
+    function fetchChartData() {
+        const chartCache = JSON.parse(sessionStorage.getItem(symbol + "ChartData"))
+        if (chartCache) {
+            setChartData({
+                symbol: symbol,
+                timeseries: chartCache.map(data => ({x: new Date(data.x), y: data.y}))
+            })
+        }
         else {
             axios.get(`https://cloud.iexapis.com/stable/stock/${symbol}/chart/1m?token=${process.env.REACT_APP_IEX_API_KEY}`)
             .then (res => {
                 const data = res.data.map(daily => ({x: new Date(daily.date), y: daily.close}))
-                setData(data)
-                setChartLoading(false)
-                console.log(data)
+                setChartData({
+                    symbol: symbol,
+                    timeseries: data
+                })
                 sessionStorage.setItem(symbol + "ChartData", JSON.stringify(data))
             })
         }
-    }, [symbol])
+    }
 
     return (
         <div>
-            {symbolDetails &&
-            <React.Fragment>
-            <StockDiv>
-                <StyledStockData data={symbolDetails}></StyledStockData>
-                {isChartLoading ? "" : <StyledGraph timeseries={chartData}></StyledGraph>}
-            </StockDiv>
-            <Video></Video>
-            <News data={symbolDetails}></News>
-            </React.Fragment>
+            {stockData &&
+                <React.Fragment>
+                    <StockDiv>
+                        <HeaderDiv><StockHeader data={stockData}></StockHeader></HeaderDiv>
+                        <DataDiv><StockData data={stockData}></StockData></DataDiv>
+                        <ChartDiv>
+                            {chartData && <Chart chartdata={chartData}></Chart>}
+                        </ChartDiv>
+                    </StockDiv>
+                    <Video></Video>
+                    <News data={stockData}></News>
+                </React.Fragment>
             }
         </div>
     )
@@ -60,14 +77,25 @@ export default function DetailedView() {
 const StockDiv = styled.div`
     display: grid;
     margin: auto;
-    width: 85vw;
-    grid-template-columns: auto auto;
+    margin-top: 30px;
+    width: 84vw;
+    grid-template-columns: 42vw 42vw;
+    grid-template-rows: auto 50vh;
 `
 
-const StyledStockData = styled(StockData)`
-    width: 40vw;
+const HeaderDiv = styled.div`
+    grid-row: 1 / 2;
+    grid-column: 1 / 3;
 `
 
-const StyledGraph = styled(Graph)`
-    width: 40vw;
+const DataDiv = styled.div`
+    height: 40vh;
+    grid-row: 2 / 3;
+    grid-column: 1 / 2;
+`
+
+const ChartDiv = styled.div`
+    height: 40vh;
+    grid-row: 2 / 3;
+    grid-column: 2 / 3;
 `
