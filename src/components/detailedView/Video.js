@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import ReactPlayer from 'react-player';
+import styled from 'styled-components';
 
 export default function Video(props) {
 
@@ -22,8 +23,13 @@ export default function Video(props) {
     return (
         <React.Fragment>
             {videos &&
-            <ReactPlayer url={`https://www.youtube.com/watch?v=${videos.items[Math.floor(Math.random()*videos.items.length)].id.videoId}`} />
+            <CustomReactPlayer url={`https://www.youtube.com/watch?v=${videos.items[Math.floor(Math.random()*videos.items.length)].id.videoId}`} />
             }
         </React.Fragment>
     )
 }
+
+
+const CustomReactPlayer = styled(ReactPlayer)`
+    margin: auto;
+`
