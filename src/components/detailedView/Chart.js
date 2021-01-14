@@ -27,7 +27,7 @@ export default function Chart(props) {
                 enabled: true,
                 snapToDataPoint: true,
                 labelFormatter: function(e) {
-                    return "€" + CanvasJS.formatNumber(e.value, "##0.00");
+                    return "$" + CanvasJS.formatNumber(e.value, "##0.00");
                 }
             }
         },
