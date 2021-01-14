@@ -66,7 +66,7 @@ export default function DetailedView() {
                             {chartData && <Chart chartdata={chartData}></Chart>}
                         </ChartDiv>
                     </StockDiv>
-                    <Video></Video>
+                    <Video symbol={symbol}></Video>
                     <News data={stockData}></News>
                 </React.Fragment>
             }
