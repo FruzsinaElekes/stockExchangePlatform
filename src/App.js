@@ -31,7 +31,7 @@ function App() {
       <Navbar></Navbar>
       <ListMain symbols={symbolList.slice(0, 10)}></ListMain>
       <Route path="/favourites" component={Favourites}></Route>
-      <Route exact path="/" component={SearchBar}></Route>
+      <Route exact path="/" render={()=><SearchBar symbols={symbolList}/>}></Route>
       <Route exact path="/stock/:symbol" component={DetailedView}></Route>
     </div>
     </Router>

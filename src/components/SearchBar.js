@@ -1,21 +1,43 @@
-import React from 'react'
+import React, {useState} from 'react';
+import {Link} from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
-export default function SearchBar() {
+export default function SearchBar(props) {
+    const symbolList = props.symbols
+    const [results, setResults] = useState([]);
+
+    const ResultItem = (props) => (
+        <ListItem href={`/stock/${props.symbol}`} key={props.symbol}>{props.symbol}</ListItem>
+    )
+
+    const handleOnChange = (event) => {
+        const searchTerm = event.target.value.toLowerCase()
+        if (!searchTerm) {
+            setResults([])
+            return;
+        }
+        setResults(symbolList.filter(item => item.toLowerCase().includes(searchTerm)).slice(0, 10))
+    }
+
     return (
         <WrapperDiv>
             <SearchDiv>
-                <SearchField type="text" placeholder="Wich stock are you looking for?"/>
+                <SearchField type="text" placeholder="Wich stock are you looking for?" onChange={(e) => handleOnChange(e)}/>
                 <SearchButton type="submit">
                 <i className="fa fa-search"></i>
                 </SearchButton>
             </SearchDiv>
+            <DropDownDiv>
+                <DropDownList>
+                    {results && results.map(symbol => <ResultItem symbol={symbol} />)}
+                </DropDownList>
+            </DropDownDiv>
         </WrapperDiv>
     )
 }
 
 const WrapperDiv = styled.div`
-    width: max(30%, 400px);
+    min-width: max(30%, 400px);
     position: absolute;
     top: 50%;
     left: 50%;
@@ -55,3 +77,26 @@ const SearchButton = styled.button`
     cursor: pointer;
     font-size: 25px;
  `
+
+const DropDownDiv = styled.div`
+    position: relative;
+    display: inline-block;
+`
+
+ const DropDownList = styled.div`
+    display: block;
+    position: absolute;
+    background-color: #f6f6f6;
+    min-width: max(30%, 400px);
+ `
+
+const ListItem = styled.a`
+    color: #151728;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+
+    :hover {
+        color: #009cf0;
+    }
+  `
