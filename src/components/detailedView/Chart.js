@@ -6,10 +6,12 @@ import {CanvasJS, CanvasJSChart} from 'canvasjs-react-charts'
 export function Chart(props) {
     const symbol = props.chartdata.symbol
     const data = props.chartdata.timeseries
+    const minY = data ? Math.floor(Math.min(...(data.map(point => point.y)))/2) : 0
 
     const options = {
         animationEnabled: true,
         theme: "light2",
+        height: 400,
         title:{
             text: `Stock Price of ${symbol}`
         },
@@ -23,6 +25,7 @@ export function Chart(props) {
         axisY: {
             title: "Closing Price (USD)",
             valueFormatString: "$##0.00",
+            minimum: minY,
             crosshair: {
                 enabled: true,
                 snapToDataPoint: true,

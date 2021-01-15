@@ -30,5 +30,6 @@ export function Video(props) {
 
 
 const CustomReactPlayer = styled(ReactPlayer)`
+    padding-top: 60px;
     margin: auto;
 `

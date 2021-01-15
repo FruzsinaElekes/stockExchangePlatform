@@ -75,7 +75,7 @@ const StockDiv = styled.div`
     margin-top: 30px;
     width: 84vw;
     grid-template-columns: 42vw 42vw;
-    grid-template-rows: auto 50vh;
+    grid-template-rows: auto auto;
 `
 
 const HeaderDiv = styled.div`
@@ -84,13 +84,11 @@ const HeaderDiv = styled.div`
 `
 
 const DataDiv = styled.div`
-    height: 40vh;
     grid-row: 2 / 3;
     grid-column: 1 / 2;
 `
 
 const ChartDiv = styled.div`
-    height: 40vh;
     grid-row: 2 / 3;
     grid-column: 2 / 3;
 `
