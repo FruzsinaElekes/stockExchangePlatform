@@ -2,7 +2,7 @@ import React from 'react'
 import styled, { css } from 'styled-components';
 import Card from './Card';
 
-export default function StockData(props) {
+export function StockData(props) {
     const stockData = props.data
     return (
         <Card>

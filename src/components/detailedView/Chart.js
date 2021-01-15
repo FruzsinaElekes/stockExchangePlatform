@@ -3,7 +3,7 @@ import Card from './Card';
 import {CanvasJS, CanvasJSChart} from 'canvasjs-react-charts'
 
 
-export default function Chart(props) {
+export function Chart(props) {
     const symbol = props.chartdata.symbol
     const data = props.chartdata.timeseries
 

@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import ReactPlayer from 'react-player';
 import styled from 'styled-components';
 
-export default function Video(props) {
+export function Video(props) {
     const [videos, setVideos] = useState([])
     
     useEffect(()=>{

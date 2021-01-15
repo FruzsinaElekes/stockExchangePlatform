@@ -1,8 +1,7 @@
 import React, {useState} from 'react';
-import {Link} from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
-export default function SearchBar(props) {
+export function SearchBar(props) {
     const symbolList = props.symbols
     const [results, setResults] = useState([]);
 
@@ -22,7 +21,7 @@ export default function SearchBar(props) {
     return (
         <WrapperDiv>
             <SearchDiv>
-                <SearchField type="text" placeholder="Wich stock are you looking for?" onChange={(e) => handleOnChange(e)}/>
+                <SearchField type="text" placeholder="Which stock are you looking for?" onChange={(e) => handleOnChange(e)}/>
                 <SearchButton type="submit">
                 <i className="fa fa-search"></i>
                 </SearchButton>
