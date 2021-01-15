@@ -3,14 +3,9 @@ import React, {useState, useEffect} from 'react'
 import {useParams} from 'react-router-dom';
 import axios from 'axios';
 import styled from 'styled-components';
-import StockData from './detailedView/StockData';
-import StockHeader from './detailedView/StockHeader';
-import Video from './detailedView/Video';
-import News from './detailedView/News';
-import Chart from './detailedView/Chart';
+import {Chart, News, StockData, StockHeader, Video} from './detailedView';
 
-
-export default function DetailedView() {
+export function DetailedView() {
     const [stockData, setStockData] = useState({});
     const [chartData, setChartData] = useState({});
     const {symbol} = useParams();

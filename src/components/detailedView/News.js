@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import NewsItem from './NewsItem';
 
-export default function News(props) {
+export function News(props) {
     const [newsState, setNewsState] = useState([])
 
     useEffect(() => {

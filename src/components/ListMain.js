@@ -3,7 +3,7 @@ import ListItem from './ListItem';
 import styled from 'styled-components';
 
 
-export default function ListMain(props) {
+export function ListMain(props) {
     return (
         <List>
             {props.symbols.map(s => <ListItem key={props.symbols.indexOf(s)} symbol={s}></ListItem>)}

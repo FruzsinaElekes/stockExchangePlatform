@@ -1,13 +1,12 @@
 import React, {useState, useEffect} from 'react';
 import {Route, BrowserRouter as Router} from 'react-router-dom';
-import ListMain from './components/ListMain';
-import SearchBar from './components/SearchBar';
-import DetailedView from './components/DetailedView';
-import Favourites from './components/Favourites';
-import Navbar from './components/Navbar';
+import {ThemeProvider} from 'styled-components';
+import {DetailedView, Favourites, ListMain, Navbar, SearchBar} from './components';
+import {themes} from './themes/themes';
 
 
 function App() {
+  const [theme, setTheme] = useState('light')
   const [symbolList, setSymbolList] = useState([])
       
   useEffect(() => {
@@ -26,15 +25,17 @@ function App() {
 
 
   return (
-    <Router>
-    <div className="App">
-      <Navbar></Navbar>
-      <ListMain symbols={symbolList.slice(0, 10)}></ListMain>
-      <Route path="/favourites" component={Favourites}></Route>
-      <Route exact path="/" render={()=><SearchBar symbols={symbolList}/>}></Route>
-      <Route exact path="/stock/:symbol" component={DetailedView}></Route>
-    </div>
-    </Router>
+    <ThemeProvider theme={themes[theme]}>
+      <Router>
+        <div className="App">
+          <Navbar currentTheme={theme} setTheme={setTheme}></Navbar>
+          <ListMain symbols={symbolList.slice(0, 10)}></ListMain>
+          <Route path="/favourites" component={Favourites}></Route>
+          <Route exact path="/" render={()=><SearchBar symbols={symbolList}/>}></Route>
+          <Route exact path="/stock/:symbol" component={DetailedView}></Route>
+        </div>
+      </Router>
+    </ThemeProvider>
   );
 }
 
