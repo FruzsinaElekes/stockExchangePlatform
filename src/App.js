@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {Route, BrowserRouter as Router} from 'react-router-dom';
 import {ThemeProvider} from 'styled-components';
 import {DetailedView, Favourites, ListMain, Navbar, SearchBar} from './components';
+import { FavProvider } from './components/FavContext';
 import {themes} from './themes/themes';
 
 
@@ -26,6 +27,7 @@ function App() {
 
   return (
     <ThemeProvider theme={themes[theme]}>
+    <FavProvider>
       <Router>
         <div className="App">
           <Navbar currentTheme={theme} setTheme={setTheme}></Navbar>
@@ -35,6 +37,7 @@ function App() {
           <Route exact path="/stock/:symbol" component={DetailedView}></Route>
         </div>
       </Router>
+      </FavProvider>
     </ThemeProvider>
   );
 }
