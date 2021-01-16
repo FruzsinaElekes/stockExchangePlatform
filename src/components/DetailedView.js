@@ -10,7 +10,7 @@ export function DetailedView() {
     const [stockData, setStockData] = useState({});
     const [chartData, setChartData] = useState({});
     const {symbol} = useParams();
-    const [favourites, addToFav] = useContext(FavContext)
+    const [favourites, addToFav, removeFromFav] = useContext(FavContext)
     
     //TODO: when switching between stocks it renders the previous stock page again
     // would a Context solve this?
@@ -59,14 +59,17 @@ export function DetailedView() {
                     <StockDiv>
                         <HeaderDiv>
                             <StockHeader data={stockData}></StockHeader>
-                            <FavButton onClick={()=>addToFav(symbol)}>Follow</FavButton>
+                            {(favourites.filter(f => f.symbol === symbol).length == 0) 
+                                ? <FavButton onClick={()=>addToFav(symbol)}>Follow</FavButton>
+                                : <UnFavButton onClick={()=>removeFromFav(symbol)}>Unfollow</UnFavButton>}
+                            
                         </HeaderDiv>
                         <DataDiv><StockData data={stockData}></StockData></DataDiv>
                         <ChartDiv>
                             {chartData && <Chart chartdata={chartData}></Chart>}
                         </ChartDiv>
                     </StockDiv>
-                    <Video symbol={symbol}></Video>
+                    {/* <Video symbol={symbol}></Video> */}
                     <News data={stockData}></News>
                 </React.Fragment>
             }
@@ -90,6 +93,14 @@ const HeaderDiv = styled.div`
 
 const FavButton = styled.button`
     background-color: #21255e;
+    color: white;
+    font-weight: bolder;
+    font-size: 1.2em;
+    cursor: pointer;
+`
+
+const UnFavButton = styled.button`
+    background-color: #47485e;
     color: white;
     font-weight: bolder;
     font-size: 1.2em;
