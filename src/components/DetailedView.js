@@ -1,14 +1,16 @@
 
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useContext } from 'react'
 import {useParams} from 'react-router-dom';
 import axios from 'axios';
 import styled from 'styled-components';
 import {Chart, News, StockData, StockHeader, Video} from './detailedView';
+import { FavContext } from './FavContext'
 
 export function DetailedView() {
     const [stockData, setStockData] = useState({});
     const [chartData, setChartData] = useState({});
     const {symbol} = useParams();
+    const [favourites, addToFav] = useContext(FavContext)
     
     //TODO: when switching between stocks it renders the previous stock page again
     // would a Context solve this?
@@ -55,7 +57,10 @@ export function DetailedView() {
             {stockData &&
                 <React.Fragment>
                     <StockDiv>
-                        <HeaderDiv><StockHeader data={stockData}></StockHeader></HeaderDiv>
+                        <HeaderDiv>
+                            <StockHeader data={stockData}></StockHeader>
+                            <FavButton onClick={()=>addToFav(symbol)}>Follow</FavButton>
+                        </HeaderDiv>
                         <DataDiv><StockData data={stockData}></StockData></DataDiv>
                         <ChartDiv>
                             {chartData && <Chart chartdata={chartData}></Chart>}
@@ -81,6 +86,14 @@ const StockDiv = styled.div`
 const HeaderDiv = styled.div`
     grid-row: 1 / 2;
     grid-column: 1 / 3;
+`
+
+const FavButton = styled.button`
+    background-color: #21255e;
+    color: white;
+    font-weight: bolder;
+    font-size: 1.2em;
+    cursor: pointer;
 `
 
 const DataDiv = styled.div`
