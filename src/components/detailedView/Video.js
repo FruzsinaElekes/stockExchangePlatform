@@ -9,12 +9,14 @@ export function Video(props) {
     useEffect(()=>{
         
         if (shouldFetchVideos(props.symbol)){
-            axios.get(`https://youtube.googleapis.com/youtube/v3/search?maxResults=25&q=${props.symbol}&key=${process.env.REACT_APP_YOUTUBE_API_KEY}`)
+            axios.get(`https://youtube.googleapis.com/youtube/v3/search?maxResults=25&q=${props.symbol},stock&key=${process.env.REACT_APP_YOUTUBE_API_KEY}`)
             .then(res => {
                 console.log("fetching videos")
                 sessionStorage.setItem("videos", JSON.stringify([...videos, {...res.data, symbol: props.symbol, timeStamp : Date.now()}]))
                 setVideos(prev => [...prev, {...res.data, symbol: props.symbol, timeStamp : Date.now()}])
             })
+        } else {
+            setVideos(JSON.parse(sessionStorage.getItem("videos")).filter(v => v.symbol===props.symbol))
         }
     }, [props.symbol])
 
