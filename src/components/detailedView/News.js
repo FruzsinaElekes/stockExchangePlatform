@@ -21,7 +21,7 @@ export function News(props) {
 
     return (
         <div style={newsDivStyle}>
-            {newsState? newsState.map(n => <NewsItem symbol= {props.data.symbol} key = {n.datetime} news = {n}></NewsItem>)
+            {newsState? newsState.map((n, i) => <NewsItem symbol= {props.data.symbol} key = {i} news = {n}></NewsItem>)
             : "Loading"}
         </div>
     )
