@@ -8,12 +8,12 @@ export function Favourites() {
     const [favourites, addToFav] = useContext(FavContext)
     return (
         <div style={favDivStyle}>
-            {favourites.map(f => <FavItem data={f} key={f.symbol}/>)}
+            {favourites.map(f => <FavItem data={f} up={f.change > 0} key={f.symbol}/>)}
         </div>
     )
 }
 
 const favDivStyle = {
     maxWidth: "1000px",
-    margin: "2em auto"
+    margin: "6em auto"
 }

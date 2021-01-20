@@ -1,16 +1,17 @@
-import React, { useContext } from 'react'
-import { FavContext } from './FavContext'
-import { StockHeader } from '../detailedView/StockHeader'
-import styled from 'styled-components'
+import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
+import { FavContext } from './FavContext';
+import styled from 'styled-components';
 
 export default function FavItem(props) {
     const [favourites, addToFav, removeFromFav] = useContext(FavContext)
-    
+    console.log(props.up)
     return (
         <React.Fragment>{favourites.length > 0 &&
             <Fav>
                 <div>
-                    <Symbol>{props.data.symbol}</Symbol>
+                    <Symbol to={`/stock/${props.data.symbol}`}>{props.data.symbol}</Symbol>
+                    {props.up? <Icon className="fa fa-caret-up fa-lg"></Icon> : <Icon className="fa fa-caret-down fa-lg"></Icon>}                    
                     <UnFavButton onClick={()=>removeFromFav(props.data)}>Unfollow</UnFavButton>
                 </div>
                 <Details>
@@ -20,7 +21,7 @@ export default function FavItem(props) {
                     </Cell>
                     <Cell>
                         <p>Change (%)</p>
-                        <p>{props.data.changePercent}</p>
+                        <p>{Math.round(props.data.changePercent * 10000)/100 + "%"}</p>
                     </Cell>
                     <Cell>
                         <p>Previous close</p>
@@ -42,18 +43,23 @@ export default function FavItem(props) {
 }
 
 const Fav = styled.div`
-    margin: 2em auto;
-    border-left: 2px solid gray;
+    margin: 3em auto;
+    border: 1px solid #21255e;
     padding-left: 20px;
-    /* display: flex;
-    flex-direction:row */
+    box-shadow: 5px 10px 5px #21255e;
 `
 
-const Symbol = styled.div`
+const Symbol = styled(Link)`
     font-size: 2em;
     font-weight: bold;
     margin: 5px;
-    float:left
+    float:left;
+    text-decoration:none;
+    color: black;
+`
+
+const Icon = styled.i`
+    color: ${props => (!props.up) ? 'green' : 'darkred'};    
 `
 
 const UnFavButton = styled.button`
