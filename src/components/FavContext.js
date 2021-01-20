@@ -5,12 +5,12 @@ export const FavContext = createContext();
 export const FavProvider = (props) => {
     const [favourites, setFavourites] = useState([])
 
-    const addToFav = (symbol) => {
-        setFavourites(prev => [...prev, JSON.parse(sessionStorage.getItem(symbol))])
+    const addToFav = (stockData) => {
+        setFavourites(prev => [...prev, stockData])
     }
 
-    const removeFromFav = (symbol) => {
-        const filteredFav = favourites.filter(f => f.symbol !== symbol)
+    const removeFromFav = (stockData) => {
+        const filteredFav = favourites.filter(f => f.symbol !== stockData.symbol)
         setFavourites(filteredFav)
     }
 
