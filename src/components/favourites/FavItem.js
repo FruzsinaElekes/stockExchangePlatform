@@ -11,7 +11,7 @@ export default function FavItem(props) {
             <Fav>
                 <div>
                     <Symbol to={`/stock/${props.data.symbol}`}>{props.data.symbol}</Symbol>
-                    {props.up? <Icon className="fa fa-caret-up fa-lg"></Icon> : <Icon className="fa fa-caret-down fa-lg"></Icon>}                    
+                    {props.up? <Icon up={props.up} className="fa fa-caret-up fa-lg"></Icon> : <Icon up={props.up} className="fa fa-caret-down fa-lg"></Icon>}                    
                     <UnFavButton onClick={()=>removeFromFav(props.data)}>Unfollow</UnFavButton>
                 </div>
                 <Details>
@@ -59,7 +59,7 @@ const Symbol = styled(Link)`
 `
 
 const Icon = styled.i`
-    color: ${props => (!props.up) ? 'green' : 'darkred'};    
+    color: ${props => props.up? 'green' : 'darkred'};    
 `
 
 const UnFavButton = styled.button`
