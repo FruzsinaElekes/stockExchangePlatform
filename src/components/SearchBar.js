@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import {Link} from 'react-router-dom'
 import styled, { css } from 'styled-components';
 
 export function SearchBar(props) {
@@ -6,7 +7,7 @@ export function SearchBar(props) {
     const [results, setResults] = useState([]);
 
     const ResultItem = (props) => (
-        <ListItem href={`/stock/${props.symbol}`} key={props.symbol}>{props.symbol}</ListItem>
+        <ListItem to={`/stock/${props.symbol}`} key={props.symbol}>{props.symbol}</ListItem>
     )
 
     const handleOnChange = (event) => {
@@ -89,7 +90,7 @@ const DropDownDiv = styled.div`
     min-width: max(30%, 400px);
  `
 
-const ListItem = styled.a`
+const ListItem = styled(Link)`
     color: #151728;
     padding: 12px 16px;
     text-decoration: none;
