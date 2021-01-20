@@ -6,10 +6,11 @@ export function News(props) {
     const [newsState, setNewsState] = useState([])
 
     useEffect(() => {
-        if (props.data.symbol && !sessionStorage.getItem(props.data.symbol + "_news")){
+        if (shouldFetchNews(props)){
             axios.get(`https://cloud.iexapis.com/stable/stock/${props.data.symbol}/news/last/10?token=${process.env.REACT_APP_IEX_API_KEY}`)
             .then(res => {
-                const filtered = res.data.filter(news => news.lang==="en")
+                console.log("fetching news")
+                const filtered = res.data.filter(news => news.lang==="en").map(f => ({...f, timestamp: Date.now()}))
                 setNewsState(filtered)
                 sessionStorage.setItem(props.data.symbol + "_news", JSON.stringify(filtered))
                 })
@@ -24,4 +25,12 @@ export function News(props) {
             : "Loading"}
         </div>
     )
+}
+
+function shouldFetchNews(props){
+    // fetches news if not found in session storage or data was cached more than 1 hour ago
+
+    let fromCache = sessionStorage.getItem(props.data.symbol + "_news")
+    let now = Date.now()
+    return props.data.symbol && (!fromCache || now - fromCache.timestamp > 3600000)
 }
