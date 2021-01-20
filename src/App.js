@@ -1,8 +1,9 @@
 import React, {useState, useEffect} from 'react';
 import {Route, BrowserRouter as Router} from 'react-router-dom';
 import {ThemeProvider} from 'styled-components';
-import {DetailedView, Favourites, ListMain, Navbar, SearchBar} from './components';
-import { FavProvider } from './components/FavContext';
+import {DetailedView, ListMain, Navbar, SearchBar} from './components';
+import { FavProvider } from './components/favourites/FavContext';
+import { Favourites } from './components/favourites/Favourites'
 import {themes} from './themes/themes';
 
 

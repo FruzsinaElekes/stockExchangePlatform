@@ -20,7 +20,7 @@ export function News(props) {
     }, [props.data.symbol])
 
     return (
-        <div>
+        <div style={newsDivStyle}>
             {newsState? newsState.map(n => <NewsItem symbol= {props.data.symbol} key = {n.datetime} news = {n}></NewsItem>)
             : "Loading"}
         </div>
@@ -33,4 +33,9 @@ function shouldFetchNews(props){
     let fromCache = sessionStorage.getItem(props.data.symbol + "_news")
     let now = Date.now()
     return props.data.symbol && (!fromCache || now - fromCache.timestamp > 3600000)
+}
+
+const newsDivStyle = {
+    maxWidth: "1400px",
+    margin: "2em auto"
 }

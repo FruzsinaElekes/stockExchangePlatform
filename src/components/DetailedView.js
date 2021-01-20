@@ -4,7 +4,7 @@ import {useParams} from 'react-router-dom';
 import axios from 'axios';
 import styled from 'styled-components';
 import {Chart, News, StockData, StockHeader, Video} from './detailedView';
-import { FavContext } from './FavContext'
+import { FavContext } from './favourites/FavContext'
 
 export function DetailedView() {
     const [stockData, setStockData] = useState({});
@@ -59,17 +59,17 @@ export function DetailedView() {
                     <StockDiv>
                         <HeaderDiv>
                             <StockHeader data={stockData}></StockHeader>
-                            {(favourites.filter(f => f.symbol === symbol).length == 0) 
-                                ? <FavButton onClick={()=>addToFav(symbol)}>Follow</FavButton>
-                                : <UnFavButton onClick={()=>removeFromFav(symbol)}>Unfollow</UnFavButton>}
+                            {(favourites.length === 0 | favourites.filter(f => f.symbol === symbol).length == 0) 
+                                ? <FavButton onClick={()=>addToFav(stockData)}>Follow</FavButton>
+                                : <UnFavButton onClick={()=>removeFromFav(stockData)}>Unfollow</UnFavButton>}
                             
                         </HeaderDiv>
                         <DataDiv><StockData data={stockData}></StockData></DataDiv>
                         <ChartDiv>
-                            {chartData && <Chart chartdata={chartData}></Chart>}
+                            {/* {chartData && <Chart chartdata={chartData}></Chart>} */}
                         </ChartDiv>
                     </StockDiv>
-                    {/* <Video symbol={symbol}></Video> */}
+                    <Video symbol={symbol}></Video>
                     <News data={stockData}></News>
                 </React.Fragment>
             }
