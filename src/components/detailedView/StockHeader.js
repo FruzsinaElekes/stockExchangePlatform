@@ -7,7 +7,7 @@ import { FavContext } from '../favourites/FavContext'
 function FavouriteDiv(props) {
     const [favourites, addToFav, removeFromFav] = useContext(FavContext)
     return (
-        <div>{(favourites.length === 0 | favourites.filter(f => f.symbol === props.symbol).length == 0) 
+        <div>{(favourites.length === 0 | favourites.filter(f => f.symbol === props.symbol).length === 0) 
                     ? <FavButton onClick={()=>addToFav(props.stockdata)}>Follow</FavButton>
                     : <UnFavButton onClick={()=>removeFromFav(props.stockdata)}>Unfollow</UnFavButton>}
         </div>)

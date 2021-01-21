@@ -5,13 +5,13 @@ import styled from 'styled-components';
 
 export default function FavItem(props) {
     const [favourites, addToFav, removeFromFav, move] = useContext(FavContext)
-    console.log(props.up)
+    
     return (
         <React.Fragment>{favourites.length > 0 &&
             <Fav>
                 <ButtonsUpDown>
-                    <button onClick={() => move(props.data.symbol, -1)}><i class="fa fa-arrow-up"></i></button>
-                    <button onClick={() => move(props.data.symbol, 1)}><i class="fa fa-arrow-down"></i></button>
+                    <button onClick={() => move(props.data.symbol, -1)}><i className="fa fa-arrow-up"></i></button>
+                    <button onClick={() => move(props.data.symbol, 1)}><i className="fa fa-arrow-down"></i></button>
                 </ButtonsUpDown>
                 <Content>
                     <div>

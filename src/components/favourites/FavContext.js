@@ -1,5 +1,4 @@
 import React, { createContext, useState } from 'react';
-import FavItem from './FavItem';
 
 export const FavContext = createContext();
 
