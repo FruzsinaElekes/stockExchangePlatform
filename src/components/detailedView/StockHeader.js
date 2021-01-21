@@ -1,6 +1,17 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import styled, { css } from 'styled-components';
 import Card from './Card';
+import { FavContext } from '../favourites/FavContext'
+
+
+function FavouriteDiv(props) {
+    const [favourites, addToFav, removeFromFav] = useContext(FavContext)
+    return (
+        <div>{(favourites.length === 0 | favourites.filter(f => f.symbol === props.symbol).length == 0) 
+                    ? <FavButton onClick={()=>addToFav(props.stockdata)}>Follow</FavButton>
+                    : <UnFavButton onClick={()=>removeFromFav(props.stockdata)}>Unfollow</UnFavButton>}
+        </div>)
+}
 
 export function StockHeader(props) {
     const stockData = props.data
@@ -8,10 +19,11 @@ export function StockHeader(props) {
         <Card>
             <SymbolHeader>
                 <Symbol>{stockData.symbol}</Symbol>
+                <FavouriteDiv stockdata={stockData} symbol={stockData.symbol}/>
                 <FloatDiv>{stockData.latestPrice}</FloatDiv>
                 <FloatDiv>
                 <ChangeDiv up={stockData.change >= 0}>
-                    {stockData.change + " "}
+                    {(stockData.change >= 0 ? "+" : "") + stockData.change + " "}
                     {Math.round(stockData.changePercent * 10000)/100 + "%"}
                 </ChangeDiv>
                 </FloatDiv>
@@ -47,4 +59,21 @@ const ChangeDiv = styled.div`
     ${({up}) => up === false && css`
         color: red;
     `}
+`
+
+
+const FavButton = styled.button`
+    background-color: #21255e;
+    color: white;
+    font-weight: bolder;
+    font-size: 1.2em;
+    cursor: pointer;
+`
+
+const UnFavButton = styled.button`
+    background-color: #47485e;
+    color: white;
+    font-weight: bolder;
+    font-size: 1.2em;
+    cursor: pointer;
 `

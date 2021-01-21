@@ -1,19 +1,17 @@
 
-import React, {useState, useEffect, useContext } from 'react'
+import React, {useState, useEffect} from 'react'
 import {useParams} from 'react-router-dom';
 import axios from 'axios';
 import styled from 'styled-components';
 import {Chart, News, StockData, StockHeader, Video} from './detailedView';
-import { FavContext } from './favourites/FavContext'
+
 
 export function DetailedView() {
     const [stockData, setStockData] = useState({});
     const [chartData, setChartData] = useState({});
     const {symbol} = useParams();
-    const [favourites, addToFav, removeFromFav] = useContext(FavContext)
+
     
-    //TODO: when switching between stocks it renders the previous stock page again
-    // would a Context solve this?
     useEffect(() => {
         fetchStockData()
         fetchChartData()
@@ -26,7 +24,7 @@ export function DetailedView() {
             axios.get(`https://cloud.iexapis.com/stable/stock/${symbol}/quote?token=${process.env.REACT_APP_IEX_API_KEY}`)
             .then (res => {
                 setStockData(res.data)
-                sessionStorage.setItem(symbol, JSON.stringify(res.data))
+                localStorage.setItem(symbol, JSON.stringify(res.data))
             })
         }
     }
@@ -47,7 +45,7 @@ export function DetailedView() {
                     symbol: symbol,
                     timeseries: data
                 })
-                sessionStorage.setItem(symbol + "ChartData", JSON.stringify(data))
+                localStorage.setItem(symbol + "ChartData", JSON.stringify(data))
             })
         }
     }
@@ -58,15 +56,11 @@ export function DetailedView() {
                 <React.Fragment>
                     <StockDiv>
                         <HeaderDiv>
-                            <StockHeader data={stockData}></StockHeader>
-                            {(favourites.length === 0 | favourites.filter(f => f.symbol === symbol).length == 0) 
-                                ? <FavButton onClick={()=>addToFav(stockData)}>Follow</FavButton>
-                                : <UnFavButton onClick={()=>removeFromFav(stockData)}>Unfollow</UnFavButton>}
-                            
+                            <StockHeader data={stockData}></StockHeader>                          
                         </HeaderDiv>
                         <DataDiv><StockData data={stockData}></StockData></DataDiv>
                         <ChartDiv>
-                            {/* {chartData && <Chart chartdata={chartData}></Chart>} */}
+                            {chartData && <Chart chartdata={chartData}></Chart>}
                         </ChartDiv>
                     </StockDiv>
                     <Video symbol={symbol}></Video>
@@ -91,21 +85,6 @@ const HeaderDiv = styled.div`
     grid-column: 1 / 3;
 `
 
-const FavButton = styled.button`
-    background-color: #21255e;
-    color: white;
-    font-weight: bolder;
-    font-size: 1.2em;
-    cursor: pointer;
-`
-
-const UnFavButton = styled.button`
-    background-color: #47485e;
-    color: white;
-    font-weight: bolder;
-    font-size: 1.2em;
-    cursor: pointer;
-`
 
 const DataDiv = styled.div`
     grid-row: 2 / 3;

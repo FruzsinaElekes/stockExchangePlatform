@@ -8,17 +8,30 @@ export function StockData(props) {
         <Card>
             <table>
                 <tbody>
-                    <tr><td>Current price</td><TdRight>{stockData.latestPrice}</TdRight></tr>
-                    <tr><td>Previous close</td><TdRight>{stockData.previousClose}</TdRight></tr>
-                    <tr><td>Market cap</td><TdRight>{stockData.marketCap}</TdRight></tr>
-                    <tr><td>52 Week Range</td><TdRight>{stockData.week52Low + " - "  + stockData.week52High}</TdRight></tr>
-                    <tr><td>Average volume</td><TdRight>{stockData.avgTotalVolume}</TdRight></tr>
+                    <StyledTr><TdLeft>Current price</TdLeft><TdRight>{stockData.latestPrice}</TdRight></StyledTr>
+                    <StyledTr><TdLeft>Previous close</TdLeft><TdRight>{stockData.previousClose}</TdRight></StyledTr>
+                    <StyledTr><TdLeft>Market cap</TdLeft><TdRight>{stockData.marketCap}</TdRight></StyledTr>
+                    <StyledTr><TdLeft>52 Week range</TdLeft><TdRight>{stockData.week52Low + " - "  + stockData.week52High}</TdRight></StyledTr>
+                    <StyledTr><TdLeft>Average volume</TdLeft><TdRight>{stockData.avgTotalVolume}</TdRight></StyledTr>
+                    <StyledTr><TdLeft>P/E ratio</TdLeft><TdRight>{stockData.peRatio}</TdRight></StyledTr>
+                    <StyledTr><TdLeft>Year-to-Date change</TdLeft><TdRight>{Math.round(stockData.ytdChange * 10000)/100 + "%"}</TdRight></StyledTr>
+                    <StyledTr><TdLeft>Last trade time</TdLeft><TdRight>{stockData.lastTradeTime}</TdRight></StyledTr>
                 </tbody>
             </table>
         </Card>
     )
 }
 
+const TdLeft = styled.td`
+    border-bottom: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+`
+
 const TdRight = styled.td`
+    border-bottom: 1px solid #ddd;
     text-align: right;
+`
+const StyledTr = styled.tr`
+
 `
