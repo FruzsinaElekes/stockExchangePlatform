@@ -21,11 +21,11 @@ export function Video(props) {
     }, [props.symbol])
 
     return (
-        <React.Fragment>
+        <VideoContainer className="videoContainer">
             {(videos.filter(v => v.symbol===props.symbol).length > 0) ? 
             <CustomReactPlayer url={`https://www.youtube.com/watch?v=${videos.filter(v => v.symbol===props.symbol)[0].items[Math.floor(Math.random()*25)].id.videoId}`} />
             : <div>Loading video...</div>}
-        </React.Fragment>
+        </VideoContainer>
     )
 }
 
@@ -39,6 +39,11 @@ function shouldFetchVideos(symbol){
     }
     
 }
+
+const VideoContainer = styled.div`
+    margin: auto;
+    width: 100%;
+`
 
 
 const CustomReactPlayer = styled(ReactPlayer)`

@@ -51,7 +51,7 @@ export function DetailedView() {
     }
 
     return (
-        <div>
+        <DetailedContainer className="detailedContainer">
             {stockData &&
                 <React.Fragment>
                     <StockDiv>
@@ -67,9 +67,14 @@ export function DetailedView() {
                     <News data={stockData}></News>
                 </React.Fragment>
             }
-        </div>
+        </DetailedContainer>
     )
 }
+
+const DetailedContainer = styled.div`
+    width: 100%;
+    display: block;
+`
 
 const StockDiv = styled.div`
     display: grid;

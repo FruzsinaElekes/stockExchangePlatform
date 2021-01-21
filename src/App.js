@@ -5,7 +5,8 @@ import {DetailedView, ListMain, Navbar, SearchBar} from './components';
 import { FavProvider } from './components/favourites/FavContext';
 import { Favourites } from './components/favourites/Favourites'
 import {themes} from './themes/themes';
-import {symbolList} from './stocks'
+import {symbolList} from './stocks';
+import './App.css';
 
 
 function App() {

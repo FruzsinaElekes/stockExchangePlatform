@@ -38,7 +38,7 @@ const NewsSection = styled.div`
 const NewsContent = styled.div`
     width: 50%;
     @media (max-width: 768px){
-        font-size: 1.5em;
+        font-size: 1.2em;
         width: 100%;
         margin: 1em auto 0;
     }

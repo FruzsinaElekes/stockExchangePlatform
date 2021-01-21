@@ -22,7 +22,7 @@ export default function ListItem(props) {
 
     return (
         <React.Fragment>
-            {symbolData && 
+            {symbolData &&
             <Summary>
                 <DetailsLink to={`/stock/${symbolData.symbol}`} >{symbolData.symbol}</DetailsLink>
                 <div>{symbolData.latestPrice}</div>
@@ -51,6 +51,8 @@ const Tip = styled.span`
 `
 
 const Summary = styled.div`
+    /* width: 100px; */
+    margin: 1em;
     position: relative;
     display: inline-block;
     &:hover ${Tip} {
