@@ -6,7 +6,7 @@ export function StockData(props) {
     const stockData = props.data
     return (
         <Card>
-            <table>
+            <Table>
                 <tbody>
                     <StyledTr><TdLeft>Current price</TdLeft><TdRight>{stockData.latestPrice}</TdRight></StyledTr>
                     <StyledTr><TdLeft>Previous close</TdLeft><TdRight>{stockData.previousClose}</TdRight></StyledTr>
@@ -17,7 +17,7 @@ export function StockData(props) {
                     <StyledTr><TdLeft>Year-to-Date change</TdLeft><TdRight>{Math.round(stockData.ytdChange * 10000)/100 + "%"}</TdRight></StyledTr>
                     <StyledTr><TdLeft>Last trade time</TdLeft><TdRight>{stockData.lastTradeTime}</TdRight></StyledTr>
                 </tbody>
-            </table>
+            </Table>
         </Card>
     )
 }
@@ -34,4 +34,10 @@ const TdRight = styled.td`
 `
 const StyledTr = styled.tr`
 
+`
+const Table = styled.table`
+    @media (max-width: 768px){
+        font-size: 1.2em;
+        margin-left: auto;
+    }
 `

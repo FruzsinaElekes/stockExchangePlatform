@@ -78,25 +78,39 @@ const DetailedContainer = styled.div`
 
 const StockDiv = styled.div`
     display: grid;
-    margin: auto;
-    margin-top: 30px;
-    width: 84vw;
-    grid-template-columns: 42vw 42vw;
+    margin: 2em auto;
+    width: 84%;
+    grid-template-columns: 50% 50%;
     grid-template-rows: auto auto;
+    @media (max-width: 768px){
+        grid-template-columns: 30% 70%;
+    }
 `
 
 const HeaderDiv = styled.div`
     grid-row: 1 / 2;
     grid-column: 1 / 3;
+    @media (max-width: 768px){
+        grid-row: 2 / 3;
+        grid-column: 1 / 2;
+    }
 `
 
 
 const DataDiv = styled.div`
     grid-row: 2 / 3;
     grid-column: 1 / 2;
+    @media (max-width: 768px){
+        grid-row: 2 / 3;
+        grid-column: 2 / 3;
+    }
 `
 
 const ChartDiv = styled.div`
     grid-row: 2 / 3;
     grid-column: 2 / 3;
+    @media (max-width: 768px){
+        grid-row: 3 / 4;
+        grid-column: 1 / 3;
+    }
 `
