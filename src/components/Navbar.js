@@ -4,24 +4,46 @@ import styled from 'styled-components';
 
 export function Navbar(props) {
 
-    const changeTheme = () => {
-        if (props.currentTheme === 'light') {
-            props.setTheme('dark')
-        }
-        else {
-            props.setTheme('light')
-        }
-    }
-
     return (
         <NavDiv className="navbar">
-            <Link to="/">Home</Link> | 
-            <Link to="/favourites">Favourites</Link>
-            <button onClick={changeTheme}>Change theme</button>
+            <StyledLink to="/">Home</StyledLink>
+            <StyledLink to="/favourites">Favourites</StyledLink>
         </NavDiv>
     )
 }
 
 const NavDiv = styled.div`
-    background-color: ${props => props.theme.color}
+    height: 60px;
+    background-color:#21255e;
+    font-size: 0.8em;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+`
+
+const StyledLink = styled(Link)`
+    display: inline-block;
+    font-family: source_sans_prosemibold, Helvetica, Arial, sans-serif;
+    text-align: center;
+    text-transform: uppercase;
+    box-sizing: border-box; 
+    text-decoration: none;
+    font-weight: 500;
+    width: 120px;
+    color:#fff;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    height: 100%;
+    align-content: center;
+    text-shadow: 0px 4px 3px rgba(0,0,0,0.4),
+                0px 6px 11px rgba(0,0,0,0.1),
+                0px 12px 21px rgba(0,0,0,0.1);
+
+    :hover {
+        color:#21255e;
+        background-color:#fff;
+        transition-duration: 0.4s;
+        transition-timing-function: ease;
+        text-shadow: 0px 1px 3px rgba(0,0,0,0.4),
+                0px 8px 13px rgba(0,0,0,0.1),
+                0px 18px 23px rgba(0,0,0,0.1);
+    }
 `

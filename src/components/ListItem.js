@@ -63,12 +63,13 @@ const Summary = styled.div`
 `
 
 const DetailsLink = styled(Link)`
-    font-weight:bold;
     text-decoration: none;
-    &:hover {
+    font-weight:bold;
+    color: #21255e;
+    :hover {
         text-decoration: underline
     }
-    &:visited {
-        color: blue;
+    :visited {
+        color: #21255e;
     }
 `
