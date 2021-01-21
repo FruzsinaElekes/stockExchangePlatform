@@ -54,6 +54,11 @@ const Fav = styled.div`
     box-shadow: 5px 10px 5px #21255e;
     display: flex;
     flex-direction: row;
+    @media (max-width: 768px) {
+        font-size: 1.2em;
+        width: 75%;
+        margin: 3em auto;
+    }
 `
 
 const ButtonsUpDown = styled.div`
@@ -93,12 +98,24 @@ const UnFavButton = styled.button`
 
 const Cell = styled.div`
     width: 25%;
+    @media (max-width: 768px) {
+        width: 75%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        > p {
+            margin: 3px;
+        }
+    }
 `
 
 const Details = styled.div`
     display: flex;
     flex-direction:row;
     justify-content: space-evenly;
-    width: 100%
+    width: 100%;
+    @media (max-width: 768px) {
+        flex-direction: column;
+    }
 `
 

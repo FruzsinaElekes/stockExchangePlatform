@@ -10,4 +10,5 @@ body {
 
 .App {
   min-width: 768px;
+  display: block;
 }
