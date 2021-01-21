@@ -68,4 +68,7 @@ const DetailsLink = styled(Link)`
     &:hover {
         text-decoration: underline
     }
+    &:visited {
+        color: blue;
+    }
 `
