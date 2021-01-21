@@ -36,6 +36,8 @@ function shouldFetchNews(props){
 }
 
 const newsDivStyle = {
+    margin: "auto",
     maxWidth: "1400px",
+    minWidth: "768px",
     margin: "2em auto"
 }

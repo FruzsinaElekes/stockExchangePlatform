@@ -3,12 +3,12 @@ import styled from 'styled-components';
 
 export default function NewsItem(props) {
     return (
-        <div>            
-            <NewsSection>
+        <React.Fragment>            
+            <NewsSection className ="newsSection">
                 <ImageContainer>
                     <img alt={props.symbol} src={props.news.image} width="100%"></img>
                 </ImageContainer>
-                <NewsContent>
+                <NewsContent className="newsContent">
                     <Title href={props.news.url}>{props.news.headline}</Title>
                     <SourceInfo>
                         <div>By {props.news.source}</div>
@@ -17,26 +17,39 @@ export default function NewsItem(props) {
                     <p>{props.news.summary}</p>
                 </NewsContent> 
             </NewsSection>
-            
-            
 
-        </div>
+        </React.Fragment>
     )
 }
 
 
 const NewsSection = styled.div`
+    margin: auto;
+    width: 100%;
     display: flex;
     justify-content: space-evenly;
-    margin-top: 4em
+    margin-top: 4em;
+    @media (max-width: 768px){
+        width: 80%;
+        flex-direction: column;
+    }
     `
 
 const NewsContent = styled.div`
     width: 50%;
+    @media (max-width: 768px){
+        font-size: 1.5em;
+        width: 100%;
+        margin: 1em auto 0;
+    }
 
 `
 const ImageContainer = styled.div`
-    width: 25%;
+    width: 35%;
+    @media (max-width: 768px){
+        width: 100%;
+        margin:auto;
+    }
 `
 
 const SourceInfo = styled.div`
