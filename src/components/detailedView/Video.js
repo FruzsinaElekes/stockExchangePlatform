@@ -5,9 +5,9 @@ import styled from 'styled-components';
 
 export function Video(props) {
     const [videos, setVideos] = useState([])
-    
+
     useEffect(()=>{
-        
+
         if (shouldFetchVideos(props.symbol)){
             axios.get(`https://youtube.googleapis.com/youtube/v3/search?maxResults=25&q=${props.symbol},stock&key=${process.env.REACT_APP_YOUTUBE_API_KEY}`)
             .then(res => {
@@ -22,7 +22,7 @@ export function Video(props) {
 
     return (
         <VideoContainer className="videoContainer">
-            {(videos.filter(v => v.symbol===props.symbol).length > 0) ? 
+            {(videos.filter(v => v.symbol===props.symbol).length > 0) ?
             <CustomReactPlayer url={`https://www.youtube.com/watch?v=${videos.filter(v => v.symbol===props.symbol)[0].items[Math.floor(Math.random()*25)].id.videoId}`} />
             : <div>Loading video...</div>}
         </VideoContainer>
@@ -37,16 +37,16 @@ function shouldFetchVideos(symbol){
         let targetVideo = cachedVideos.filter(v => v.symbol===symbol)
         return targetVideo.length === 0 || Date.now() - targetVideo[0].timeStamp > 3600000
     }
-    
+
 }
 
 const VideoContainer = styled.div`
-    margin: auto;
+    margin: 4em auto 2em;
     width: 100%;
 `
 
 
 const CustomReactPlayer = styled(ReactPlayer)`
-    padding-top: 60px;
+    /* padding-top: 60px; */
     margin: auto;
 `
