@@ -4,11 +4,15 @@ import { FavContext } from './FavContext';
 import styled from 'styled-components';
 
 export default function FavItem(props) {
-    const [favourites, addToFav, removeFromFav] = useContext(FavContext)
+    const [favourites, addToFav, removeFromFav, move] = useContext(FavContext)
     console.log(props.up)
     return (
         <React.Fragment>{favourites.length > 0 &&
             <Fav>
+                <div>
+                    <button onClick={() => move(props.data.symbol, -1)}>up</button>
+                    <button onClick={() => move(props.data.symbol, 1)}>down</button>
+                </div>
                 <div>
                     <Symbol to={`/stock/${props.data.symbol}`}>{props.data.symbol}</Symbol>
                     {props.up? <Icon up={props.up} className="fa fa-caret-up fa-lg"></Icon> : <Icon up={props.up} className="fa fa-caret-down fa-lg"></Icon>}                    
