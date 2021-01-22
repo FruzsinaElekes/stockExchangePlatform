@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {Link} from 'react-router-dom'
 import styled from 'styled-components';
+import img1 from '../themes/modern-business-buildings.jpg';
 
 export function SearchBar(props) {
     const symbolList = props.symbols
@@ -20,34 +21,46 @@ export function SearchBar(props) {
     }
 
     return (
-        <WrapperDiv>
-            <SearchDiv>
-                <SearchField type="text" placeholder="Which stock are you looking for?" onChange={(e) => handleOnChange(e)}/>
-                <SearchButton type="submit">
-                <i className="fa fa-search"></i>
-                </SearchButton>
-            </SearchDiv>
-            <DropDownDiv>
-                <DropDownList>
-                    {results && results.map(symbol => <ResultItem symbol={symbol} />)}
-                </DropDownList>
-            </DropDownDiv>
-        </WrapperDiv>
+        <BackGround>
+            <WrapperDiv>
+                <SearchDiv>
+                    <SearchField type="text" placeholder="Which stock are you looking for?" onChange={(e) => handleOnChange(e)}/>
+                    <SearchButton type="submit">
+                    <i className="fa fa-search"></i>
+                    </SearchButton>
+                </SearchDiv>
+                <DropDownDiv>
+                    <DropDownList>
+                        {results && results.map(symbol => <ResultItem symbol={symbol} />)}
+                    </DropDownList>
+                </DropDownDiv>
+            </WrapperDiv>
+        </BackGround>
     )
 }
 
 const WrapperDiv = styled.div`
-    min-width: max(30%, 400px);
     position: absolute;
+    min-width: 768px;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-25%, -50%);
+    @media (max-width: 768px){
+        top: 50%;
+        left: 0%;
+        transform: none;
+    }
+    
 `
 
 const SearchDiv = styled.div`
-    width: 100%;
     position: relative;
     display: flex;
+    width: max(30%, 400px);
+    @media (max-width: 768px){
+        left: 50%;
+        transform: translate(-50%, 0%);
+    }
 `
 
 const SearchField = styled.input`
@@ -86,7 +99,7 @@ const DropDownDiv = styled.div`
  const DropDownList = styled.div`
     display: block;
     position: absolute;
-    background-color: #f6f6f6;
+    background-color: rgba(255, 255, 255, 0.8);
     min-width: max(30%, 400px);
  `
 
@@ -100,3 +113,13 @@ const ListItem = styled(Link)`
         color: #009cf0;
     }
   `
+
+const BackGround = styled.div`
+    display: flex;
+    background-image: url(${img1});
+    background-size: cover;
+    background-repeat: no-repeat;
+    min-width: 768px;
+    height: 80vh;
+    width: 100vw;
+`
