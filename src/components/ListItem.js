@@ -26,7 +26,7 @@ export default function ListItem(props) {
             <Summary>
                 <DetailsLink to={`/stock/${symbolData.symbol}`} >{symbolData.symbol}</DetailsLink>
                 <div>{symbolData.latestPrice}</div>
-                <div style={theme}>{symbolData.change} ({Math.round(symbolData.changePercent * 10000)/100 + "%"})</div>
+                <div style={theme}>{Math.round(symbolData.changePercent * 10000)/100 + "%"}</div>
                 <Tip className="tip">{symbolData.companyName}</Tip>
             </Summary>}
         </React.Fragment>
@@ -51,7 +51,7 @@ const Tip = styled.span`
 `
 
 const Summary = styled.div`
-    /* width: 100px; */
+    width: 100px;
     margin: 1em;
     position: relative;
     display: inline-block;

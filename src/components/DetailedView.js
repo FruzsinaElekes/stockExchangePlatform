@@ -92,6 +92,7 @@ const HeaderDiv = styled.div`
     grid-row: 1 / 2;
     grid-column: 1 / 3;
     @media (max-width: 768px){
+        margin-right:auto;
         grid-row: 2 / 3;
         grid-column: 1 / 2;
     }

@@ -42,11 +42,11 @@ export function SearchBar(props) {
 const WrapperDiv = styled.div`
     position: absolute;
     min-width: 768px;
-    top: 50%;
+    top: 60%;
     left: 50%;
     transform: translate(-25%, -50%);
     @media (max-width: 768px){
-        top: 50%;
+        top: 75%;
         left: 0%;
         transform: none;
     }

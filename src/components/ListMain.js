@@ -19,6 +19,9 @@ export function ListMain(props) {
 const ListContainer = styled.div`
     display: block;
     width: 100%;
+    @media(max-width: 768px){
+        font-size: 1.4em;
+    }
 `
 
 const Center = styled.div`
@@ -30,7 +33,6 @@ const List = styled.div`
     display: inline-flex;
     flex-wrap: wrap;
     justify-content: flex-start;
-    /* justify-content: space-evenly; */
-    padding: 1em;
+    padding: 20px;
 
 `

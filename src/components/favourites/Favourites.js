@@ -15,5 +15,5 @@ export function Favourites() {
 
 const favDivStyle = {
     maxWidth: "1000px",
-    margin: "6em auto"
+    margin: "4em auto"
 }

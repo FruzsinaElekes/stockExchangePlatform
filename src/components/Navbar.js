@@ -16,6 +16,9 @@ const NavDiv = styled.div`
     height: 60px;
     background-color:#21255e;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+    @media(max-width: 768px){
+        font-size:1.5em;
+    }
 `
 
 const StyledLink = styled(Link)`
@@ -24,7 +27,7 @@ const StyledLink = styled(Link)`
     text-align: center;
     box-sizing: border-box; 
     text-decoration: none;
-    font-size: 21px;
+    font-size: 1.2em;
     font-weight: 500;
     width: 140px;
     color: #fff;
