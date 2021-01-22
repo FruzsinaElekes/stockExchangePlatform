@@ -94,6 +94,9 @@ const SearchButton = styled.button`
 const DropDownDiv = styled.div`
     position: relative;
     display: inline-block;
+    @media (max-width: 768px){
+        left: 25%;
+    }
 `
 
  const DropDownList = styled.div`

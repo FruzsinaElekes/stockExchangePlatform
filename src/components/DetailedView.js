@@ -4,6 +4,7 @@ import {useParams} from 'react-router-dom';
 import axios from 'axios';
 import styled from 'styled-components';
 import {Chart, News, StockData, StockHeader, Video} from './detailedView';
+import {stockList} from '../stocks';
 
 
 export function DetailedView() {
@@ -56,7 +57,7 @@ export function DetailedView() {
                 <React.Fragment>
                     <StockDiv>
                         <HeaderDiv>
-                            <StockHeader data={stockData}></StockHeader>                          
+                            <StockHeader data={stockData} names={stockList}></StockHeader>                          
                         </HeaderDiv>
                         <DataDiv><StockData data={stockData}></StockData></DataDiv>
                         <ChartDiv>

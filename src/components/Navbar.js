@@ -15,7 +15,6 @@ export function Navbar(props) {
 const NavDiv = styled.div`
     height: 60px;
     background-color:#21255e;
-    font-size: 21px;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
 `
 
@@ -25,6 +24,7 @@ const StyledLink = styled(Link)`
     text-align: center;
     box-sizing: border-box; 
     text-decoration: none;
+    font-size: 21px;
     font-weight: 500;
     width: 140px;
     color: #fff;

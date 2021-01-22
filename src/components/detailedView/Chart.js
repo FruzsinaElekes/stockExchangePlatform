@@ -13,7 +13,9 @@ export function Chart(props) {
         theme: "light2",
         height: 400,
         title:{
-            text: `Stock Price of ${symbol}`
+            text: `Stock Price of ${symbol}`,
+            fontSize: 22,
+            horizontalAlign: "center"
         },
         axisX:{
             valueFormatString: "YYYY.MM.DD",

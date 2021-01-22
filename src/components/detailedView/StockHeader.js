@@ -15,10 +15,12 @@ function FavouriteDiv(props) {
 
 export function StockHeader(props) {
     const stockData = props.data
+    const stockList = props.names
+
     return (
         <Card>
             <SymbolHeader>
-                <Symbol>{stockData.symbol}</Symbol>
+                <Symbol>{stockList[stockData.symbol]} {" (" + stockData.symbol + ")"}</Symbol>
                 <FavouriteDiv stockdata={stockData} symbol={stockData.symbol}/>
                 <FloatDiv>{stockData.latestPrice}</FloatDiv>
                 <FloatDiv>
@@ -39,9 +41,16 @@ const SymbolHeader = styled.div`
 `
 
 const Symbol = styled.div`
-    font-size: 2em;
+    font-size: 1.8em;
     font-weight: bold;
     margin: 5px;
+`
+
+const Name = styled.span`
+    font-size: 15px;
+    color: grey;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
 `
 
 const FloatDiv = styled.div`
