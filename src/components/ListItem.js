@@ -11,13 +11,10 @@ export default function ListItem(props) {
     }
 
     useEffect(()=> {
-        if (!sessionStorage.getItem(props.symbol) || !symbolData){
-            axios.get(`https://cloud.iexapis.com/stable/stock/${props.symbol}/quote?token=${process.env.REACT_APP_IEX_API_KEY}`)
-            .then (res => {
-                setSymbolData(res.data)
-                sessionStorage.setItem(props.symbol, JSON.stringify(res.data))
-            })
-        }
+        axios.get(`http://localhost:8080/quote/${props.symbol}`)
+        .then (res => {
+            setSymbolData(res.data)
+        })
     }, [])
 
     return (

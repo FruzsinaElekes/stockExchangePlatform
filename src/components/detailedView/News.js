@@ -7,7 +7,7 @@ export function News(props) {
 
     useEffect(() => {
         if (shouldFetchNews(props)){
-            axios.get(`https://cloud.iexapis.com/stable/stock/${props.data.symbol}/news/last/10?token=${process.env.REACT_APP_IEX_API_KEY}`)
+            axios.get(`http://localhost:8080/news/${props.data.symbol}`)
             .then(res => {
                 console.log("fetching news")
                 const filtered = res.data.filter(news => news.lang==="en").map(f => ({...f, timestamp: Date.now()}))

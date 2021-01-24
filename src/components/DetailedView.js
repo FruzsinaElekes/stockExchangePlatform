@@ -22,7 +22,7 @@ export function DetailedView() {
         const stockCache = JSON.parse(sessionStorage.getItem(symbol))
         if (stockCache) setStockData(stockCache)
         else {
-            axios.get(`https://cloud.iexapis.com/stable/stock/${symbol}/quote?token=${process.env.REACT_APP_IEX_API_KEY}`)
+            axios.get(`http://localhost:8080/quote/${symbol}`)
             .then (res => {
                 setStockData(res.data)
                 localStorage.setItem(symbol, JSON.stringify(res.data))
@@ -39,7 +39,7 @@ export function DetailedView() {
             })
         }
         else {
-            axios.get(`https://cloud.iexapis.com/stable/stock/${symbol}/chart/1m?token=${process.env.REACT_APP_IEX_API_KEY}`)
+            axios.get(`http://localhost:8080/chart/${symbol}`)
             .then (res => {
                 const data = res.data.map(daily => ({x: new Date(daily.date), y: daily.close}))
                 setChartData({

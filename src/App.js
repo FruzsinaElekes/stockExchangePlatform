@@ -18,7 +18,7 @@ function App() {
       <Router>
         <div className="App">
           <Navbar currentTheme={theme} setTheme={setTheme}></Navbar>
-          <ListMain symbols={symbolList.slice(0, 10)}></ListMain>
+          <ListMain symbols={symbolList.slice(0, 5)}></ListMain>
           <Route path="/favourites" component={Favourites}></Route>
           <Route exact path="/" render={()=><SearchBar symbols={symbolList}/>}></Route>
           <Route exact path="/stock/:symbol" component={DetailedView}></Route>
