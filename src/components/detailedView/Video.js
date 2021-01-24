@@ -9,7 +9,7 @@ export function Video(props) {
     useEffect(()=>{
 
         if (shouldFetchVideos(props.symbol)){
-            axios.get(`https://youtube.googleapis.com/youtube/v3/search?maxResults=25&q=${props.symbol},stock&key=${process.env.REACT_APP_YOUTUBE_API_KEY}`)
+            axios.get(`http://localhost:8080/videos/${props.symbol}`)
             .then(res => {
                 console.log("fetching videos")
                 sessionStorage.setItem("videos", JSON.stringify([...videos, {...res.data, symbol: props.symbol, timeStamp : Date.now()}]))
