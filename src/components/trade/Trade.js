@@ -10,7 +10,6 @@ export default function Trade(props) {
     const [count, setCount] = useState(0)
 
     const handleSubmit = () => {
-        // TODO: ask for confirmation!
         const body = {
             user: 285,
             symbol: symbol,
