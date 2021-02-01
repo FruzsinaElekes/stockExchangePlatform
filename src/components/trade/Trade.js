@@ -16,9 +16,9 @@ export default function Trade(props) {
             limitPrice: limitPrice,
             direction: direction,
             status: "PENDING",
-            count: count,
-            date: Date.now()
+            count: count
         }
+
         if (window.confirm(createConfirmMessage(body))){
             fetch("http://localhost:8080/trade", {
                 method: "post",
