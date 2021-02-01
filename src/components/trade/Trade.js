@@ -8,7 +8,7 @@ export default function Trade(props) {
     const [limitPrice, setLimitPrice] = useState(0);
     const [direction, setDirection] = useState("-");
     const [count, setCount] = useState(0);
-    const [redirect, setRedirect] = useState("no");
+    const [redirect, setRedirect] = useState(false);
 
     const handleSubmit = () => {
         const body = {
@@ -31,7 +31,7 @@ export default function Trade(props) {
             })
             .then(resp => resp.json())
             .then(data => {
-                if (data === "COMPLETED") setRedirect("/portfolio")
+                if (data === "COMPLETED") setRedirect(true)
                 else window.alert(JSON.stringify(data))
             })
             .catch(e => console.log(e))
@@ -64,8 +64,8 @@ export default function Trade(props) {
 
     return (
         <div>
-            {redirect !== "no" 
-            ? <Redirect to={redirect} /> 
+            {redirect === true 
+            ? <Redirect to="/portfolio" /> 
             : <React.Fragment> 
             Place an order by filling in the form below.
 
