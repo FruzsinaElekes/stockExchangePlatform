@@ -1,4 +1,5 @@
-import React, {useContext} from 'react'
+import React, {useContext} from 'react';
+import { Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import Card from './Card';
 import { FavContext } from '../favourites/FavContext'
@@ -10,6 +11,7 @@ function FavouriteDiv(props) {
         <div>{(favourites.length === 0 | favourites.filter(f => f.symbol === props.symbol).length === 0) 
                     ? <FavButton onClick={()=>addToFav(props.stockdata)}>Follow</FavButton>
                     : <UnFavButton onClick={()=>removeFromFav(props.stockdata)}>Unfollow</UnFavButton>}
+                    <TradeButton><StyledLink to={`/trade/${props.symbol}`}>TRADE</StyledLink></TradeButton>
         </div>)
 }
 
@@ -85,4 +87,22 @@ const UnFavButton = styled.button`
     font-weight: bolder;
     font-size: 1.2em;
     cursor: pointer;
+`
+
+const TradeButton = styled.button`
+    background-color: #21255e;
+    color: white;
+    font-weight: bolder;
+    font-size: 1.2em;
+    cursor: pointer;
+    margin: 5px;
+`
+
+const StyledLink = styled(Link)`
+    color: white;
+    text-decoration: none;
+    & :visited{
+        color: white;
+        text-decoration: none
+    }
 `

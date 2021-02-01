@@ -18,6 +18,7 @@ export default function FavItem(props) {
                         <Symbol to={`/stock/${props.data.symbol}`}>{props.data.symbol}</Symbol>
                         {props.up? <Icon up={props.up} className="fa fa-caret-up fa-lg"></Icon> : <Icon up={props.up} className="fa fa-caret-down fa-lg"></Icon>}                    
                         <UnFavButton onClick={()=>removeFromFav(props.data)}>Unfollow</UnFavButton>
+                        <TradeButton><StyledLink to={`/trade/${props.data.symbol}`}>TRADE</StyledLink></TradeButton>
                     </div>
                     <Details>
                         <Cell>
@@ -94,6 +95,25 @@ const UnFavButton = styled.button`
     cursor: pointer;
     float: right;
     margin: 5px;
+`
+
+const TradeButton = styled.button`
+    background-color: #21255e;
+    color: white;
+    font-weight: bolder;
+    font-size: 1.2em;
+    cursor: pointer;
+    float: right;
+    margin: 5px;
+`
+
+const StyledLink = styled(Link)`
+    color: white;
+    text-decoration: none;
+    & :visited{
+        color: white;
+        text-decoration: none
+    }
 `
 
 const Cell = styled.div`
