@@ -11,7 +11,7 @@ export default function Trade(props) {
 
     const handleSubmit = () => {
         const body = {
-            user: 285,
+            user_id: 242,
             symbol: symbol,
             limitPrice: limitPrice,
             direction: direction,
@@ -20,11 +20,17 @@ export default function Trade(props) {
             date: Date.now()
         }
         if (window.confirm(createConfirmMessage(body))){
-            axios.defaults.headers.post['Content-Type'] = 'application/json;charset=utf-8';
-            axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
-            axios.post("localhost:8080/trade", JSON.stringify(body))
-                .then(response => console.log(response))
-                .catch(error => console.log(error))
+            fetch("http://localhost:8080/trade", {
+                method: "post",
+                body: JSON.stringify(body),
+                headers: {
+                    'Content-Type': 'application/json;charset=utf-8',
+                    'Access-Control-Allow-Origin' : 'http://localhost:8080/trade'
+                  },
+            })
+            .then(resp => resp.json())
+            .then(data => console.log(data))
+            .catch(e => console.log(e))
         }
 
     }
