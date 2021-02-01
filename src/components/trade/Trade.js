@@ -1,13 +1,14 @@
 
-import axios from 'axios';
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+import { Redirect } from 'react-router-dom';
 
 export default function Trade(props) {
 
     const [symbol , setSymbol] = useState(props.match.params.symbol ? props.match.params.symbol : "");
     const [limitPrice, setLimitPrice] = useState(0);
     const [direction, setDirection] = useState("-");
-    const [count, setCount] = useState(0)
+    const [count, setCount] = useState(0);
+    const [redirect, setRedirect] = useState("no");
 
     const handleSubmit = () => {
         const body = {
@@ -29,7 +30,10 @@ export default function Trade(props) {
                   },
             })
             .then(resp => resp.json())
-            .then(data => console.log(data))
+            .then(data => {
+                if (data === "COMPLETED") setRedirect("/portfolio")
+                else window.alert(JSON.stringify(data))
+            })
             .catch(e => console.log(e))
         }
 
@@ -60,6 +64,9 @@ export default function Trade(props) {
 
     return (
         <div>
+            {redirect !== "no" 
+            ? <Redirect to={redirect} /> 
+            : <React.Fragment> 
             Place an order by filling in the form below.
 
             <form onSubmit={handleSubmit}>
@@ -88,6 +95,8 @@ export default function Trade(props) {
                 <button onClick={handleSubmit}>Trade!</button>
 
             </form>
+            </React.Fragment>
+            }
 
         </div>
     )

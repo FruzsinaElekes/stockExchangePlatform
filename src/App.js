@@ -8,6 +8,7 @@ import {themes} from './themes/themes';
 import {symbolList} from './stocks';
 import './App.css';
 import Trade from './components/trade/Trade';
+import Portfolio from './components/portfolio/Portfolio';
 
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
           <Route exact path="/" render={()=><SearchBar symbols={symbolList}/>}></Route>
           <Route exact path="/stock/:symbol" component={DetailedView}></Route>
           <Route path="/trade/:symbol?" component={Trade}></Route>
+          <Route path="/portfolio" component={Portfolio}></Route>
         </div>
       </Router>
       </FavProvider>

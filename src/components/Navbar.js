@@ -9,6 +9,7 @@ export function Navbar(props) {
             <StyledLink to="/">Home</StyledLink>
             <StyledLink to="/favourites">Favourites</StyledLink>
             <StyledLink to="/trade">Trade</StyledLink>
+            <StyledLink to="/portfolio">Portfolio</StyledLink>
         </NavDiv>
     )
 }
