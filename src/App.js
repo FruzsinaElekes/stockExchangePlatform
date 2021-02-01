@@ -7,6 +7,7 @@ import { Favourites } from './components/favourites/Favourites'
 import {themes} from './themes/themes';
 import {symbolList} from './stocks';
 import './App.css';
+import Trade from './components/trade/Trade';
 
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
           <Route path="/favourites" component={Favourites}></Route>
           <Route exact path="/" render={()=><SearchBar symbols={symbolList}/>}></Route>
           <Route exact path="/stock/:symbol" component={DetailedView}></Route>
+          <Route path="/trade/:symbol?" component={Trade}></Route>
         </div>
       </Router>
       </FavProvider>
