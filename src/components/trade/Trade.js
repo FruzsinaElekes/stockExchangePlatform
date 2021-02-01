@@ -1,6 +1,7 @@
 
 import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
+import styled from 'styled-components';
 
 export default function Trade(props) {
 
@@ -63,13 +64,13 @@ export default function Trade(props) {
     }
 
     return (
-        <div>
+        <TradeForm>
             {redirect === true 
             ? <Redirect to="/portfolio" /> 
             : <React.Fragment> 
             Place an order by filling in the form below.
 
-            <form onSubmit={handleSubmit}>
+            <form>
                 <div><label>
                     Symbol: 
                     <input name="symbol" type="text" value={symbol} onChange={handleChange}></input>
@@ -98,6 +99,14 @@ export default function Trade(props) {
             </React.Fragment>
             }
 
-        </div>
+        </TradeForm>
     )
 }
+
+
+const TradeForm = styled.form`
+    display: block;
+    margin: auto;
+    border: 2px solid black;
+    width: 50vw
+`
