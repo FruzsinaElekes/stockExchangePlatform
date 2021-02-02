@@ -16,7 +16,7 @@ export default function Portfolio() {
             })
         .then(resp => resp.json())
         .then(data => setPortfolioItems(data))
-        .catch()
+        .catch(e => console.log(e))
     }, [])
 
     return (
