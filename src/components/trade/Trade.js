@@ -13,7 +13,7 @@ export default function Trade(props) {
 
     const handleSubmit = () => {
         const body = {
-            user_id: 242,
+            user_id: 401,
             symbol: symbol,
             limitPrice: limitPrice,
             direction: direction,
@@ -22,7 +22,7 @@ export default function Trade(props) {
         }
 
         if (window.confirm(createConfirmMessage(body))){
-            fetch("http://localhost:8080/trade", {
+            fetch(`http://localhost:8080/trade/${body.user_id}`, {
                 method: "post",
                 body: JSON.stringify(body),
                 headers: {
