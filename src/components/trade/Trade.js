@@ -32,10 +32,8 @@ export default function Trade(props) {
             })
             .then(resp => resp.json())
             .then(data => {
-                console.log(data)
                 if (data === "COMPLETED") setRedirect(true)
-                else window.alert(JSON.stringify(data))
-                console.log(redirect)
+                else window.alert(createFeedbackMessage(data))
             })
             .catch(e => console.log(e))
         }
@@ -63,6 +61,27 @@ export default function Trade(props) {
     const createConfirmMessage = (body) => {
         return `You are about to place the following order:
         \nSymbol: ${body.symbol}\nAction: ${body.direction}\nCount: ${body.count}\nLimit Price: ${body.limitPrice}\n\nClick OK to confirm!`
+    }
+
+    const createFeedbackMessage = (data) => {
+        let msg = "Transaction failed.\n";
+        switch (data){
+            case "LIMIT_PRICE_MISMATCH":
+                msg += "Limit price does not match current stock price";
+                break;
+            case "INSUFFICIENT_FUND":
+                msg += "Balance not sufficient to execute transaction";
+                break;
+            case "INSUFFICIENT_STOCK":
+                msg += "Owned stock not sufficient to execute transaction";
+                break;
+            case "DATABASE_PROBLEM":
+                msg += "Transaction could not be finalized due to database problems";
+                break;
+            default:
+                msg += "Invalid data sent in request"
+        }
+        return msg;
     }
 
     return (
