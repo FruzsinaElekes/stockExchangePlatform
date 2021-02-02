@@ -1,9 +1,13 @@
-import React from 'react'
+import React from 'react';
+import {Link} from 'react-router-dom'
+
 
 export default function PortfolioItem(props) {
     return (
         <div>
-            data about: {props.stock}
+            <p>Symbol: {props.item.symbol}</p>
+            <p>Amount: {props.item.amount}</p>
+            <button><Link to={`/history/${props.item.symbol}`}>History</Link></button>
         </div>
     )
 }
