@@ -32,8 +32,10 @@ export default function Trade(props) {
             })
             .then(resp => resp.json())
             .then(data => {
+                console.log(data)
                 if (data === "COMPLETED") setRedirect(true)
                 else window.alert(JSON.stringify(data))
+                console.log(redirect)
             })
             .catch(e => console.log(e))
         }
@@ -64,7 +66,7 @@ export default function Trade(props) {
     }
 
     return (
-        <TradeForm>
+        <TradeDiv>
             {redirect === true 
             ? <Redirect to="/portfolio" /> 
             : <React.Fragment> 
@@ -92,19 +94,18 @@ export default function Trade(props) {
                     <input name="price" type="number" value={limitPrice} onChange={handleChange}></input>
                 </label></div>
 
-
-                <button onClick={handleSubmit}>Trade!</button>
+                <button type="button" onClick={handleSubmit}>Trade!</button>
 
             </form>
             </React.Fragment>
             }
 
-        </TradeForm>
+        </TradeDiv>
     )
 }
 
 
-const TradeForm = styled.form`
+const TradeDiv = styled.div`
     display: block;
     margin: auto;
     border: 2px solid black;
