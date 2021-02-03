@@ -4,7 +4,7 @@ import HistoryItem from './HistoryItem';
 export default function History(props) {
 
     const [history, setHistory] = useState([])
-    const user_id = 401;
+    let user_id = process.env.REACT_APP_USER_ID;
     const symbol = props.match.params.symbol;
 
     useEffect(() => {

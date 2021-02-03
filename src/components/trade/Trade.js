@@ -13,7 +13,7 @@ export default function Trade(props) {
 
     const handleSubmit = () => {
         const body = {
-            user_id: 401,
+            user_id: process.env.REACT_APP_USER_ID,
             symbol: symbol,
             limitPrice: limitPrice,
             direction: direction,
