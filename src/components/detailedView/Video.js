@@ -1,21 +1,13 @@
-import axios from 'axios';
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import ReactPlayer from 'react-player';
 import styled from 'styled-components';
 
 export function Video(props) {
-    const [randomVideo, setRandomVideo] = useState(0)
-
-    useEffect(()=>{
-        axios.get(`http://localhost:8080/videos/${props.symbol}/random`)
-        .then(res => setRandomVideo(res.data))
-    }, [props.symbol])
+    let random = Math.floor(Math.random() * props.videos.length);
 
     return (
         <VideoContainer className="videoContainer">
-            {(randomVideo !== 0) ?
-            <CustomReactPlayer url={`https://www.youtube.com/watch?v=${randomVideo.videoId}`} />
-            : <div>Loading video...</div>}
+            <CustomReactPlayer url={`https://www.youtube.com/watch?v=${props.videos[random].videoId}`} />
         </VideoContainer>
     )
 }
