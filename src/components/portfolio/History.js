@@ -22,7 +22,7 @@ export default function History(props) {
 
     return (
         <div>
-            History page for {symbol}
+            Transaction history for stock: {symbol}
             {history && history.map(h => <HistoryItem key={h.id} transaction={h}></HistoryItem>)}
         </div>
     )

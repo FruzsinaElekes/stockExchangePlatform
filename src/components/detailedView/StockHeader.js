@@ -24,13 +24,13 @@ export function StockHeader(props) {
             <SymbolHeader>
                 <Symbol>{stockList[stockData.symbol]} {" (" + stockData.symbol + ")"}</Symbol>
                 <FavouriteDiv stockdata={stockData} symbol={stockData.symbol}/>
-                <FloatDiv>{stockData.latestPrice}</FloatDiv>
+                {/* <FloatDiv>{stockData.latestPrice}</FloatDiv>
                 <FloatDiv>
                 <ChangeDiv up={stockData.change >= 0}>
                     {(stockData.change >= 0 ? "+" : "") + stockData.change + " "}
                     {Math.round(stockData.changePercent * 10000)/100 + "%"}
                 </ChangeDiv>
-                </FloatDiv>
+                </FloatDiv> */}
             </SymbolHeader>
         </Card>
         )

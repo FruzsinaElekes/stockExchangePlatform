@@ -1,4 +1,3 @@
-import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import PortfolioItem from './PortfolioItem';
 import Summary from './Summary';
@@ -15,18 +14,12 @@ export default function Portfolio() {
                   }
             })
             .then(resp => resp.json())
-            .then(data => {
-                setUser(data)
-                let filtered = data.orders.filter(o => o.symbol === "BB" && o.status === 'COMPLETED').map(o => o.stockTransaction)
-                console.log(typeof filtered)
-                console.log(filtered)
-            })
+            .then(data => setUser(data))
             .catch(e => console.log(e))
     }, [])
 
     return (
         <div>
-            empty
             {user !== 0 ? <Summary user={user}></Summary> : "Loading"}
             {user !== 0 ? user.portfolio.map(s => <PortfolioItem 
                 key={s.id} 
