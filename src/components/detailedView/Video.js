@@ -4,40 +4,20 @@ import ReactPlayer from 'react-player';
 import styled from 'styled-components';
 
 export function Video(props) {
-    const [videos, setVideos] = useState([])
+    const [randomVideo, setRandomVideo] = useState(0)
 
     useEffect(()=>{
-
-        if (shouldFetchVideos(props.symbol)){
-            axios.get(`http://localhost:8080/videos/${props.symbol}`)
-            .then(res => {
-                console.log("fetching videos")
-                sessionStorage.setItem("videos", JSON.stringify([...videos, {...res.data, symbol: props.symbol, timeStamp : Date.now()}]))
-                setVideos(prev => [...prev, {...res.data, symbol: props.symbol, timeStamp : Date.now()}])
-            })
-        } else {
-            setVideos(JSON.parse(sessionStorage.getItem("videos")).filter(v => v.symbol===props.symbol))
-        }
+        axios.get(`http://localhost:8080/videos/${props.symbol}/random`)
+        .then(res => setRandomVideo(res.data))
     }, [props.symbol])
 
     return (
         <VideoContainer className="videoContainer">
-            {(videos.filter(v => v.symbol===props.symbol).length > 0) ?
-            <CustomReactPlayer url={`https://www.youtube.com/watch?v=${videos.filter(v => v.symbol===props.symbol)[0].items[Math.floor(Math.random()*25)].id.videoId}`} />
+            {(randomVideo !== 0) ?
+            <CustomReactPlayer url={`https://www.youtube.com/watch?v=${randomVideo.videoId}`} />
             : <div>Loading video...</div>}
         </VideoContainer>
     )
-}
-
-function shouldFetchVideos(symbol){
-    let cachedVideos = JSON.parse(sessionStorage.getItem("videos"))
-    if (cachedVideos === null) {
-        return true;
-    } else {
-        let targetVideo = cachedVideos.filter(v => v.symbol===symbol)
-        return targetVideo.length === 0 || Date.now() - targetVideo[0].timeStamp > 3600000
-    }
-
 }
 
 const VideoContainer = styled.div`
