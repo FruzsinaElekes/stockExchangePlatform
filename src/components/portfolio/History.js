@@ -11,7 +11,7 @@ export default function History(props) {
         fetch(`http://localhost:8080//transactions/user/${user_id}/symbol/${symbol}/`, {
                 headers: {
                     'Content-Type': 'application/json;charset=utf-8',
-                    'Access-Control-Allow-Origin' : 'http://localhost:8080/portfolio-items'
+                    'Access-Control-Allow-Origin' : 'http://localhost:8080/'
                   },
             })
         .then(resp => resp.json())

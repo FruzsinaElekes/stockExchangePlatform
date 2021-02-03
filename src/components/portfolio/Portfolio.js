@@ -5,37 +5,34 @@ import Summary from './Summary';
 
 export default function Portfolio() {
     const userId = 401;
-    const [portfolioItems, setPortfolioItems] = useState([]);
-    const [account, setAccount] = useState();
+    const [user, setUser] = useState(0)
 
     useEffect(()=>{
-        fetch(`http://localhost:8080/portfolio-items/${userId}`, {
+        fetch(`http://localhost:8080/user/${userId}`, {
                 headers: {
                     'Content-Type': 'application/json;charset=utf-8',
-                    'Access-Control-Allow-Origin' : 'http://localhost:8080/portfolio-items'
+                    'Access-Control-Allow-Origin' : 'http://localhost:8080/user'
                   }
             })
             .then(resp => resp.json())
-            .then(data => setPortfolioItems(data))
+            .then(data => {
+                setUser(data)
+                let filtered = data.orders.filter(o => o.symbol === "BB" && o.status === 'COMPLETED').map(o => o.stockTransaction)
+                console.log(typeof filtered)
+                console.log(filtered)
+            })
             .catch(e => console.log(e))
-        
-        
-        fetch(`http://localhost:8080/account/user/${userId}`, {
-            headers: {
-                'Content-Type': 'application/json;charset=utf-8',
-                'Access-Control-Allow-Origin' : 'http://localhost:8080/account/user'
-                }
-        })
-        .then(resp => resp.json())
-        .then(data => setAccount(data))
-        .catch(e => console.log(e))
-
     }, [])
 
     return (
         <div>
-            {account && <Summary account={account}></Summary>}
-            {portfolioItems && portfolioItems.map(s => <PortfolioItem key={s.id} item={s}></PortfolioItem>)}
+            empty
+            {user !== 0 ? <Summary user={user}></Summary> : "Loading"}
+            {user !== 0 ? user.portfolio.map(s => <PortfolioItem 
+                key={s.id} 
+                item={s} 
+                transactions={user.orders.filter(o => o.symbol === s.symbol && o.status === 'COMPLETED').map(o => o.stockTransaction)}></PortfolioItem>)
+                : "Loading"}
         </div>
     )
 }
