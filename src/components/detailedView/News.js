@@ -3,26 +3,25 @@ import axios from 'axios';
 import NewsItem from './NewsItem';
 
 export function News(props) {
-    const [newsState, setNewsState] = useState([])
+    // const [newsState, setNewsState] = useState([])
 
-    useEffect(() => {
-        if (shouldFetchNews(props)){
-            axios.get(`http://localhost:8080/news/${props.data.symbol}`)
-            .then(res => {
-                console.log("fetching news")
-                const filtered = res.data.filter(news => news.lang==="en").map(f => ({...f, timestamp: Date.now()}))
-                setNewsState(filtered)
-                sessionStorage.setItem(props.data.symbol + "_news", JSON.stringify(filtered))
-                })
-        } else {
-            setNewsState(JSON.parse(sessionStorage.getItem(props.data.symbol + "_news")))
-        }
-    }, [props.data.symbol])
+    // useEffect(() => {
+    //     if (shouldFetchNews(props)){
+    //         axios.get(`http://localhost:8080/news/${props.data.symbol}`)
+    //         .then(res => {
+    //             console.log("fetching news")
+    //             const filtered = res.data.filter(news => news.lang==="en").map(f => ({...f, timestamp: Date.now()}))
+    //             setNewsState(filtered)
+    //             sessionStorage.setItem(props.data.symbol + "_news", JSON.stringify(filtered))
+    //             })
+    //     } else {
+    //         setNewsState(JSON.parse(sessionStorage.getItem(props.data.symbol + "_news")))
+    //     }
+    // }, [props.data.symbol])
 
     return (
         <div style={newsDivStyle}>
-            {newsState? newsState.map((n, i) => <NewsItem symbol= {props.data.symbol} key = {i} news = {n}></NewsItem>)
-            : "Loading"}
+            {props.data.map((n, i) => <NewsItem symbol={props.symbol} key = {i} news = {n}></NewsItem>)}
         </div>
     )
 }

@@ -4,7 +4,7 @@ import {CanvasJS, CanvasJSChart} from 'canvasjs-react-charts'
 
 
 export function Chart(props) {
-    const symbol = props.chartdata.symbol
+    const symbol = props.symbol
     const data = props.chartdata.timeseries
     const minY = data ? Math.floor(Math.min(...(data.map(point => point.y)))/2) : 0
 

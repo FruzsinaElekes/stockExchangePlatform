@@ -4,7 +4,7 @@ import PortfolioItem from './PortfolioItem';
 import Summary from './Summary';
 
 export default function Portfolio() {
-    const userId = 401;
+    let userId = process.env.REACT_APP_USER_ID;
     const [user, setUser] = useState(0)
 
     useEffect(()=>{

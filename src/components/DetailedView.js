@@ -8,65 +8,40 @@ import {stockList} from '../stocks';
 
 
 export function DetailedView() {
-    const [stockData, setStockData] = useState({});
-    const [chartData, setChartData] = useState({});
+    const [stockInfo, setStockInfo] = useState(0)
     const {symbol} = useParams();
 
     
     useEffect(() => {
-        fetchStockData()
-        fetchChartData()
+        fetch(`http://localhost:8080/stock/${symbol}`, {
+                headers: {
+                    'Content-Type': 'application/json;charset=utf-8',
+                    'Access-Control-Allow-Origin' : 'http://localhost:8080/'
+                  }
+            })
+            .then(resp => resp.json())
+            .then(data => setStockInfo(data))
+            .catch(e => console.log(e))
     }, [symbol])
 
-    function fetchStockData() {
-        const stockCache = JSON.parse(sessionStorage.getItem(symbol))
-        if (stockCache) setStockData(stockCache)
-        else {
-            axios.get(`http://localhost:8080/quote/${symbol}`)
-            .then (res => {
-                setStockData(res.data)
-                localStorage.setItem(symbol, JSON.stringify(res.data))
-            })
-        }
-    }
-
-    function fetchChartData() {
-        const chartCache = JSON.parse(sessionStorage.getItem(symbol + "ChartData"))
-        if (chartCache) {
-            setChartData({
-                symbol: symbol,
-                timeseries: chartCache.map(data => ({x: new Date(data.x), y: data.y}))
-            })
-        }
-        else {
-            axios.get(`http://localhost:8080/chart/${symbol}`)
-            .then (res => {
-                const data = res.data.map(daily => ({x: new Date(daily.date), y: daily.close}))
-                setChartData({
-                    symbol: symbol,
-                    timeseries: data
-                })
-                localStorage.setItem(symbol + "ChartData", JSON.stringify(data))
-            })
-        }
-    }
 
     return (
         <DetailedContainer className="detailedContainer">
-            {stockData &&
+            {stockInfo !== 0 ?
                 <React.Fragment>
                     <StockDiv>
                         <HeaderDiv>
-                            <StockHeader data={stockData} names={stockList}></StockHeader>                          
+                            <StockHeader data={stockInfo} names={stockList}></StockHeader>                          
                         </HeaderDiv>
-                        <DataDiv><StockData data={stockData}></StockData></DataDiv>
+                        <DataDiv><StockData data={stockInfo}></StockData></DataDiv>
                         <ChartDiv>
-                            {chartData && <Chart chartdata={chartData}></Chart>}
+                            <Chart symbol={symbol} chartdata={stockInfo.stockPrices}></Chart>
                         </ChartDiv>
                     </StockDiv>
                     <Video symbol={symbol}></Video>
-                    <News data={stockData}></News>
+                    <News symbol={symbol} data={stockInfo.newsList}></News>
                 </React.Fragment>
+                : <React.Fragment>Loading</React.Fragment>
             }
         </DetailedContainer>
     )
