@@ -38,7 +38,7 @@ export function DetailedView() {
                             <Chart symbol={symbol} chartdata={stockInfo.stockPrices}></Chart>
                         </ChartDiv>
                     </StockDiv>
-                    <Video symbol={symbol}></Video>
+                    <Video videos={stockInfo.videoLinkList}></Video>
                     <News symbol={symbol} data={stockInfo.newsList}></News>
                 </React.Fragment>
                 : <React.Fragment>Loading</React.Fragment>
