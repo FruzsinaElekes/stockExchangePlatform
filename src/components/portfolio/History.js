@@ -1,11 +1,12 @@
 import styled from 'styled-components';
 import HistoryItem from './HistoryItem';
+import { Link } from 'react-router-dom';
 
 export default function History(props) {
 
     return (
         <ModalContent>
-            <Title>Transaction history for stock: {props.symbol}</Title>
+            <Title>Transaction history for stock: <Symbol to={`/stock/${props.symbol}`}>{props.symbol}</Symbol></Title>
             <HistoryTable>
                 <Header>
                     <HeaderCell>Date</HeaderCell>
@@ -58,4 +59,11 @@ const HeaderCell = styled.th`
     border-bottom: 1px solid #21255e;
     border-top: 1px solid #21255e;
     border-collapse: collapse;
+`
+
+const Symbol = styled(Link)`
+    color: #21255e;
+    &:visited{
+        color: #21255e;
+    }
 `
