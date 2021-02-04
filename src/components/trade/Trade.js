@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import styled from 'styled-components';
 import Modal from '@material-ui/core/Modal';
+import TradeForm from './TradeForm';
 
 
 export default function Trade(props) {
@@ -48,7 +49,6 @@ export default function Trade(props) {
                 else {
                     createFeedbackMessage(data)
                     handleOpen();
-                    // window.alert(createFeedbackMessage(data))
                 }
             })
             .catch(e => console.log(e))
@@ -105,33 +105,9 @@ export default function Trade(props) {
             {redirect === true 
             ? <Redirect to="/portfolio" /> 
             : <React.Fragment> 
-            Place an order by filling in the form below.
-
-            <form>
-                <div><label>
-                    Symbol: 
-                    <input name="symbol" type="text" value={symbol} onChange={handleChange}></input>
-                </label></div>
-                <div><label>
-                    Action: 
-                    <select name="direction" value={direction} onChange={handleChange}>
-                        <option value="SELL">SELL</option>
-                        <option value="BUY">BUY</option>
-                        <option value="-">---</option>
-                    </select>
-                </label></div>
-                <div><label>
-                    Stock Count: 
-                    <input name="count" type="number" value={count} onChange={handleChange}></input>
-                </label></div>
-                <div><label>
-                    Limit Price: 
-                    <input name="price" type="number" value={limitPrice} onChange={handleChange}></input>
-                </label></div>
-
-                <button type="button" onClick={handleSubmit}>Trade!</button>
-
-            </form>
+                Place an order by filling in the form below.
+                <TradeForm symbol={symbol} limitPrice={limitPrice} cout={count} direction={direction} 
+                            handleChange={handleChange} handleSubmit={handleSubmit} />
             </React.Fragment>
             }
             <Modal open={open} onClose={handleClose}>
