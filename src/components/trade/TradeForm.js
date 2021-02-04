@@ -1,32 +1,46 @@
-import React from 'react'
+import React from 'react';
+import styled from 'styled-components';
+
 
 export default function TradeForm(props) {
     let {symbol, limitPrice, count, direction, handleChange, handleSubmit} = props
     return (
-        <form>
-            <div><label>
-                Symbol: 
-                <input name="symbol" type="text" value={symbol} onChange={handleChange}></input>
-            </label></div>
-            <div><label>
-                Action: 
-                <select name="direction" value={direction} onChange={handleChange}>
-                    <option value="SELL">SELL</option>
-                    <option value="BUY">BUY</option>
-                    <option value="-">---</option>
-                </select>
-            </label></div>
-            <div><label>
-                Stock Count: 
-                <input name="count" type="number" value={count} onChange={handleChange}></input>
-            </label></div>
-            <div><label>
-                Limit Price: 
-                <input name="price" type="number" value={limitPrice} onChange={handleChange}></input>
-            </label></div>
+        <StyledForm>
+            <label>Symbol:</label>
+            <input name="symbol" type="text" value={symbol} onChange={handleChange}></input>
+            <label>Action:</label> 
+            <select name="direction" value={direction} onChange={handleChange}>
+                <option value="SELL">SELL</option>
+                <option value="BUY">BUY</option>
+                <option value="-">---</option>
+            </select>
+            <label>Stock Count:</label>
+            <input name="count" type="number" min="0" value={count} onChange={handleChange}></input>
+            <label>Limit Price:</label>
+            <input name="price" type="number" min="0" value={limitPrice} onChange={handleChange}></input>
+            <TradeButton type="button" onClick={handleSubmit}>Trade!</TradeButton>
 
-            <button type="button" onClick={handleSubmit}>Trade!</button>
-
-        </form>
+        </StyledForm>
     )
 }
+
+
+const StyledForm = styled.form`
+    display: grid;
+    grid-template-columns: 4fr 1fr;
+    gap: 1em;
+    padding: 2em;
+`
+
+const TradeButton = styled.button`
+    grid-row: 5 / 6;
+    grid-column: 1 / 3;
+    background-color: #47485e;
+    color: white;
+    font-weight: bolder;
+    font-size: 1.2em;
+    cursor: pointer;
+    margin: 5px;
+    width: 30%;
+    justify-self: center
+`

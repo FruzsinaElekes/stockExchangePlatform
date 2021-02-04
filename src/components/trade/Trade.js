@@ -99,7 +99,7 @@ export default function Trade(props) {
             {redirect === true 
             ? <Redirect to="/portfolio" /> 
             : <React.Fragment> 
-                Place an order by filling in the form below.
+                <StyledH2>Place an order</StyledH2>
                 <TradeForm symbol={symbol} limitPrice={limitPrice} cout={count} direction={direction} 
                             handleChange={handleChange} handleSubmit={confirmOpen} />
             </React.Fragment>
@@ -120,9 +120,10 @@ export default function Trade(props) {
 
 const TradeDiv = styled.div`
     display: block;
-    margin: auto;
-    border: 2px solid black;
-    width: 50vw
+    margin: 5em auto;
+    border: 2px solid #21255e;
+    box-shadow: 5px 10px 5px #21255e;
+    width: 30vw
 `
 
 
@@ -133,4 +134,9 @@ const ModalContent = styled.div`
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+`
+
+const StyledH2 = styled.h2`
+    text-align: center;
+    color: #21255e
 `
