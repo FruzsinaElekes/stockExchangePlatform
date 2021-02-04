@@ -9,7 +9,6 @@ import {symbolList} from './stocks';
 import './App.css';
 import Trade from './components/trade/Trade';
 import Portfolio from './components/portfolio/Portfolio';
-import History from './components/portfolio/History';
 
 
 function App() {
@@ -27,7 +26,6 @@ function App() {
           <Route exact path="/stock/:symbol" component={DetailedView}></Route>
           <Route path="/trade/:symbol?" component={Trade}></Route>
           <Route path="/portfolio" component={Portfolio}></Route>
-          <Route path="/history/:symbol" component={History}></Route>
         </div>
       </Router>
       </FavProvider>
