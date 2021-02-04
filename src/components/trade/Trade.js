@@ -46,7 +46,8 @@ export default function Trade(props) {
         .then(data => {
             if (data === "COMPLETED") setRedirect(true)
             else {
-                createFeedbackMessage(data)
+                confirmClose();
+                createFeedbackMessage(data);
                 errorOpen();
             }
         })
