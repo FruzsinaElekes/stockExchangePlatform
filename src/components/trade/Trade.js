@@ -2,6 +2,8 @@
 import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import styled from 'styled-components';
+import Modal from '@material-ui/core/Modal';
+
 
 export default function Trade(props) {
 
@@ -10,6 +12,16 @@ export default function Trade(props) {
     const [direction, setDirection] = useState("-");
     const [count, setCount] = useState(0);
     const [redirect, setRedirect] = useState(false);
+    const [open, setOpen] = useState(false);
+    const [error, setError] = useState("")
+
+    const handleOpen = () => {
+        setOpen(true);
+      };
+    
+      const handleClose = () => {
+        setOpen(false);
+      };
 
     const handleSubmit = () => {
         const body = {
@@ -33,7 +45,11 @@ export default function Trade(props) {
             .then(resp => resp.json())
             .then(data => {
                 if (data === "COMPLETED") setRedirect(true)
-                else window.alert(createFeedbackMessage(data))
+                else {
+                    createFeedbackMessage(data)
+                    handleOpen();
+                    // window.alert(createFeedbackMessage(data))
+                }
             })
             .catch(e => console.log(e))
         }
@@ -81,7 +97,7 @@ export default function Trade(props) {
             default:
                 msg += "Invalid data sent in request"
         }
-        return msg;
+        setError(msg);
     }
 
     return (
@@ -118,7 +134,9 @@ export default function Trade(props) {
             </form>
             </React.Fragment>
             }
-
+            <Modal open={open} onClose={handleClose}>
+                <ModalContent>{error}</ModalContent>
+            </Modal>
         </TradeDiv>
     )
 }
@@ -129,4 +147,14 @@ const TradeDiv = styled.div`
     margin: auto;
     border: 2px solid black;
     width: 50vw
+`
+
+
+const ModalContent = styled.div`
+    padding: 2em;
+    background-color:white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 `
