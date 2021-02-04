@@ -4,12 +4,7 @@ import { Redirect } from 'react-router-dom';
 import styled from 'styled-components';
 import Modal from '@material-ui/core/Modal';
 import TradeForm from './TradeForm';
-import { Dialog } from '@material-ui/core';
-import Button from '@material-ui/core/Button';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
+import ConfirmDialog from './ConfirmDialog';
 
 
 export default function Trade(props) {
@@ -108,24 +103,15 @@ export default function Trade(props) {
                             handleChange={handleChange} handleSubmit={confirmOpen} />
             </React.Fragment>
             }
-            <Modal open={open} onClose={errorClose}>
-                <ModalContent>{error}</ModalContent>
-            </Modal>
-            <Dialog open={confirmIsOpen} onClose={confirmClose}>
-                <DialogTitle id="alert-dialog-title">{"Do you want to place the following order?"}</DialogTitle>
-                <DialogContent>
-                    <DialogContentText id="alert-dialog-description">
-                        <p>Symbol: {symbol}</p>
-                        <p>Action: {direction}</p>
-                        <p>Amount: {count}</p>
-                        <p>Limit Price: {limitPrice} USD</p>
-                    </DialogContentText>
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={confirmClose} color="primary">Disagree</Button>
-                    <Button onClick={handleSubmit} color="primary" autoFocus>Agree</Button>
-                </DialogActions>
-            </Dialog>
+            <Modal open={open} onClose={errorClose}><ModalContent>{error}</ModalContent></Modal>
+            <ConfirmDialog 
+                confirmClose={confirmClose}
+                handleSubmit={handleSubmit}
+                confirmIsOpen={confirmIsOpen} 
+                symbol={symbol} 
+                direction={direction} 
+                count={count} 
+                limitPrice={limitPrice}></ConfirmDialog>
         </TradeDiv>
     )
 }
