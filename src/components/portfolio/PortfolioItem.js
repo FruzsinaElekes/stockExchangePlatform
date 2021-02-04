@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
-// import {Link} from 'react-router-dom';
 import Modal from '@material-ui/core/Modal';
 import History from './History';
-// import { makeStyles } from '@material-ui/core/styles';
 
 
 export default function PortfolioItem(props) {
@@ -20,7 +18,6 @@ export default function PortfolioItem(props) {
         <div>
             <p>Symbol: {props.item.symbol}</p>
             <p>Amount: {props.item.amount}</p>
-            {/* <button><Link to={`/history/${props.item.symbol}`}>History</Link></button> */}
             <button onClick={handleOpen}>History</button>
 
             <Modal open={open} onClose={handleClose}>
