@@ -32,8 +32,8 @@ const ModalContent = styled.div`
 `
 
 const Header = styled.tr`
-    border-bottom: 2px solid #21255e;
-    border-top: 2px solid #21255e;
+    border-bottom: 2px solid black;
+    border-top: 2px solid black;
 
 `
 
@@ -42,7 +42,7 @@ const HistoryTable = styled.table`
     border-collapse: collapse;
     padding: 0 3em;
     &:last-child{
-        border-bottom: 2px solid #21255e;
+        border-bottom: 2px solid black;
     }
 
 `
@@ -56,8 +56,8 @@ const Title = styled.div`
 const HeaderCell = styled.th`
     text-align: center;
     padding: 1em 2em;
-    border-bottom: 1px solid #21255e;
-    border-top: 1px solid #21255e;
+    border-bottom: 1px solid black;
+    border-top: 1px solid black;
     border-collapse: collapse;
 `
 

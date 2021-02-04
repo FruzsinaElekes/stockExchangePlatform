@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import Modal from '@material-ui/core/Modal';
 import History from './History';
+import styled from 'styled-components';
+import { Link } from 'react-router-dom';
+
 
 
 export default function PortfolioItem(props) {
@@ -15,15 +18,55 @@ export default function PortfolioItem(props) {
       };
 
     return (
-        <div>
-            <p>Symbol: {props.item.symbol}</p>
+        <PortfolioFlex>
+            <h2>{props.item.symbol}</h2> 
             <p>Amount: {props.item.amount}</p>
-            <button onClick={handleOpen}>History</button>
-
+            <Buttons>
+                <StyledeButton onClick={handleOpen}>History</StyledeButton>
+                <StyledeButton><StyledLink to={`/trade/${props.item.symbol}`}>TRADE</StyledLink></StyledeButton>
+            </Buttons>
             <Modal open={open} onClose={handleClose}>
                 <History transactions={props.transactions} symbol={props.item.symbol}>This is the transaction history modal</History>
             </Modal>
 
-        </div>
+        </PortfolioFlex>
     )
 }
+
+const PortfolioFlex = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin: 3em auto;
+    border: 1px solid #21255e;
+    box-shadow: 5px 10px 5px #21255e;
+    align-items: center
+`
+
+const HistoryButton = styled.button`
+    height:1.5em;
+`
+
+const Buttons = styled.div`
+    width: 30%;
+    display:flex;
+    flex-direction: row;
+    justify-content: space-evenly
+`
+
+const StyledLink = styled(Link)`
+    color: white;
+    text-decoration: none;
+    & :visited{
+        color: white;
+        text-decoration: none
+    }
+`
+const StyledeButton = styled.button`
+    background-color: #21255e;
+    color: white;
+    font-weight: bolder;
+    font-size: 1.2em;
+    cursor: pointer;
+    margin: 5px;
+`

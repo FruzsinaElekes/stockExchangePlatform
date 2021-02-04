@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import PortfolioItem from './PortfolioItem';
 import Summary from './Summary';
+import styled from 'styled-components';
+
 
 export default function Portfolio() {
     let userId = process.env.REACT_APP_USER_ID;
@@ -19,13 +21,19 @@ export default function Portfolio() {
     }, [])
 
     return (
-        <div>
+        <PortfolioDiv>
             {user !== 0 ? <Summary user={user}></Summary> : "Loading"}
             {user !== 0 ? user.portfolio.map(s => <PortfolioItem 
                 key={s.id} 
                 item={s} 
                 transactions={user.orders.filter(o => o.symbol === s.symbol && o.status === 'COMPLETED').map(o => o.stockTransaction)}></PortfolioItem>)
                 : "Loading"}
-        </div>
+        </PortfolioDiv>
     )
 }
+
+
+const PortfolioDiv = styled.div`
+    margin: auto;
+    width: 50%
+`
