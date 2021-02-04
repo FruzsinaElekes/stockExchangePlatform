@@ -4,6 +4,12 @@ import { Redirect } from 'react-router-dom';
 import styled from 'styled-components';
 import Modal from '@material-ui/core/Modal';
 import TradeForm from './TradeForm';
+import { Dialog } from '@material-ui/core';
+import Button from '@material-ui/core/Button';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 
 
 export default function Trade(props) {
@@ -14,15 +20,14 @@ export default function Trade(props) {
     const [count, setCount] = useState(0);
     const [redirect, setRedirect] = useState(false);
     const [open, setOpen] = useState(false);
-    const [error, setError] = useState("")
+    const [error, setError] = useState("");
+    const [confirmIsOpen, setConfirmOpen] = useState(false);
 
-    const handleOpen = () => {
-        setOpen(true);
-      };
+    const errorOpen = () => setOpen(true);
+    const errorClose = () => setOpen(false);
+    const confirmOpen = () => setConfirmOpen(true);
+    const confirmClose = () => setConfirmOpen(false);
     
-      const handleClose = () => {
-        setOpen(false);
-      };
 
     const handleSubmit = () => {
         const body = {
@@ -33,26 +38,24 @@ export default function Trade(props) {
             status: "PENDING",
             count: count
         }
-
-        if (window.confirm(createConfirmMessage(body))){
-            fetch(`http://localhost:8080/trade/${body.user_id}`, {
-                method: "post",
-                body: JSON.stringify(body),
-                headers: {
-                    'Content-Type': 'application/json;charset=utf-8',
-                    'Access-Control-Allow-Origin' : 'http://localhost:8080/trade'
-                  },
-            })
-            .then(resp => resp.json())
-            .then(data => {
-                if (data === "COMPLETED") setRedirect(true)
-                else {
-                    createFeedbackMessage(data)
-                    handleOpen();
-                }
-            })
-            .catch(e => console.log(e))
-        }
+        
+        fetch(`http://localhost:8080/trade/${body.user_id}`, {
+            method: "post",
+            body: JSON.stringify(body),
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8',
+                'Access-Control-Allow-Origin' : 'http://localhost:8080/trade'
+                },
+        })
+        .then(resp => resp.json())
+        .then(data => {
+            if (data === "COMPLETED") setRedirect(true)
+            else {
+                createFeedbackMessage(data)
+                errorOpen();
+            }
+        })
+        .catch(e => console.log(e))
 
     }
 
@@ -72,11 +75,6 @@ export default function Trade(props) {
                 setCount(data);
                 break;
         }
-    }
-
-    const createConfirmMessage = (body) => {
-        return `You are about to place the following order:
-        \nSymbol: ${body.symbol}\nAction: ${body.direction}\nCount: ${body.count}\nLimit Price: ${body.limitPrice}\n\nClick OK to confirm!`
     }
 
     const createFeedbackMessage = (data) => {
@@ -107,12 +105,27 @@ export default function Trade(props) {
             : <React.Fragment> 
                 Place an order by filling in the form below.
                 <TradeForm symbol={symbol} limitPrice={limitPrice} cout={count} direction={direction} 
-                            handleChange={handleChange} handleSubmit={handleSubmit} />
+                            handleChange={handleChange} handleSubmit={confirmOpen} />
             </React.Fragment>
             }
-            <Modal open={open} onClose={handleClose}>
+            <Modal open={open} onClose={errorClose}>
                 <ModalContent>{error}</ModalContent>
             </Modal>
+            <Dialog open={confirmIsOpen} onClose={confirmClose}>
+                <DialogTitle id="alert-dialog-title">{"Do you want to place the following order?"}</DialogTitle>
+                <DialogContent>
+                    <DialogContentText id="alert-dialog-description">
+                        <p>Symbol: {symbol}</p>
+                        <p>Action: {direction}</p>
+                        <p>Amount: {count}</p>
+                        <p>Limit Price: {limitPrice} USD</p>
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={confirmClose} color="primary">Disagree</Button>
+                    <Button onClick={handleSubmit} color="primary" autoFocus>Agree</Button>
+                </DialogActions>
+            </Dialog>
         </TradeDiv>
     )
 }
