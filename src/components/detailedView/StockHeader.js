@@ -25,12 +25,12 @@ export function StockHeader(props) {
                 <Symbol>{stockList[stockData.symbol]} {" (" + stockData.symbol + ")"}</Symbol>
                 <FavouriteDiv stockdata={stockData} symbol={stockData.symbol}/>
                 <FloatDiv>{stockData.latestPrice}</FloatDiv>
-                {/* <FloatDiv>
+                <FloatDiv>
                 <ChangeDiv up={stockData.change >= 0}>
                     {(stockData.change >= 0 ? "+" : "") + stockData.change + " "}
                     {Math.round(stockData.changePercent * 10000)/100 + "%"}
                 </ChangeDiv>
-                </FloatDiv> */}
+                </FloatDiv>
             </SymbolHeader>
         </Card>
         )
@@ -46,13 +46,6 @@ const Symbol = styled.div`
     font-size: 1.8em;
     font-weight: bold;
     margin: 5px;
-`
-
-const Name = styled.span`
-    font-size: 15px;
-    color: grey;
-    padding-top: 1rem;
-    padding-bottom: 1rem;
 `
 
 const FloatDiv = styled.div`

@@ -1,9 +1,12 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import styled from 'styled-components';
 import Card from './Card';
+import { StockDataContext } from '../StockDataContext';
 
 export function StockData(props) {
+    const getData = useContext(StockDataContext)[2]
     const stockData = props.data
+    const priceData = getData(stockData.symbol)
     const lastTrade = new Date(stockData.lastTradeTime)
     const marketCap = new Intl.NumberFormat().format(stockData.marketCap)
     const avgVolume = new Intl.NumberFormat().format(stockData.avgTotalVolume)
@@ -11,7 +14,7 @@ export function StockData(props) {
         <Card>
             <Table>
                 <tbody>
-                    <StyledTr><TdLeft>Current price</TdLeft><TdRight>{stockData.latestPrice}</TdRight></StyledTr>
+                    {priceData && <StyledTr><TdLeft>Current price</TdLeft><TdRight>{priceData.latestPrice}</TdRight></StyledTr>}
                     <StyledTr><TdLeft>Previous close</TdLeft><TdRight>{stockData.previousClose}</TdRight></StyledTr>
                     <StyledTr><TdLeft>Market cap</TdLeft><TdRight>{marketCap}</TdRight></StyledTr>
                     <StyledTr><TdLeft>52 Week range</TdLeft><TdRight>{stockData.week52Low + " - "  + stockData.week52High}</TdRight></StyledTr>

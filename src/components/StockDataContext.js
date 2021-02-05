@@ -10,10 +10,11 @@ export const StockDataProvider = (props) => {
 
     useEffect(() => {
         fetchAll(availableStocks)
-        setInterval(() => {
+        const interval = setInterval(() => {
             fetchAll(availableStocks)
         }, 5000)
-    }, [])
+        return () => clearInterval(interval);
+    }, [availableStocks])
 
 
     async function fetchAll (symbols) {
@@ -27,8 +28,13 @@ export const StockDataProvider = (props) => {
     } 
 
 
+    function getStock(symbol) {
+        const [stock] = stockData.filter(s => s.symbol === symbol)
+        return stock
+    }
+
     return (
-        <StockDataContext.Provider value={[availableStocks, stockData]}>
+        <StockDataContext.Provider value={[availableStocks, stockData, getStock]}>
             {props.children}
         </StockDataContext.Provider>
     )

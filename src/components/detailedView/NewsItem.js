@@ -54,7 +54,7 @@ const ImageContainer = styled.div`
 
 const SourceInfo = styled.div`
     margin: 0.5em 0;
-    font-style: italic
+    font-style: italic;
 `
 
 const Title = styled.a`

@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React from 'react';
 import NewsItem from './NewsItem';
 
 export function News(props) {

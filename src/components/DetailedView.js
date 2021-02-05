@@ -1,7 +1,6 @@
 
 import React, {useState, useEffect} from 'react'
 import {useParams} from 'react-router-dom';
-import axios from 'axios';
 import styled from 'styled-components';
 import {Chart, News, StockData, StockHeader, Video} from './detailedView';
 import {stockList} from '../stocks';

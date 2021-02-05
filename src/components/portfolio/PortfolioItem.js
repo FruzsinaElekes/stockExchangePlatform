@@ -43,10 +43,6 @@ const PortfolioFlex = styled.div`
     align-items: center
 `
 
-const HistoryButton = styled.button`
-    height:1.5em;
-`
-
 const Buttons = styled.div`
     width: 30%;
     display:flex;

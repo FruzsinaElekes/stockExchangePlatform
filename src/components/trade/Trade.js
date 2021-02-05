@@ -70,6 +70,8 @@ export default function Trade(props) {
             case "count":
                 setCount(data);
                 break;
+            default:
+                break;
         }
     }
 

@@ -5,7 +5,7 @@ import styled from 'styled-components';
 
 
 export function ListMain(props) {
-    const [availableStocks, stockData] = useContext(StockDataContext)
+    const stockData = useContext(StockDataContext)[1]
 
     return (
         <ListContainer>

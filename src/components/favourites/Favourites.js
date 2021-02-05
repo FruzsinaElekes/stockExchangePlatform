@@ -5,7 +5,7 @@ import FavItem from "./FavItem";
 
 
 export function Favourites() {
-    const [favourites, addToFav] = useContext(FavContext)
+    const [ favourites ] = useContext(FavContext)
     return (
         <div style={favDivStyle}>
             {favourites.map(f => <FavItem data={f} up={f.change > 0} key={f.symbol}/>)}

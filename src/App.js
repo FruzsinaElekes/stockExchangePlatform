@@ -13,7 +13,7 @@ import Portfolio from './components/portfolio/Portfolio';
 
 function App() {
   const [theme, setTheme] = useState('light')
-  const availableStocks = symbolList.slice(0, 10)
+  const availableStocks = symbolList.slice(0, 7)
 
   return (
     <ThemeProvider theme={themes[theme]}>
