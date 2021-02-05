@@ -1,8 +1,9 @@
-import React, {useContext} from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import Card from './Card';
 import { FavContext } from '../favourites/FavContext'
+import { StockDataContext } from '../StockDataContext';
 
 
 function FavouriteDiv(props) {
@@ -16,21 +17,25 @@ function FavouriteDiv(props) {
 }
 
 export function StockHeader(props) {
+    
     const stockData = props.data
     const stockList = props.names
+    const getData = useContext(StockDataContext)[2]
+    const priceData = getData(stockData.symbol)
 
     return (
         <Card>
             <SymbolHeader>
                 <Symbol>{stockList[stockData.symbol]} {" (" + stockData.symbol + ")"}</Symbol>
                 <FavouriteDiv stockdata={stockData} symbol={stockData.symbol}/>
-                <FloatDiv>{stockData.latestPrice}</FloatDiv>
+                {priceData && <>
+                <FloatDiv>{priceData.latestPrice}</FloatDiv>
                 <FloatDiv>
-                <ChangeDiv up={stockData.change >= 0}>
-                    {(stockData.change >= 0 ? "+" : "") + stockData.change + " "}
-                    {Math.round(stockData.changePercent * 10000)/100 + "%"}
+                <ChangeDiv up={priceData.change >= 0}>
+                    {(priceData.change >= 0 ? "+" : "") + Math.round(priceData.change * 100)/100 + " "}
+                    {Math.round(priceData.changePercent * 10000)/100 + "%"}
                 </ChangeDiv>
-                </FloatDiv>
+                </FloatDiv> </>}
             </SymbolHeader>
         </Card>
         )

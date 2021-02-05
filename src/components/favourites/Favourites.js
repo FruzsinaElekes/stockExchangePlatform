@@ -8,7 +8,7 @@ export function Favourites() {
     const [ favourites ] = useContext(FavContext)
     return (
         <div style={favDivStyle}>
-            {favourites.map(f => <FavItem data={f} up={f.change > 0} key={f.symbol}/>)}
+            {favourites.map(f => <FavItem data={f} key={f.symbol}/>)}
         </div>
     )
 }

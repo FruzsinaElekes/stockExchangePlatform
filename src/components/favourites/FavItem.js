@@ -2,10 +2,14 @@ import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { FavContext } from './FavContext';
 import styled from 'styled-components';
+import { StockDataContext } from '../StockDataContext';
 
 export default function FavItem(props) {
     const [favourites, addToFav, removeFromFav, move] = useContext(FavContext)
-    
+    const getData = useContext(StockDataContext)[2]
+    const priceData = getData(props.data.symbol)
+    const up = priceData ? priceData.change >= 0 : false;
+
     return (
         <React.Fragment>{favourites.length > 0 &&
             <Fav>
@@ -16,18 +20,19 @@ export default function FavItem(props) {
                 <Content>
                     <div>
                         <Symbol to={`/stock/${props.data.symbol}`}>{props.data.symbol}</Symbol>
-                        {props.up? <Icon up={props.up} className="fa fa-caret-up fa-lg"></Icon> : <Icon up={props.up} className="fa fa-caret-down fa-lg"></Icon>}                    
+                        {up? <Icon up={up} className="fa fa-caret-up fa-lg"></Icon> : <Icon up={up} className="fa fa-caret-down fa-lg"></Icon>}                    
                         <UnFavButton onClick={()=>removeFromFav(props.data)}>Unfollow</UnFavButton>
                         <TradeButton><StyledLink to={`/trade/${props.data.symbol}`}>TRADE</StyledLink></TradeButton>
                     </div>
+                    { priceData &&
                     <Details>
                         <Cell>
                             <p>Latest price</p>
-                            <p>{props.data.latestPrice}</p>
+                            <p>{priceData.latestPrice}</p>
                         </Cell>
                         <Cell>
                             <p>Change (%)</p>
-                            <p>{Math.round(props.data.changePercent * 10000)/100 + "%"}</p>
+                            <p>{Math.round(priceData.changePercent * 10000)/100 + "%"}</p>
                         </Cell>
                         <Cell>
                             <p>Previous close</p>
@@ -42,6 +47,7 @@ export default function FavItem(props) {
                             <p>{props.data.marketCap}</p>
                         </Cell>
                     </Details>
+                    }
                 </Content>
             </Fav>
         }    
