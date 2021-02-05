@@ -13,15 +13,16 @@ import Portfolio from './components/portfolio/Portfolio';
 
 function App() {
   const [theme, setTheme] = useState('light')
+  const availableStocks = symbolList.slice(0, 10)
 
   return (
     <ThemeProvider theme={themes[theme]}>
     <FavProvider>
-    <StockDataProvider>
+    <StockDataProvider symbols={availableStocks}>
       <Router>
         <div className="App">
           <Navbar currentTheme={theme} setTheme={setTheme}></Navbar>
-          <ListMain symbols={symbolList.slice(0, 5)}></ListMain>
+          <ListMain></ListMain>
           <Route path="/favourites" component={Favourites}></Route>
           <Route exact path="/" render={()=><SearchBar symbols={symbolList}/>}></Route>
           <Route exact path="/stock/:symbol" component={DetailedView}></Route>

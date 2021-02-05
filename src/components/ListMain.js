@@ -1,16 +1,20 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { StockDataContext } from './StockDataContext';
 import ListItem from './ListItem';
 import styled from 'styled-components';
 
 
 export function ListMain(props) {
+    const [availableStocks, stockData] = useContext(StockDataContext)
+
     return (
         <ListContainer>
+            {stockData && 
             <Center>
                 <List>
-                    {props.symbols.map(s => <ListItem key={props.symbols.indexOf(s)} symbol={s}></ListItem>)}
+                    {stockData.map(s => <ListItem key={stockData.indexOf(s)} symbol={s}></ListItem>)}
                 </List>
-            </Center>
+            </Center>}
         </ListContainer>
     )
 }
