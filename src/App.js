@@ -1,7 +1,7 @@
 import React, {useState } from 'react';
 import {Route, BrowserRouter as Router} from 'react-router-dom';
 import {ThemeProvider} from 'styled-components';
-import {DetailedView, ListMain, Navbar, SearchBar} from './components';
+import {DetailedView, ListMain, Navbar, SearchBar, StockDataProvider} from './components';
 import { FavProvider } from './components/favourites/FavContext';
 import { Favourites } from './components/favourites/Favourites';
 import {themes} from './themes/themes';
@@ -17,6 +17,7 @@ function App() {
   return (
     <ThemeProvider theme={themes[theme]}>
     <FavProvider>
+    <StockDataProvider>
       <Router>
         <div className="App">
           <Navbar currentTheme={theme} setTheme={setTheme}></Navbar>
@@ -28,7 +29,8 @@ function App() {
           <Route path="/portfolio" component={Portfolio}></Route>
         </div>
       </Router>
-      </FavProvider>
+    </StockDataProvider>
+    </FavProvider>
     </ThemeProvider>
   );
 }

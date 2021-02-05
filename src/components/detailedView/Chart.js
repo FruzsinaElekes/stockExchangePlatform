@@ -7,7 +7,7 @@ export function Chart(props) {
     const symbol = props.symbol
     const data = props.chartdata.map(daily => ({x: new Date(daily.date), y: daily.price}))
     const minY = data ? Math.floor(Math.min(...(data.map(point => point.y)))/2) : 0
-
+    
     const options = {
         animationEnabled: true,
         theme: "light2",
@@ -40,7 +40,7 @@ export function Chart(props) {
             type: "area",
             xValueFormatString: "YYYY.MM.DD",
             yValueFormatString: "$##0.00",
-            dataPoints: data
+            dataPoints: data.sort((a, b) => a.x - b.x)
         }]
     }
 
