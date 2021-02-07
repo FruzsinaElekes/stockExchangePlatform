@@ -12,8 +12,10 @@ export default function History(props) {
                     <HeaderCell>Date</HeaderCell>
                     <HeaderCell>Action</HeaderCell>
                     <HeaderCell>Amount</HeaderCell>
-                    <HeaderCell>Price</HeaderCell>
-                    <HeaderCell>Balance change</HeaderCell>
+                    <HeaderCell>Stock Price</HeaderCell>
+                    <HeaderCell>Balance change ({props.currency})</HeaderCell>
+                    <HeaderCell>Stock Count After</HeaderCell>
+                    <HeaderCell>Balance After ({props.currency})</HeaderCell>
                 </Header>
             {props.transactions && props.transactions.map(h => <HistoryItem key={h.id} transaction={h}></HistoryItem>)}
             </HistoryTable>

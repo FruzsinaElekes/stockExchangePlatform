@@ -100,6 +100,7 @@ export default function Trade(props) {
     const handleBadRequest = (response) => {
         if (!response.ok) {
             response.text().then(msg => {
+                confirmClose()
                 setError(msg)
                 errorOpen()
             })

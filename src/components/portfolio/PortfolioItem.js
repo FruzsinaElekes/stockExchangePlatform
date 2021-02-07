@@ -26,7 +26,7 @@ export default function PortfolioItem(props) {
                 <StyledeButton><StyledLink to={`/trade/${props.item.symbol}`}>TRADE</StyledLink></StyledeButton>
             </Buttons>
             <Modal open={open} onClose={handleClose}>
-                <History transactions={props.transactions} symbol={props.item.symbol}>This is the transaction history modal</History>
+                <History transactions={props.transactions} currency={props.currency} symbol={props.item.symbol}>This is the transaction history modal</History>
             </Modal>
 
         </PortfolioFlex>
