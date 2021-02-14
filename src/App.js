@@ -9,6 +9,8 @@ import {symbolList} from './stocks';
 import './App.css';
 import Trade from './components/trade/Trade';
 import Portfolio from './components/portfolio/Portfolio';
+import LoginForm from './components/authentication/LoginForm'
+import RegistrationForm from './components/authentication/RegistrationForm'
 
 
 function App() {
@@ -28,6 +30,8 @@ function App() {
           <Route exact path="/stock/:symbol" component={DetailedView}></Route>
           <Route path="/trade/:symbol?" component={Trade}></Route>
           <Route path="/portfolio" component={Portfolio}></Route>
+          <Route path="/registration" component={RegistrationForm}></Route>
+          <Route path="/login" component={LoginForm}></Route>
         </div>
       </Router>
     </StockDataProvider>
