@@ -1,13 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
+import SymbolInput from './SymbolInput';
 
 
 export default function TradeForm(props) {
-    let {symbol, limitPrice, count, direction, handleChange, handleSubmit} = props
+    let {symbol, limitPrice, count, direction, handleChange, handleSubmit, results, selectSymbol} = props
     return (
-        <StyledForm>
+        <StyledForm autoComplete="off">
             <label>Symbol:</label>
-            <input name="symbol" type="text" value={symbol} onChange={handleChange}></input>
+            <SymbolInput value={symbol} results={results} handleChange={handleChange} selectSymbol={selectSymbol}></SymbolInput>
             <label>Action:</label> 
             <select name="direction" value={direction} onChange={handleChange}>
                 <option value="SELL">SELL</option>
@@ -17,7 +18,7 @@ export default function TradeForm(props) {
             <label>Stock Count:</label>
             <input name="count" type="number" min="0" value={count} onChange={handleChange}></input>
             <label>Limit Price:</label>
-            <input name="price" type="number" min="0" value={limitPrice} onChange={handleChange}></input>
+            <input name="price" type="number" min="0" step="0.01" value={limitPrice} onChange={handleChange}></input>
             <TradeButton type="button" onClick={handleSubmit}>Trade!</TradeButton>
 
         </StyledForm>

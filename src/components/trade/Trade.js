@@ -1,10 +1,11 @@
 
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Redirect } from 'react-router-dom';
 import styled from 'styled-components';
 import Modal from '@material-ui/core/Modal';
 import TradeForm from './TradeForm';
 import ConfirmDialog from './ConfirmDialog';
+import {StockDataContext} from '../StockDataContext';
 
 
 export default function Trade(props) {
@@ -17,11 +18,17 @@ export default function Trade(props) {
     const [open, setOpen] = useState(false);
     const [error, setError] = useState("");
     const [confirmIsOpen, setConfirmOpen] = useState(false);
+    const symbolList = useContext(StockDataContext)[0]
+    const [results, setResults] = useState([]);
 
     const errorOpen = () => setOpen(true);
     const errorClose = () => setOpen(false);
     const confirmOpen = () => setConfirmOpen(true);
     const confirmClose = () => setConfirmOpen(false);
+    const selectSymbol = (symbol) => {
+        setSymbol(symbol);
+        setResults([]);
+    }
     
 
     const handleSubmit = () => {
@@ -66,6 +73,8 @@ export default function Trade(props) {
                 break;
             case "symbol":
                 setSymbol(data);
+                if (!data) setResults([])
+                else setResults(symbolList.filter(item => item.toLowerCase().includes(data.toLowerCase())).slice(0, 10))
                 break;
             case "direction":
                 setDirection(data);
@@ -115,8 +124,8 @@ export default function Trade(props) {
             ? <Redirect to="/portfolio" /> 
             : <React.Fragment> 
                 <StyledH2>Place an order</StyledH2>
-                <TradeForm symbol={symbol} limitPrice={limitPrice} cout={count} direction={direction} 
-                            handleChange={handleChange} handleSubmit={confirmOpen} />
+                <TradeForm symbol={symbol} limitPrice={limitPrice} cout={count} direction={direction} results={results}
+                            selectSymbol={selectSymbol} handleChange={handleChange} handleSubmit={confirmOpen} />
             </React.Fragment>
             }
             <Modal open={open} onClose={errorClose}><ModalContent>{error}</ModalContent></Modal>
