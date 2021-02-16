@@ -42,8 +42,10 @@ export default function Trade(props) {
                 'Access-Control-Allow-Origin' : 'http://localhost:8080/trade'
                 },
         })
-        .then(handleBadRequest)
-        .then(resp => resp.json())
+        .then(resp => {
+            if (!resp.ok) handleBadRequest(resp)
+            else return resp.json()
+            })    
         .then(data => {
             if (data === "COMPLETED") setRedirect(true)
             else {
@@ -98,16 +100,13 @@ export default function Trade(props) {
     }
 
     const handleBadRequest = (response) => {
-        if (!response.ok) {
-            response.text().then(msg => {
-                confirmClose()
-                setError(msg)
-                errorOpen()
-            })
-        }
-        else {
-            return response
-        }
+        response.json()
+        .then(err => {
+            confirmClose()
+            setError(err.message)
+            errorOpen()
+        })
+
     }
 
     return (
