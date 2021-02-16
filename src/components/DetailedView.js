@@ -1,13 +1,14 @@
 
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useContext} from 'react'
 import {useParams} from 'react-router-dom';
 import styled from 'styled-components';
 import {Chart, News, StockData, StockHeader, Video} from './detailedView';
-import {stockList} from '../stocks';
+import { StockDataContext } from './StockDataContext';
 
 
 export function DetailedView() {
     const [stockInfo, setStockInfo] = useState(0)
+    const symbolList = useContext(StockDataContext)[0]
     const {symbol} = useParams();
 
     
@@ -30,7 +31,7 @@ export function DetailedView() {
                 <React.Fragment>
                     <StockDiv>
                         <HeaderDiv>
-                            <StockHeader data={stockInfo} names={stockList}></StockHeader>                          
+                            <StockHeader data={stockInfo} names={symbolList}></StockHeader>                          
                         </HeaderDiv>
                         <DataDiv><StockData data={stockInfo}></StockData></DataDiv>
                         <ChartDiv>

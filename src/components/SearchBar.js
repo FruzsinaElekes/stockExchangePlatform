@@ -1,10 +1,11 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import {Link} from 'react-router-dom'
 import styled from 'styled-components';
 import img1 from '../themes/modern-business-buildings.jpg';
+import { StockDataContext } from './StockDataContext';
 
-export function SearchBar(props) {
-    const symbolList = props.symbols
+export function SearchBar() {
+    const symbolList = useContext(StockDataContext)[0]
     const [results, setResults] = useState([]);
 
     const ResultItem = (props) => (

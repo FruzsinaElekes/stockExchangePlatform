@@ -5,7 +5,6 @@ import {DetailedView, ListMain, Navbar, SearchBar, StockDataProvider} from './co
 import { FavProvider } from './components/favourites/FavContext';
 import { Favourites } from './components/favourites/Favourites';
 import {themes} from './themes/themes';
-import {symbolList} from './stocks';
 import './App.css';
 import Trade from './components/trade/Trade';
 import Portfolio from './components/portfolio/Portfolio';
@@ -13,18 +12,17 @@ import Portfolio from './components/portfolio/Portfolio';
 
 function App() {
   const [theme, setTheme] = useState('light')
-  const availableStocks = symbolList.slice(0, 7)
 
   return (
     <ThemeProvider theme={themes[theme]}>
     <FavProvider>
-    <StockDataProvider symbols={availableStocks}>
+    <StockDataProvider>
       <Router>
         <div className="App">
           <Navbar currentTheme={theme} setTheme={setTheme}></Navbar>
           <ListMain></ListMain>
           <Route path="/favourites" component={Favourites}></Route>
-          <Route exact path="/" render={()=><SearchBar symbols={symbolList}/>}></Route>
+          <Route exact path="/" component={SearchBar}></Route>
           <Route exact path="/stock/:symbol" component={DetailedView}></Route>
           <Route path="/trade/:symbol?" component={Trade}></Route>
           <Route path="/portfolio" component={Portfolio}></Route>
