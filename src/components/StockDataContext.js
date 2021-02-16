@@ -4,26 +4,30 @@ import axios from 'axios';
 export const StockDataContext = createContext();
 
 export const StockDataProvider = (props) => {
-    const availableStocks = props.symbols
-    const [stockData, setStockData] = useState([])
-
+    const [stockList, setStockList] = useState([]);
+    const [stockData, setStockData] = useState([]);
 
     useEffect(() => {
-        fetchAll(availableStocks)
+        axios.get("http://localhost:8080/stock-base-data/list")
+        .then(data => setStockList(data.data))
+    }, [])
+
+    useEffect(() => {
+        fetchAll(stockList)
         const interval = setInterval(() => {
-            fetchAll(availableStocks)
+            fetchAll(stockList)
         }, 5000)
         return () => clearInterval(interval);
-    }, [availableStocks])
+    }, [stockList])
 
 
-    async function fetchAll (symbols) {
-        const data = await Promise.all(symbols.map(symbol => fetchStockData(symbol)))
+    async function fetchAll (stockList) {
+        const data = await Promise.all(stockList.map(stock => fetchStockData(stock.symbol)))
         setStockData(data)
     }
 
     async function fetchStockData (symbol) {
-        const symbolData = await axios.get(`http://localhost:8080/quote/${symbol}`)
+        const symbolData = await axios.get(`http://localhost:8080/stock-change/${symbol}`)
         return symbolData.data
     } 
 
@@ -34,7 +38,7 @@ export const StockDataProvider = (props) => {
     }
 
     return (
-        <StockDataContext.Provider value={[availableStocks, stockData, getStock]}>
+        <StockDataContext.Provider value={[stockList.map(s => s.symbol), stockData, getStock]}>
             {props.children}
         </StockDataContext.Provider>
     )
