@@ -1,22 +1,21 @@
 import React, { useContext, useState, useRef, Fragment } from 'react';
 import { Redirect } from 'react-router-dom';
 import { UserContext } from '../UserContext';
-import { TextField, Button, Checkbox, Typography, FormControlLabel } from "@material-ui/core";
-import Modal from '@material-ui/core/Modal';
+import { TextField, Button, Checkbox, Typography, FormControlLabel, Modal } from "@material-ui/core";
 import styled from 'styled-components';
 
 
 export default function LoginForm(props) {
-    let [userData, setUserData] = useContext(UserContext)
-    const [isLoading, setIsLoading] = useState(false);
-    const [redirect, setRedirect] = useState(false);
-    const [open, setOpen] = useState(false);
-    const [error, setError] = useState("");
-    const errorOpen = () => setOpen(true);
-    const errorClose = () => setOpen(false);
-    const loginEmail = useRef();
-    const loginPassword = useRef();
-    
+    const [userData, setUserData] = useContext(UserContext)
+    const [isLoading, setIsLoading] = useState(false)
+    const [redirect, setRedirect] = useState(false)
+    const [open, setOpen] = useState(false)
+    const [message, setMessage] = useState("")
+    const messageOpen = () => setOpen(true)
+    const messageClose = () => setOpen(false)
+    const loginEmail = useRef()
+    const loginPassword = useRef()
+
     const handleLogin = () => {
         const body = {
             username: loginEmail.current.value,
@@ -43,9 +42,9 @@ export default function LoginForm(props) {
     const handleBadRequest = (response) => {
         if (!response.ok) {
             if (response.status === 403) {
-                setError("Invalid username or password!")
-                errorOpen()
-                throw Error(error)
+                setMessage("Invalid username or password!")
+                messageOpen()
+                throw Error(message)
             }
             throw Error(response.statusText)
         }
@@ -57,7 +56,7 @@ export default function LoginForm(props) {
     return(
     <StyledDiv>
         {redirect === true ? <Redirect to="/" /> : <></>}
-        <Modal open={open} onClose={errorClose}><ModalContent>{error}</ModalContent></Modal>
+        <Modal open={open} onClose={messageClose}><ModalContent>{message}</ModalContent></Modal>
         <Fragment>
         <TextField
             variant="outlined"
