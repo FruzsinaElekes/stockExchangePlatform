@@ -4,7 +4,6 @@ import axios from 'axios';
 export const UserContext = createContext();
 
 export const UserProvider = (props) => {
-    const data = props.symbols
     const [userData, setUserData] = useState([{
         loggedIn: false,
         userName: undefined
@@ -15,7 +14,7 @@ export const UserProvider = (props) => {
     }, [])
 
     return (
-        <UserContext.Provider value={[data]}>
+        <UserContext.Provider value={[userData, setUserData]}>
             {props.children}
         </UserContext.Provider>
     )

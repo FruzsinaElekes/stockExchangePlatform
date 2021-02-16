@@ -4,7 +4,19 @@ import styled from 'styled-components';
 import { UserContext } from './UserContext';
 
 export function Navbar(props) {
-    const userData = useContext(UserContext)
+    const [userData, setUserData] = useContext(UserContext)
+
+    const hanleLogout = () => {
+        setUserData({
+            loggedIn: false,
+            username: undefined
+        })
+        removeCookie("access_token")
+    }
+    
+    const removeCookie = (name) => {
+        document.cookie = `${name}= ; expires = Thu, 01 Jan 1970 00:00:00 GMT`
+    }
 
     return (
         <NavDiv className="navbar">
@@ -15,11 +27,11 @@ export function Navbar(props) {
                 <StyledLink to="/trade">Trade</StyledLink>
                 <StyledLink to="/portfolio">Portfolio</StyledLink>
                 <StyledLink to="/register">Register</StyledLink>
-                <StyledLink to="/logout">Logout</StyledLink>
+                <StyledLink to="/logout" onClick={hanleLogout}>Logout</StyledLink>
             </Fragment>
             }
             {!userData.loggedIn &&
-            <StyledLink to="/login">Login</StyledLink>
+                <StyledLink to="/login">Login</StyledLink>
             }
         </NavDiv>
     )
