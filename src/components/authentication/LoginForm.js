@@ -7,7 +7,6 @@ import styled from 'styled-components';
 
 export default function LoginForm(props) {
     const [userData, setUserData] = useContext(UserContext)
-    const [isLoading, setIsLoading] = useState(false)
     const [redirect, setRedirect] = useState(false)
     const [open, setOpen] = useState(false)
     const [message, setMessage] = useState("")
@@ -15,6 +14,13 @@ export default function LoginForm(props) {
     const messageClose = () => setOpen(false)
     const loginEmail = useRef()
     const loginPassword = useRef()
+    const [validEmailFeedback, setValidEmail] = useState(true)
+    const [validPasswordFeedback, setValidPassword,] = useState(true)
+    const [inputError, setInputError] = useState(true)
+
+    const messages = {
+        invalidUser: "Invalid username or password!"
+    }
 
     const handleLogin = () => {
         const body = {
@@ -42,7 +48,7 @@ export default function LoginForm(props) {
     const handleBadRequest = (response) => {
         if (!response.ok) {
             if (response.status === 403) {
-                setMessage("Invalid username or password!")
+                setMessage(messages.invalidUser)
                 messageOpen()
                 throw Error(message)
             }
@@ -51,6 +57,20 @@ export default function LoginForm(props) {
         else {
             return response
         }
+    }
+
+
+    const emailIsValid = () => {
+        const email = loginEmail.current.value;
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+    }
+
+    const passwordIsValid = () => {
+        return loginPassword.current.value.length !== 0
+    }
+
+    const checkInput = () => {
+        setInputError(!emailIsValid() || !passwordIsValid())
     }
 
     return(
@@ -68,7 +88,12 @@ export default function LoginForm(props) {
             autoFocus
             autoComplete="off"
             type="email"
-            FormHelperTextProps={{ error: true }}
+            error={!validEmailFeedback}
+            onChange={ () => {
+                setValidEmail(emailIsValid())
+                checkInput()
+            }}
+            helperText={validEmailFeedback ? "" : "Invalid email"}
         />
         <TextField
             variant="outlined"
@@ -79,13 +104,12 @@ export default function LoginForm(props) {
             type="password"
             inputRef={loginPassword}
             autoComplete="off"
-            onChange={() => {
+            error={!validPasswordFeedback}
+            onChange={ () => {
+                setValidPassword(passwordIsValid())
+                checkInput()
             }}
-            FormHelperTextProps={{ error: true }}
-        />
-        <FormControlLabel
-            control={<Checkbox color="primary" />}
-            label={<Typography variant="body1">Remember me</Typography>}
+            helperText={validPasswordFeedback ? "" : "Invalid password input"}
         />
         </Fragment>
         <Fragment>
@@ -94,12 +118,11 @@ export default function LoginForm(props) {
             fullWidth
             variant="contained"
             color="secondary"
-            disabled={isLoading}
+            disabled={inputError}
             size="large"
             onClick={handleLogin}
         >
             Login
-            {isLoading && <div />}
         </Button>
         <Typography
             align="center"

@@ -22,10 +22,16 @@ export default function RegistrationForm(props) {
     const [validLastNameFeedback, setValidLastName] = useState(true)
     const [validPasswordFeedback, setValidPassword,] = useState(true)
 
+    const messages = {
+        invalidInput: "Invalid data provided! Please check your inputs!",
+        serverError: "Server could not complete the registration! Please try again later!",
+        userExists: "Username already taken!"
+    }
+
     const handleRegister = () => {
 
         if (!validFormData()) {
-            alert("Invalid data provided! Please check your inputs!")
+            alert(messages.invalidInput)
             return
         }
 
@@ -47,7 +53,7 @@ export default function RegistrationForm(props) {
                     setRedirect(true)
                 }
                 else {
-                    setMessage("Server could not complete the registration! Please try again later!")
+                    setMessage(messages.serverError)
                     messageOpen()
                 }
             })
@@ -57,7 +63,7 @@ export default function RegistrationForm(props) {
     const handleBadRequest = (response) => {
         if (!response.ok) {
             if (response.status === 409) {
-                setMessage("Username already taken!")
+                setMessage(messages.userExists)
                 messageOpen()
                 throw Error(message)
             }
