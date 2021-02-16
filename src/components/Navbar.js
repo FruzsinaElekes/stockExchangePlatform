@@ -6,14 +6,14 @@ import { UserContext } from './UserContext';
 export function Navbar(props) {
     const [userData, setUserData] = useContext(UserContext)
 
-    const hanleLogout = () => {
+    const handleLogout = () => {
         setUserData({
             loggedIn: false,
             username: undefined
         })
         removeCookie("access_token")
     }
-    
+
     const removeCookie = (name) => {
         document.cookie = `${name}= ; expires = Thu, 01 Jan 1970 00:00:00 GMT`
     }
@@ -27,7 +27,7 @@ export function Navbar(props) {
                 <StyledLink to="/trade">Trade</StyledLink>
                 <StyledLink to="/portfolio">Portfolio</StyledLink>
                 <StyledLink to="/register">Register</StyledLink>
-                <StyledLink to="/logout" onClick={hanleLogout}>Logout</StyledLink>
+                <StyledLink to="/logout" onClick={handleLogout}>Logout</StyledLink>
             </Fragment>
             }
             {!userData.loggedIn &&

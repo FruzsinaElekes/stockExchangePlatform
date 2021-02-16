@@ -1,36 +1,43 @@
 import React, { useContext, useState, useRef, Fragment } from 'react';
-import { Link } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import { UserContext } from '../UserContext';
 import { TextField, Button, Checkbox, Typography, FormControlLabel } from "@material-ui/core";
 import styled from 'styled-components';
-import axios from 'axios';
 
 
 export default function LoginForm(props) {
     let [userData, setUserData] = useContext(UserContext)
     const [isLoading, setIsLoading] = useState(false);
+    const [redirect, setRedirect] = useState(false);
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
     const loginEmail = useRef();
     const loginPassword = useRef();
 
     const handleLogin = () => {
-        axios.post("http://localhost:8080/login", {
-                username: "test@email.hu",
-                password: "safe"
+        const body = {
+            username: loginEmail.current.value,
+            password: loginPassword.current.value
+        }
+        fetch("http://localhost:8080/login", {
+                method: "post",
+                body: JSON.stringify(body),
+                headers: {'Content-Type': 'application/json;charset=utf-8'}
             })
+            .then(resp => resp.json())
             .then(response => {
-                document.cookie = `access_token=${response.data.token}`
                 setUserData({
                     loggedIn: true,
-                    username: response.data.username
+                    username: response.username
                 })
-                console.log(userData)
+                document.cookie = `access_token=${response.token}`
+                setRedirect(true)
             })
-            .then(console.log(document.cookie))
+            .catch(error => console.log(error))
     }
 
     return(
     <StyledDiv>
+        {redirect === true ? <Redirect to="/" /> : <></>} 
         <Fragment>
         <TextField
             variant="outlined"
