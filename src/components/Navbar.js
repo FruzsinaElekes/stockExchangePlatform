@@ -10,6 +10,8 @@ export function Navbar(props) {
             <StyledLink to="/favourites">Favourites</StyledLink>
             <StyledLink to="/trade">Trade</StyledLink>
             <StyledLink to="/portfolio">Portfolio</StyledLink>
+            <StyledLink to="/register">Register</StyledLink>
+            <StyledLink to="/login">Login</StyledLink>
         </NavDiv>
     )
 }

@@ -30,7 +30,7 @@ function App() {
           <Route exact path="/stock/:symbol" component={DetailedView}></Route>
           <Route path="/trade/:symbol?" component={Trade}></Route>
           <Route path="/portfolio" component={Portfolio}></Route>
-          <Route path="/registration" component={RegistrationForm}></Route>
+          <Route path="/register" component={RegistrationForm}></Route>
           <Route path="/login" component={LoginForm}></Route>
         </div>
       </Router>
