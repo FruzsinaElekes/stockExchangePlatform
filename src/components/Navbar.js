@@ -1,17 +1,26 @@
-import React from 'react'
-import {Link} from 'react-router-dom'
+import React, { useContext, Fragment } from 'react'
+import { Link } from 'react-router-dom'
 import styled from 'styled-components';
+import { UserContext } from './UserContext';
 
 export function Navbar(props) {
+    const userData = useContext(UserContext)
 
     return (
         <NavDiv className="navbar">
             <StyledLink to="/">Home</StyledLink>
             <StyledLink to="/favourites">Favourites</StyledLink>
-            <StyledLink to="/trade">Trade</StyledLink>
-            <StyledLink to="/portfolio">Portfolio</StyledLink>
-            <StyledLink to="/register">Register</StyledLink>
+            {userData.loggedIn &&
+            <Fragment>
+                <StyledLink to="/trade">Trade</StyledLink>
+                <StyledLink to="/portfolio">Portfolio</StyledLink>
+                <StyledLink to="/register">Register</StyledLink>
+                <StyledLink to="/logout">Logout</StyledLink>
+            </Fragment>
+            }
+            {!userData.loggedIn &&
             <StyledLink to="/login">Login</StyledLink>
+            }
         </NavDiv>
     )
 }
