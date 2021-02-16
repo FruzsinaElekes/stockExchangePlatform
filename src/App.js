@@ -1,7 +1,7 @@
 import React, {useState } from 'react';
 import {Route, BrowserRouter as Router} from 'react-router-dom';
 import {ThemeProvider} from 'styled-components';
-import {DetailedView, ListMain, Navbar, SearchBar, StockDataProvider} from './components';
+import {DetailedView, ListMain, Navbar, SearchBar, StockDataProvider, UserProvider} from './components';
 import { FavProvider } from './components/favourites/FavContext';
 import { Favourites } from './components/favourites/Favourites';
 import {themes} from './themes/themes';
@@ -19,6 +19,7 @@ function App() {
 
   return (
     <ThemeProvider theme={themes[theme]}>
+    <UserProvider>
     <FavProvider>
     <StockDataProvider symbols={availableStocks}>
       <Router>
@@ -36,6 +37,7 @@ function App() {
       </Router>
     </StockDataProvider>
     </FavProvider>
+    </UserProvider>
     </ThemeProvider>
   );
 }
