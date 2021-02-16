@@ -12,11 +12,11 @@ export default function LoginForm(props) {
     const [redirect, setRedirect] = useState(false);
     const [open, setOpen] = useState(false);
     const [error, setError] = useState("");
-    const loginEmail = useRef();
-    const loginPassword = useRef();
     const errorOpen = () => setOpen(true);
     const errorClose = () => setOpen(false);
-
+    const loginEmail = useRef();
+    const loginPassword = useRef();
+    
     const handleLogin = () => {
         const body = {
             username: loginEmail.current.value,
