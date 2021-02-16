@@ -1,7 +1,7 @@
 import React, { useContext, useState, useRef, Fragment } from 'react';
 import { Redirect } from 'react-router-dom';
 import { UserContext } from '../UserContext';
-import { TextField, Button, Checkbox, Typography, FormControlLabel, Modal } from "@material-ui/core";
+import { TextField, Button, Typography, Modal } from "@material-ui/core";
 import styled from 'styled-components';
 
 

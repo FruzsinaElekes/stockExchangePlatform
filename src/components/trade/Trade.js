@@ -6,7 +6,6 @@ import Modal from '@material-ui/core/Modal';
 import TradeForm from './TradeForm';
 import ConfirmDialog from './ConfirmDialog';
 
-
 export default function Trade(props) {
 
     const [symbol , setSymbol] = useState(props.match.params.symbol ? props.match.params.symbol : "");
@@ -33,13 +32,15 @@ export default function Trade(props) {
             status: "PENDING",
             count: count
         }
+
+        const token = document.cookie.split('; ').find(row => row.startsWith('access_token=')).split('=')[1];
         
         fetch(`http://localhost:8080/trade/${body.user_id}`, {
             method: "post",
             body: JSON.stringify(body),
             headers: {
+                'Authorization': 'Bearer ' + token,
                 'Content-Type': 'application/json;charset=utf-8',
-                'Access-Control-Allow-Origin' : 'http://localhost:8080/trade'
                 },
         })
         .then(handleBadRequest)
