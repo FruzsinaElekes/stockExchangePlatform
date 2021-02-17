@@ -1,15 +1,40 @@
-import React from 'react'
-import {Link} from 'react-router-dom'
+import React, { useContext, Fragment } from 'react'
+import { Link } from 'react-router-dom'
 import styled from 'styled-components';
+import { UserContext } from './UserContext';
 
 export function Navbar(props) {
+    const [userData, setUserData] = useContext(UserContext)
+
+    const handleLogout = () => {
+        setUserData({
+            loggedIn: false,
+            username: undefined
+        })
+        removeCookie("access_token")
+    }
+
+    const removeCookie = (name) => {
+        document.cookie = `${name}= ; expires = Thu, 01 Jan 1970 00:00:00 GMT`
+    }
 
     return (
         <NavDiv className="navbar">
             <StyledLink to="/">Home</StyledLink>
             <StyledLink to="/favourites">Favourites</StyledLink>
-            <StyledLink to="/trade">Trade</StyledLink>
-            <StyledLink to="/portfolio">Portfolio</StyledLink>
+            {userData.loggedIn &&
+            <Fragment>
+                <StyledLink to="/trade">Trade</StyledLink>
+                <StyledLink to="/portfolio">Portfolio</StyledLink>
+                <StyledLink to="/logout" onClick={handleLogout}>Logout</StyledLink>
+            </Fragment>
+            }
+            {!userData.loggedIn &&
+            <Fragment>
+                <StyledLink to="/register">Register</StyledLink>
+                <StyledLink to="/login">Login</StyledLink>
+            </Fragment>
+            }
         </NavDiv>
     )
 }
