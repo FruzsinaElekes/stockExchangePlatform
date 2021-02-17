@@ -6,10 +6,10 @@ export default function SymbolInput(props) {
         <React.Fragment>
             <div>
                 <SearchDiv>
-                    <input name="symbol" type="text" value={props.value} onChange={props.handleChange}></input>
+                    <input name="symbol" type="text" placeholder="start typeing then select!" value={props.value} onChange={props.handleChange}></input>
                 </SearchDiv>
                 <DropDownDiv>
-                    <DropDownList>
+                    <DropDownList leng={props.results.length}>
                         {props.results && props.results.map(symbol => <Choice onClick={()=>props.selectSymbol(symbol)}>{symbol}</Choice>)}
                     </DropDownList>
                 </DropDownDiv>
@@ -19,6 +19,7 @@ export default function SymbolInput(props) {
 }
 
 const Choice = styled.li`
+    width: 100%;
     list-style-type: none;
     padding: 2px;
      :hover{
@@ -35,12 +36,11 @@ const DropDownDiv = styled.div`
 `
 
  const DropDownList = styled.div`
-    display: block;
+    display: ${props => props.leng > 0? "inline-block" : "none"};
     position: absolute;
-    background-color: rgba(255, 255, 255);
-    width: 150px;
-    display: inline-block;
-    /* border: 2px solid #21255e;
-    border-radius: 0 0 3px 3px; */
+    background-color: aliceblue;
+    width: 100%;
+    border: 2px solid #21255e;
+    border-radius: 0 0 5px 5px;
 
  `
