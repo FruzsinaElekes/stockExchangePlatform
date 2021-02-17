@@ -26,7 +26,7 @@ export function Navbar(props) {
             <Fragment>
                 <StyledLink to="/trade">Trade</StyledLink>
                 <StyledLink to="/portfolio">Portfolio</StyledLink>
-                <StyledLink to="/logout" onClick={handleLogout}>Logout</StyledLink>
+                <StyledLink to="/" onClick={handleLogout}>Logout</StyledLink>
             </Fragment>
             }
             {!userData.loggedIn &&
