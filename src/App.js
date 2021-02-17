@@ -8,8 +8,9 @@ import {themes} from './themes/themes';
 import './App.css';
 import Trade from './components/trade/Trade';
 import Portfolio from './components/portfolio/Portfolio';
-import LoginForm from './components/authentication/LoginForm'
-import RegistrationForm from './components/authentication/RegistrationForm'
+import LoginForm from './components/authentication/LoginForm';
+import RegistrationForm from './components/authentication/RegistrationForm';
+import AboutPage from './components/AboutPage';
 
 
 function App() {
@@ -31,6 +32,7 @@ function App() {
           <Route path="/portfolio" component={Portfolio}></Route>
           <Route path="/register" component={RegistrationForm}></Route>
           <Route path="/login" component={LoginForm}></Route>
+          <Route path="/about" component={AboutPage}></Route>
         </div>
       </Router>
     </StockDataProvider>
