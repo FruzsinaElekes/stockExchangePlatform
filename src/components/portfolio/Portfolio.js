@@ -32,7 +32,8 @@ export default function Portfolio() {
                 {user !== 0 ? user.portfolio.map(s => <PortfolioItem 
                     key={s.id} 
                     item={s} 
-                    transactions={user.orders.filter(o => o.symbol === s.symbol && o.status === 'COMPLETED').map(o => o.stockTransaction)}></PortfolioItem>)
+                    currency={user.account.currency}
+                    transactions={user.userHistoryList.filter(o => o.symbol === s.symbol)}></PortfolioItem>)
                     : "Loading"}
             </PortfolioDiv>}
         </Fragment>
