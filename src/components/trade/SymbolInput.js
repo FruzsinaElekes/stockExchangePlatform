@@ -10,7 +10,7 @@ export default function SymbolInput(props) {
                 </SearchDiv>
                 <DropDownDiv>
                     <DropDownList leng={props.results.length}>
-                        {props.results && props.results.map(symbol => <Choice onClick={()=>props.selectSymbol(symbol)}>{symbol}</Choice>)}
+                        {props.results && props.results.map(symbol => <Choice key={symbol} onClick={()=>props.selectSymbol(symbol)}>{symbol}</Choice>)}
                     </DropDownList>
                 </DropDownDiv>
             </div>
