@@ -16,10 +16,10 @@ export default function ConfirmDialog(props) {
                 <DialogTitle id="alert-dialog-title">{"Do you want to place the following order?"}</DialogTitle>
                 <DialogContent>
                     <DialogContentText id="alert-dialog-description">
-                        <p>Symbol: {symbol}</p>
-                        <p>Action: {direction}</p>
-                        <p>Amount: {count}</p>
-                        <p>Limit Price: {limitPrice} USD</p>
+                        <span>Symbol: {symbol}</span><br/>
+                        <span>Action: {direction}</span><br/>
+                        <span>Amount: {count}</span><br/>
+                        <span>Limit Price: {limitPrice} USD</span><br/>
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
