@@ -9,7 +9,7 @@ export default function Summary(props) {
     let stockValue
     
     const getStockPrice = (symbol) => {
-        const [stock] = stockData.filter(s => s.symbol == symbol)
+        const [stock] = stockData.filter(s => s.symbol === symbol)
         return stock.latestPrice
     }
 

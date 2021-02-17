@@ -7,7 +7,7 @@ import styled from 'styled-components';
 
 export default function Portfolio() {
     let userId = process.env.REACT_APP_USER_ID;
-    const [userData, setUserData] = useContext(UserContext)
+    const userData = useContext(UserContext)[0]
     const [user, setUser] = useState(0)
 
     useEffect(()=>{

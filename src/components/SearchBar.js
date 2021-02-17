@@ -32,7 +32,7 @@ export function SearchBar() {
                 </SearchDiv>
                 <DropDownDiv>
                     <DropDownList>
-                        {results && results.map(symbol => <ResultItem symbol={symbol} />)}
+                        {results && results.map(symbol => <ResultItem key={symbol} symbol={symbol} />)}
                     </DropDownList>
                 </DropDownDiv>
             </WrapperDiv>

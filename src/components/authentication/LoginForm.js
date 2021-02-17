@@ -6,7 +6,7 @@ import styled from 'styled-components';
 
 
 export default function LoginForm(props) {
-    const [userData, setUserData] = useContext(UserContext)
+    const setUserData = useContext(UserContext)[1]
     const [redirect, setRedirect] = useState(false)
     const [open, setOpen] = useState(false)
     const [message, setMessage] = useState("")
