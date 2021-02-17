@@ -16,7 +16,7 @@ export default function TradeForm(props) {
                 <option value="-">---</option>
             </select>
             <label>Stock Count:</label>
-            <input name="count" type="number" min="0" value={count} onChange={handleChange}></input>
+            <input name="count" type="number" min="1" step="1" value={count} onChange={handleChange}></input>
             <label>Limit Price:</label>
             <input name="price" type="number" min="0" step="0.01" value={limitPrice} onChange={handleChange}></input>
             <TradeButton type="button" onClick={handleSubmit}>Trade!</TradeButton>

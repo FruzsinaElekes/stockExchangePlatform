@@ -12,7 +12,7 @@ export default function Trade(props) {
     const [symbol , setSymbol] = useState(props.match.params.symbol ? props.match.params.symbol : "");
     const [limitPrice, setLimitPrice] = useState(0);
     const [direction, setDirection] = useState("-");
-    const [count, setCount] = useState(0);
+    const [count, setCount] = useState(1);
     const [redirect, setRedirect] = useState(false);
     const [open, setOpen] = useState(false);
     const [error, setError] = useState("");
@@ -125,7 +125,7 @@ export default function Trade(props) {
             ? <Redirect to="/portfolio" /> 
             : <React.Fragment> 
                 <StyledH2>Place an order</StyledH2>
-                <TradeForm symbol={symbol} limitPrice={limitPrice} cout={count} direction={direction} results={results}
+                <TradeForm symbol={symbol} limitPrice={limitPrice} count={count} direction={direction} results={results}
                             selectSymbol={selectSymbol} handleChange={handleChange} handleSubmit={confirmOpen} />
             </React.Fragment>
             }
