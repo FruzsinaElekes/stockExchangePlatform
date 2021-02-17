@@ -22,19 +22,18 @@ export function Navbar(props) {
         <NavDiv className="navbar">
             <StyledLink to="/">Home</StyledLink>
             <StyledLink to="/favourites">Favourites</StyledLink>
-            {userData.loggedIn &&
-            <Fragment>
+            {userData.loggedIn
+            ? <Fragment>
                 <StyledLink to="/trade">Trade</StyledLink>
                 <StyledLink to="/portfolio">Portfolio</StyledLink>
                 <StyledLink to="/" onClick={handleLogout}>Logout</StyledLink>
             </Fragment>
-            }
-            {!userData.loggedIn &&
-            <Fragment>
+            : <Fragment>
                 <StyledLink to="/register">Register</StyledLink>
                 <StyledLink to="/login">Login</StyledLink>
             </Fragment>
             }
+            <StyledLink to="/about">About</StyledLink>
         </NavDiv>
     )
 }
