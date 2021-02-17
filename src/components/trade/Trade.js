@@ -32,7 +32,6 @@ export default function Trade(props) {
 
     const handleSubmit = () => {
         const body = {
-            user_id: process.env.REACT_APP_USER_ID,
             symbol: symbol,
             limitPrice: limitPrice,
             direction: direction,
@@ -42,7 +41,7 @@ export default function Trade(props) {
 
         const token = document.cookie.split('; ').find(row => row.startsWith('access_token=')).split('=')[1];
         
-        fetch(`http://localhost:8080/trade/${body.user_id}`, {
+        fetch(`http://localhost:8080/trade`, {
             method: "post",
             body: JSON.stringify(body),
             headers: {
