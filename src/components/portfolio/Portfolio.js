@@ -10,16 +10,18 @@ export default function Portfolio() {
     const [user, setUser] = useState(0)
 
     useEffect(()=>{
-        const token = document.cookie.split('; ').find(row => row.startsWith('access_token=')).split('=')[1];
-        fetch(`http://localhost:8080/user`, {
-                headers: {
-                    'Authorization': 'Bearer ' + token,
-                    'Content-Type': 'application/json;charset=utf-8'
-                  }
-            })
-            .then(resp => resp.json())
-            .then(data => setUser(data))
-            .catch(e => console.log(e))
+        if (document.cookie) {
+            const token = document.cookie.split('; ').find(row => row.startsWith('access_token=')).split('=')[1];
+            fetch(`http://localhost:8080/user`, {
+                    headers: {
+                        'Authorization': 'Bearer ' + token,
+                        'Content-Type': 'application/json;charset=utf-8'
+                    }
+                })
+                .then(resp => resp.json())
+                .then(data => setUser(data))
+                .catch(e => console.log(e))
+        }
     }, [])
 
     return (

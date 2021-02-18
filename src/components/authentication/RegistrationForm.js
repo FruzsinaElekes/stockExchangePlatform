@@ -216,6 +216,7 @@ const StyledDiv = styled.div`
     margin: auto auto;
     width: 400px;
 `
+
 const ModalContent = styled.div`
     padding: 2em;
     background-color:white;

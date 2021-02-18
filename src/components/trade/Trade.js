@@ -39,6 +39,7 @@ export default function Trade(props) {
             count: count
         }
 
+        if (!document.cookie) return
         const token = document.cookie.split('; ').find(row => row.startsWith('access_token=')).split('=')[1];
         
         fetch(`http://localhost:8080/trade`, {
@@ -149,7 +150,6 @@ const TradeDiv = styled.div`
     box-shadow: 5px 10px 5px #21255e;
     width: 30vw
 `
-
 
 const ModalContent = styled.div`
     padding: 2em;
