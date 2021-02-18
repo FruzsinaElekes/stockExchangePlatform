@@ -59,7 +59,6 @@ export default function LoginForm(props) {
         }
     }
 
-
     const emailIsValid = () => {
         const email = loginEmail.current.value;
         return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
@@ -75,7 +74,7 @@ export default function LoginForm(props) {
 
     return(
     <StyledDiv>
-        {redirect === true ? <Redirect to="/" /> : <></>}
+        {redirect && <Redirect to="/portfolio" />}
         <Modal open={open} onClose={messageClose}><ModalContent>{message}</ModalContent></Modal>
         <Fragment>
         <TextField
@@ -136,7 +135,6 @@ export default function LoginForm(props) {
     </StyledDiv>
   );
 }
-
 
 const StyledDiv = styled.div`
     margin: auto auto;
