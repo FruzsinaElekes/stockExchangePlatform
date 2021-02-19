@@ -101,8 +101,6 @@ export default function RegistrationForm(props) {
                passwordIsValid()
     }
 
-
-
     return(
     <StyledDiv>
         {redirect === true ? <Redirect to="/login" /> : <></>}
@@ -189,7 +187,6 @@ export default function RegistrationForm(props) {
             <Typography variant="body1">
                 I agree to the
                 <span
-    
                 tabIndex={0}
                 role="button"
                 >
@@ -219,6 +216,7 @@ const StyledDiv = styled.div`
     margin: auto auto;
     width: 400px;
 `
+
 const ModalContent = styled.div`
     padding: 2em;
     background-color:white;

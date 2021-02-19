@@ -8,8 +8,13 @@ export const UserProvider = (props) => {
         userName: undefined
     }])
 
-
     useEffect(() => {
+        if (document.cookie) {
+            const token = document.cookie.split('; ').find(row => row.startsWith('access_token=')).split('=')[1];
+            if (token) {
+                setUserData({loggedIn: true, userName: undefined})
+            }
+        }
     }, [])
 
     return (

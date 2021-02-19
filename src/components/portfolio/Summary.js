@@ -43,8 +43,10 @@ const TdRight = styled.td`
     padding: 10px;
     text-align: right;
 `
+
 const StyledTr = styled.tr`
 `
+
 const Table = styled.table`
     border-spacing: 20px;
     @media (max-width: 768px){
