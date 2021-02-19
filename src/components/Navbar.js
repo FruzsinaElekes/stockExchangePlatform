@@ -33,6 +33,7 @@ export function Navbar(props) {
                     <StyledLink to="/login">Login</StyledLink>
                 </Fragment>
             }
+            <StyledLink to="/about">About</StyledLink>
         </NavDiv>
     )
 }

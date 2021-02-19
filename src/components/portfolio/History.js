@@ -17,7 +17,9 @@ export default function History(props) {
                     <HeaderCell>Stock Count After</HeaderCell>
                     <HeaderCell>Balance After ({props.currency})</HeaderCell>
                 </Header>
-            {props.transactions && props.transactions.map(h => <HistoryItem key={h.id} transaction={h}></HistoryItem>)}
+                <tbody>
+                    {props.transactions && props.transactions.map(h => <HistoryItem key={h.id} transaction={h}></HistoryItem>)}
+                </tbody>
             </HistoryTable>
         </ModalContent>
     )
