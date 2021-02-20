@@ -6,7 +6,7 @@ export default function Summary(props) {
 
     const stockData = useContext(StockDataContext)[1]
     const accountBalance = props.user.account.balance
-    let stockValue
+    let stockValue = 0
     
     const getStockPrice = (symbol) => {
         const [stock] = stockData.filter(s => s.symbol === symbol)
@@ -21,11 +21,9 @@ export default function Summary(props) {
         <Table>
             <tbody>
                 <StyledTr><TdLeft>Name: </TdLeft><TdRight>{props.user.firstName} {props.user.lastName}</TdRight></StyledTr>
-                <StyledTr><TdLeft>Balance: </TdLeft><TdRight>{accountBalance} {props.user.account.currency}</TdRight></StyledTr>
-                {stockValue && <>
-                <StyledTr><TdLeft>Stock: </TdLeft><TdRight>{stockValue} USD</TdRight></StyledTr>
-                <StyledTr><TdLeft>Total worth: </TdLeft><TdRight>{stockValue + accountBalance} USD</TdRight></StyledTr>
-                </>}
+                <StyledTr><TdLeft>Balance: </TdLeft><TdRight>{accountBalance.toFixed(2)} {props.user.account.currency}</TdRight></StyledTr>
+                <StyledTr><TdLeft>Stock: </TdLeft><TdRight>{stockValue.toFixed(2)} USD</TdRight></StyledTr>
+                <StyledTr><TdLeft>Total worth: </TdLeft><TdRight>{(stockValue + accountBalance).toFixed(2)} USD</TdRight></StyledTr>
             </tbody>
         </Table>
     )
