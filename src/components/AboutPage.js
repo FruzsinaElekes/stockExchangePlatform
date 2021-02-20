@@ -5,9 +5,10 @@ import ReactMarkdown from "react-markdown";
 export default function AboutPage() {
 
     const [about, setAbout] = useState("")
+    const aboutRoute = process.env.REACT_APP_ORIGIN + process.env.REACT_APP_ABOUT_ROUTE + process.env.REACT_APP_LANGUAGE
 
     useEffect(() => {
-        fetch("http://localhost:8080/about/en")
+        fetch(aboutRoute)
         .then(resp => resp.json())
         .then(data => setAbout(data.details))
     }, [about])

@@ -6,9 +6,11 @@ export const StockDataContext = createContext();
 export const StockDataProvider = (props) => {
     const [stockList, setStockList] = useState([]);
     const [stockData, setStockData] = useState([]);
+    const stockBaseRoute = process.env.REACT_APP_ORIGIN + process.env.REACT_APP_STOCK_BASE_ROUTE
+    const stockChangeRoute = process.env.REACT_APP_ORIGIN + process.env.REACT_APP_STOCK_CHANGE_ROUTE
 
     useEffect(() => {
-        axios.get("http://localhost:8080/stock-base-data/list")
+        axios.get(stockBaseRoute)
         .then(data => setStockList(data.data))
     }, [])
 
@@ -27,7 +29,7 @@ export const StockDataProvider = (props) => {
     }
 
     async function fetchStockData (symbol) {
-        const symbolData = await axios.get(`http://localhost:8080/stock-change/${symbol}`)
+        const symbolData = await axios.get(stockChangeRoute + symbol)
         return symbolData.data
     } 
 

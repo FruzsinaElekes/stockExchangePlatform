@@ -8,11 +8,12 @@ import styled from 'styled-components';
 export default function Portfolio() {
     const userData = useContext(UserContext)[0]
     const [user, setUser] = useState(0)
+    const userRoute = process.env.REACT_APP_ORIGIN + process.env.REACT_APP_USER_ROUTE
 
     useEffect(()=>{
         if (document.cookie) {
             const token = document.cookie.split('; ').find(row => row.startsWith('access_token=')).split('=')[1];
-            fetch(`http://localhost:8080/user`, {
+            fetch(userRoute, {
                     headers: {
                         'Authorization': 'Bearer ' + token,
                         'Content-Type': 'application/json;charset=utf-8'

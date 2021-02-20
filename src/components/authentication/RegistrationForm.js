@@ -10,6 +10,7 @@ export default function RegistrationForm(props) {
     const [message, setMessage] = useState("")
     const messageOpen = () => setOpen(true)
     const messageClose = () => setOpen(false)
+    const registrationRoute = process.env.REACT_APP_ORIGIN + process.env.REACT_APP_REGISTER_ROUTE
     
     const registerFirstName = useRef()
     const registerLastName = useRef()
@@ -41,7 +42,7 @@ export default function RegistrationForm(props) {
             username: registerEmail.current.value,
             password: registerPassword.current.value
         }
-        fetch("http://localhost:8080/register", {
+        fetch(registrationRoute, {
                 method: "post",
                 body: JSON.stringify(body),
                 headers: {'Content-Type': 'application/json;charset=utf-8'}

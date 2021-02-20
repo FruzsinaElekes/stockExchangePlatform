@@ -17,6 +17,9 @@ export default function LoginForm(props) {
     const [validEmailFeedback, setValidEmail] = useState(true)
     const [validPasswordFeedback, setValidPassword,] = useState(true)
     const [inputError, setInputError] = useState(true)
+    const loginRoute = process.env.REACT_APP_ORIGIN + process.env.REACT_APP_LOGIN_ROUTE
+
+    console.log(loginRoute)
 
     const messages = {
         invalidUser: "Invalid username or password!"
@@ -27,7 +30,7 @@ export default function LoginForm(props) {
             username: loginEmail.current.value,
             password: loginPassword.current.value
         }
-        fetch("http://localhost:8080/login", {
+        fetch(loginRoute, {
                 method: "post",
                 body: JSON.stringify(body),
                 headers: {'Content-Type': 'application/json;charset=utf-8'}
