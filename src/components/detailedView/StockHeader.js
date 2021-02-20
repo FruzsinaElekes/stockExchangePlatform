@@ -19,14 +19,16 @@ function FavouriteDiv(props) {
 export function StockHeader(props) {
     
     const stockData = props.data
-    const stockList = props.names
+    const getStockName = useContext(StockDataContext)[0]
     const getData = useContext(StockDataContext)[2]
+    const companyName = getStockName(stockData.symbol);
     const priceData = getData(stockData.symbol)
 
     return (
         <Card>
             <SymbolHeader>
-                <Symbol>{stockList[stockData.symbol]} {" (" + stockData.symbol + ")"}</Symbol>
+                {companyName &&
+                <Symbol>{companyName} {" (" + stockData.symbol + ")"}</Symbol>}
                 <FavouriteDiv stockdata={stockData} symbol={stockData.symbol}/>
                 {priceData && <>
                 <FloatDiv>{priceData.latestPrice}</FloatDiv>

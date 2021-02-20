@@ -8,16 +8,14 @@ import { StockDataContext } from './StockDataContext';
 
 export function DetailedView() {
     const [stockInfo, setStockInfo] = useState(0)
-    const symbolList = useContext(StockDataContext)[0]
     const {symbol} = useParams();
-
+    const stockRoute = process.env.REACT_APP_ORIGIN + process.env.REACT_APP_STOCK_ROUTE
     
     useEffect(() => {
-        fetch(`http://localhost:8080/stock/${symbol}`, {
+        fetch(stockRoute + symbol, {
                 headers: {
-                    'Content-Type': 'application/json;charset=utf-8',
-                    'Access-Control-Allow-Origin' : 'http://localhost:8080/'
-                  }
+                    'Content-Type': 'application/json;charset=utf-8'
+                }
             })
             .then(resp => resp.json())
             .then(data => setStockInfo(data))
@@ -31,7 +29,7 @@ export function DetailedView() {
                 <React.Fragment>
                     <StockDiv>
                         <HeaderDiv>
-                            <StockHeader data={stockInfo} names={symbolList}></StockHeader>                          
+                            <StockHeader data={stockInfo}></StockHeader>                          
                         </HeaderDiv>
                         <DataDiv><StockData data={stockInfo}></StockData></DataDiv>
                         <ChartDiv>
