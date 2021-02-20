@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext, Fragment } from 'react';
+import { Redirect } from 'react-router-dom';
 import PortfolioItem from './PortfolioItem';
 import Summary from './Summary';
 import { UserContext } from '../UserContext';
@@ -7,8 +8,11 @@ import styled from 'styled-components';
 
 export default function Portfolio() {
     const userData = useContext(UserContext)[0]
+    const [redirect, setRedirect] = useState(false)
     const [user, setUser] = useState(0)
     const userRoute = process.env.REACT_APP_ORIGIN + process.env.REACT_APP_USER_ROUTE
+    const loginRoute = process.env.REACT_APP_LOGIN_PAGE
+
 
     useEffect(()=>{
         if (document.cookie) {
@@ -19,15 +23,29 @@ export default function Portfolio() {
                         'Content-Type': 'application/json;charset=utf-8'
                     }
                 })
+                .then(handleBadRequest)
                 .then(resp => resp.json())
                 .then(data => setUser(data))
                 .catch(e => console.log(e))
         }
     }, [])
 
+    const handleBadRequest = (response) => {
+        if (!response.ok) {
+            if (response.status === 403) {
+                setRedirect(true)
+            }
+            throw Error(response.statusText)
+        }
+        else {
+            return response
+        }
+    }
+
     return (
 
         <Fragment>
+        {redirect && <Redirect to={loginRoute} />}
         {userData.loggedIn &&
             <PortfolioDiv>
                 {user !== 0 ? <Summary user={user}></Summary> : "Loading"}
