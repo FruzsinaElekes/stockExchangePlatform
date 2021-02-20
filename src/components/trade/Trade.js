@@ -17,8 +17,10 @@ export default function Trade(props) {
     const [open, setOpen] = useState(false);
     const [error, setError] = useState("");
     const [confirmIsOpen, setConfirmOpen] = useState(false);
-    const symbolList = useContext(StockDataContext)[0]
+    const symbolList = useContext(StockDataContext)[3]
     const [results, setResults] = useState([]);
+    const tradeRoute = process.env.REACT_APP_ORIGIN + process.env.REACT_APP_TRADE_ROUTE
+    const portfolioRoute = process.env.REACT_APP_PORTFOLIO_PAGE
 
     const errorOpen = () => setOpen(true);
     const errorClose = () => setOpen(false);
@@ -42,7 +44,7 @@ export default function Trade(props) {
         if (!document.cookie) return
         const token = document.cookie.split('; ').find(row => row.startsWith('access_token=')).split('=')[1];
         
-        fetch(`http://localhost:8080/trade`, {
+        fetch(tradeRoute, {
             method: "post",
             body: JSON.stringify(body),
             headers: {
@@ -122,7 +124,7 @@ export default function Trade(props) {
     return (
         <TradeDiv>
             {redirect === true 
-            ? <Redirect to="/portfolio" /> 
+            ? <Redirect to={portfolioRoute} /> 
             : <React.Fragment> 
                 <StyledH2>Place an order</StyledH2>
                 <TradeForm symbol={symbol} limitPrice={limitPrice} count={count} direction={direction} results={results}

@@ -18,6 +18,7 @@ export default function LoginForm(props) {
     const [validPasswordFeedback, setValidPassword,] = useState(true)
     const [inputError, setInputError] = useState(true)
     const loginRoute = process.env.REACT_APP_ORIGIN + process.env.REACT_APP_LOGIN_ROUTE
+    const portfolioRoute = process.env.REACT_APP_PORTFOLIO_PAGE
 
     console.log(loginRoute)
 
@@ -77,7 +78,7 @@ export default function LoginForm(props) {
 
     return(
     <StyledDiv>
-        {redirect && <Redirect to="/portfolio" />}
+        {redirect && <Redirect to={portfolioRoute} />}
         <Modal open={open} onClose={messageClose}><ModalContent>{message}</ModalContent></Modal>
         <Fragment>
         <TextField

@@ -45,7 +45,7 @@ export const StockDataProvider = (props) => {
     }
 
     return (
-        <StockDataContext.Provider value={[getStockName, stockData, getStock]}>
+        <StockDataContext.Provider value={[getStockName, stockData, getStock, stockList.map(s => s.symbol)]}>
             {props.children}
         </StockDataContext.Provider>
     )

@@ -11,7 +11,8 @@ export default function RegistrationForm(props) {
     const messageOpen = () => setOpen(true)
     const messageClose = () => setOpen(false)
     const registrationRoute = process.env.REACT_APP_ORIGIN + process.env.REACT_APP_REGISTER_ROUTE
-    
+    const loginRoute = process.env.REACT_APP_LOGIN_PAGE    
+
     const registerFirstName = useRef()
     const registerLastName = useRef()
     const registerEmail = useRef()
@@ -104,7 +105,7 @@ export default function RegistrationForm(props) {
 
     return(
     <StyledDiv>
-        {redirect === true ? <Redirect to="/login" /> : <></>}
+        {redirect === true ? <Redirect to={loginRoute} /> : <></>}
         <Modal open={open} onClose={messageClose}><ModalContent>{message}</ModalContent></Modal>
         <Fragment>
         <TextField
