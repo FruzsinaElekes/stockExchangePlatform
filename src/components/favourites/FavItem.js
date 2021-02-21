@@ -9,6 +9,8 @@ export default function FavItem(props) {
     const getData = useContext(StockDataContext)[2]
     const priceData = getData(props.data.symbol)
     const up = priceData ? priceData.change >= 0 : false;
+    const tradeRoute = process.env.REACT_APP_TRADE_PAGE
+    const stockRoute = process.env.REACT_APP_STOCK_PAGE
 
     return (
         <React.Fragment>{favourites.length > 0 &&
@@ -19,10 +21,10 @@ export default function FavItem(props) {
                 </ButtonsUpDown>
                 <Content>
                     <div>
-                        <Symbol to={`/stock/${props.data.symbol}`}>{props.data.symbol}</Symbol>
+                        <Symbol to={stockRoute + props.data.symbol}>{props.data.symbol}</Symbol>
                         {up? <Icon up={up} className="fa fa-caret-up fa-lg"></Icon> : <Icon up={up} className="fa fa-caret-down fa-lg"></Icon>}                    
                         <UnFavButton onClick={()=>removeFromFav(props.data)}>Unfollow</UnFavButton>
-                        <TradeButton><StyledLink to={`/trade/${props.data.symbol}`}>TRADE</StyledLink></TradeButton>
+                        <TradeButton><StyledLink to={tradeRoute + "/" + props.data.symbol}>TRADE</StyledLink></TradeButton>
                     </div>
                     { priceData &&
                     <Details>

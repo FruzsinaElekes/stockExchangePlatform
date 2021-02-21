@@ -27,8 +27,8 @@ function App() {
           <ListMain></ListMain>
           <Route path={process.env.REACT_APP_FAVOURITES_PAGE} component={Favourites}></Route>
           <Route exact path={process.env.REACT_APP_HOME_PAGE} component={SearchBar}></Route>
-          <Route path={process.env.REACT_APP_STOCK_PAGE} component={DetailedView}></Route>
-          <Route path={process.env.REACT_APP_STOCK_TRADE_PAGE} component={Trade}></Route>
+          <Route path={process.env.REACT_APP_STOCK_PAGE + ":symbol"} component={DetailedView}></Route>
+          <Route path={process.env.REACT_APP_TRADE_PAGE + "/:symbol?"} component={Trade}></Route>
           <Route path={process.env.REACT_APP_PORTFOLIO_PAGE} component={Portfolio}></Route>
           <Route path={process.env.REACT_APP_REGISTER_PAGE} component={RegistrationForm}></Route>
           <Route path={process.env.REACT_APP_LOGIN_PAGE} component={LoginForm}></Route>

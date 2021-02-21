@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 
 
 export default function PortfolioItem(props) {
-
+    const tradeLink = process.env.REACT_APP_TRADE_PAGE + '/' + props.item.symbol
     const [open, setOpen] = useState(false);
     const handleOpen = () => {
         setOpen(true);
@@ -23,7 +23,7 @@ export default function PortfolioItem(props) {
             <p>Amount: {props.item.amount}</p>
             <Buttons>
                 <StyledeButton onClick={handleOpen}>History</StyledeButton>
-                <StyledeButton><StyledLink to={`/trade/${props.item.symbol}`}>TRADE</StyledLink></StyledeButton>
+                <StyledeButton><StyledLink to={tradeLink}>TRADE</StyledLink></StyledeButton>
             </Buttons>
             <Modal open={open} onClose={handleClose}>
                 <History transactions={props.transactions} currency={props.currency} symbol={props.item.symbol}>This is the transaction history modal</History>

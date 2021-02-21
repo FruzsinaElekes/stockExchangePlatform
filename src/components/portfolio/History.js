@@ -3,10 +3,11 @@ import HistoryItem from './HistoryItem';
 import { Link } from 'react-router-dom';
 
 export default function History(props) {
+    const stockLink = process.env.REACT_APP_STOCK_PAGE + props.symbol
 
     return (
         <ModalContent>
-            <Title>Transaction history for stock: <Symbol to={`/stock/${props.symbol}`}>{props.symbol}</Symbol></Title>
+            <Title>Transaction history for stock: <Symbol to={stockLink}>{props.symbol}</Symbol></Title>
             <HistoryTable>
                 <Header>
                     <HeaderCell>Date</HeaderCell>

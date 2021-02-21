@@ -4,6 +4,7 @@ import styled from 'styled-components';
 
 export default function ListItem(props) {
     const symbolData = props.symbol
+    const stockRoute = process.env.REACT_APP_STOCK_PAGE
 
     const theme = {
         color: (symbolData && symbolData.change >= 0) ? "green" : "red"
@@ -12,7 +13,7 @@ export default function ListItem(props) {
     return (
         <React.Fragment>
             <Summary>
-                <DetailsLink to={`/stock/${symbolData.symbol}`} >{symbolData.symbol}</DetailsLink>
+                <DetailsLink to={stockRoute + symbolData.symbol} >{symbolData.symbol}</DetailsLink>
                 <div>{symbolData.latestPrice}</div>
                 <div style={theme}>{Math.round(symbolData.changePercent * 10000)/100 + "%"}</div>
                 <Tip className="tip">{symbolData.companyName}</Tip>
