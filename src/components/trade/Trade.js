@@ -56,11 +56,7 @@ export default function Trade(props) {
         .then(resp => resp.json())    
         .then(data => {
             if (data === "COMPLETED") setRedirect(true)
-            else {
-                confirmClose();
-                createFeedbackMessage(data);
-                errorOpen();
-            }
+            else showError(createFeedbackMessage, data)
         })
         .catch(e => console.log(e))
 
@@ -113,6 +109,10 @@ export default function Trade(props) {
         if (!response.ok) {
             if (response.status === 403) {
                 setRedirect(true)
+            } else if (response.status === 400){
+                response.json()
+                    .then(err => showError(setError, err.message))
+                    .catch(e => showError(setError, "Transaction failed, no action (BUY/SELL) specified"))
             }
             throw Error(response.statusText)
         }
@@ -121,16 +121,11 @@ export default function Trade(props) {
         }
     }
 
-
-    // const handleBadRequest = (response) => {
-    //     response.json()
-    //     .then(err => {
-    //         confirmClose()
-    //         setError(err.message)
-    //         errorOpen()
-    //     })
-
-    // }
+    const showError = (func, data) => {
+        confirmClose()
+        func(data)
+        errorOpen()
+    }
 
     return (
         <TradeDiv>
