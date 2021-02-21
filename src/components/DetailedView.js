@@ -1,9 +1,8 @@
 
-import React, {useState, useEffect, useContext} from 'react'
+import React, {useState, useEffect } from 'react'
 import {useParams} from 'react-router-dom';
 import styled from 'styled-components';
 import {Chart, News, StockData, StockHeader, Video} from './detailedView';
-import { StockDataContext } from './StockDataContext';
 
 
 export function DetailedView() {

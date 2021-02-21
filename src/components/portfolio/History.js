@@ -28,6 +28,8 @@ export default function History(props) {
 
 
 const ModalContent = styled.div`
+    overflow: auto;
+    max-height: 50vh;
     padding: 2em;
     background-color:white;
     position: absolute;
