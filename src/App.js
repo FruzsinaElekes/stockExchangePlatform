@@ -25,14 +25,14 @@ function App() {
         <div className="App">
           <Navbar currentTheme={theme} setTheme={setTheme}></Navbar>
           <ListMain></ListMain>
-          <Route path="/favourites" component={Favourites}></Route>
-          <Route exact path="/" component={SearchBar}></Route>
-          <Route exact path="/stock/:symbol" component={DetailedView}></Route>
-          <Route path="/trade/:symbol?" component={Trade}></Route>
-          <Route path="/portfolio" component={Portfolio}></Route>
-          <Route path="/register" component={RegistrationForm}></Route>
-          <Route path="/login" component={LoginForm}></Route>
-          <Route path="/about" component={AboutPage}></Route>
+          <Route path={process.env.REACT_APP_FAVOURITES_PAGE} component={Favourites}></Route>
+          <Route exact path={process.env.REACT_APP_HOME_PAGE} component={SearchBar}></Route>
+          <Route path={process.env.REACT_APP_STOCK_PAGE} component={DetailedView}></Route>
+          <Route path={process.env.REACT_APP_STOCK_TRADE_PAGE} component={Trade}></Route>
+          <Route path={process.env.REACT_APP_PORTFOLIO_PAGE} component={Portfolio}></Route>
+          <Route path={process.env.REACT_APP_REGISTER_PAGE} component={RegistrationForm}></Route>
+          <Route path={process.env.REACT_APP_LOGIN_PAGE} component={LoginForm}></Route>
+          <Route path={process.env.REACT_APP_ABOUT_PAGE} component={AboutPage}></Route>
         </div>
       </Router>
     </StockDataProvider>

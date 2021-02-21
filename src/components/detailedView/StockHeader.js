@@ -8,13 +8,13 @@ import { StockDataContext } from '../StockDataContext';
 
 function FavouriteDiv(props) {
     const [favourites, addToFav, removeFromFav] = useContext(FavContext)
-    const tradeFormRoute = process.env.REACT_APP_STOCK_TRADE_PAGE
-    
+    const tradeRoute = process.env.REACT_APP_TRADE_PAGE
+      
     return (
         <div>{(favourites.length === 0 | favourites.filter(f => f.symbol === props.symbol).length === 0) 
-                    ? <FavButton onClick={()=>addToFav(props.stockdata)}>Follow</FavButton>
-                    : <UnFavButton onClick={()=>removeFromFav(props.stockdata)}>Unfollow</UnFavButton>}
-                    <TradeButton><StyledLink to={tradeFormRoute + props.symbol}>TRADE</StyledLink></TradeButton>
+            ? <FavButton onClick={()=>addToFav(props.stockdata)}>Follow</FavButton>
+            : <UnFavButton onClick={()=>removeFromFav(props.stockdata)}>Unfollow</UnFavButton>}
+            <TradeButton><StyledLink to={tradeRoute + "/" + props.symbol}>TRADE</StyledLink></TradeButton>
         </div>)
 }
 

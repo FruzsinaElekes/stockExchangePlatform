@@ -52,10 +52,8 @@ export default function Trade(props) {
                 'Content-Type': 'application/json;charset=utf-8',
                 },
         })
-        .then(resp => {
-            if (!resp.ok) handleBadRequest(resp)
-            else return resp.json()
-            })    
+        .then(handleBadRequest)
+        .then(resp => resp.json())    
         .then(data => {
             if (data === "COMPLETED") setRedirect(true)
             else {
@@ -112,14 +110,27 @@ export default function Trade(props) {
     }
 
     const handleBadRequest = (response) => {
-        response.json()
-        .then(err => {
-            confirmClose()
-            setError(err.message)
-            errorOpen()
-        })
-
+        if (!response.ok) {
+            if (response.status === 403) {
+                setRedirect(true)
+            }
+            throw Error(response.statusText)
+        }
+        else {
+            return response
+        }
     }
+
+
+    // const handleBadRequest = (response) => {
+    //     response.json()
+    //     .then(err => {
+    //         confirmClose()
+    //         setError(err.message)
+    //         errorOpen()
+    //     })
+
+    // }
 
     return (
         <TradeDiv>

@@ -20,20 +20,20 @@ export function Navbar(props) {
 
     return (
         <NavDiv className="navbar">
-            <StyledLink to="/">Home</StyledLink>
-            <StyledLink to="/favourites">Favourites</StyledLink>
+            <StyledLink to={process.env.REACT_APP_HOME_PAGE}>Home</StyledLink>
+            <StyledLink to={process.env.REACT_APP_FAVOURITES_PAGE}>Favourites</StyledLink>
             {userData.loggedIn
             ?   <Fragment>
-                    <StyledLink to="/trade">Trade</StyledLink>
-                    <StyledLink to="/portfolio">Portfolio</StyledLink>
-                    <StyledLink to="/" onClick={handleLogout}>Logout</StyledLink>
+                    <StyledLink to={process.env.REACT_APP_TRADE_PAGE}>Trade</StyledLink>
+                    <StyledLink to={process.env.REACT_APP_PORTFOLIO_PAGE}>Portfolio</StyledLink>
+                    <StyledLink to={process.env.REACT_APP_HOME_PAGE} onClick={handleLogout}>Logout</StyledLink>
                 </Fragment>
             :   <Fragment>
-                    <StyledLink to="/register">Register</StyledLink>
-                    <StyledLink to="/login">Login</StyledLink>
+                    <StyledLink to={process.env.REACT_APP_REGISTER_PAGE}>Register</StyledLink>
+                    <StyledLink to={process.env.REACT_APP_LOGIN_PAGE}>Login</StyledLink>
                 </Fragment>
             }
-            <StyledLink to="/about">About</StyledLink>
+            <StyledLink to={process.env.REACT_APP_ABOUT_PAGE}>About</StyledLink>
         </NavDiv>
     )
 }
