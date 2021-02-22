@@ -9,6 +9,10 @@ export const StockDataProvider = (props) => {
     const [stockData, setStockData] = useState([]);
     const [sockJsclient, setClient] = useState()
     const stockBaseRoute = process.env.REACT_APP_ORIGIN + process.env.REACT_APP_STOCK_BASE_ROUTE
+    const websocketRoute = process.env.REACT_APP_WEBSOCKET_ROUTE
+    const stockListTopic = process.env.REACT_APP_STOMP_STOCKLIST
+    const stockDataTopic = process.env.REACT_APP_STOMP_STOCKDATA
+
 
     useEffect(() => {
         axios.get(stockBaseRoute)
@@ -26,10 +30,10 @@ export const StockDataProvider = (props) => {
     }
 
     function onMessageHandler(data, topic) {
-        if (topic === "/stock/all") {
+        if (topic === stockListTopic) {
             setStockData(data)
         }
-        if (topic === "/stock/data"){
+        if (topic === stockDataTopic) {
             setStockData(prevState =>
                 prevState.map(element => element.symbol === data.symbol ? data : element))
         }
@@ -37,7 +41,7 @@ export const StockDataProvider = (props) => {
 
     return (
         <StockDataContext.Provider value={[getStockName, stockData, getStock, stockList.map(s => s.symbol)]}>
-        <SockJsClient url='http://localhost:8080/socket' topics={['/stock/all', '/stock/data']}
+        <SockJsClient url={ websocketRoute } topics={[stockListTopic, stockDataTopic]}
           onMessage={ onMessageHandler } ref={ (client) => { setClient(client) }} />
             {props.children}
         </StockDataContext.Provider>
