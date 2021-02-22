@@ -25,11 +25,20 @@ export const StockDataProvider = (props) => {
         return stock.companyName
     }
 
+    function onMessageHandler(data, topic) {
+        if (topic === "/stock/all") {
+            setStockData(data)
+        }
+        if (topic === "/stock/data"){
+            setStockData(prevState =>
+                prevState.map(element => element.symbol === data.symbol ? data : element))
+        }
+    }
+
     return (
         <StockDataContext.Provider value={[getStockName, stockData, getStock, stockList.map(s => s.symbol)]}>
-        <SockJsClient url='http://localhost:8080/socket' topics={['/stock-data']}
-          onMessage={(data) => { setStockData(data); console.log(data)}}
-          ref={ (client) => { setClient(client) }} />
+        <SockJsClient url='http://localhost:8080/socket' topics={['/stock/all', '/stock/data']}
+          onMessage={ onMessageHandler } ref={ (client) => { setClient(client) }} />
             {props.children}
         </StockDataContext.Provider>
     )
