@@ -26,7 +26,7 @@ export const StockDataProvider = (props) => {
 
     function getStockName(symbol) {
         const [stock] = stockList.filter(s => s.symbol === symbol)
-        return stock.companyName
+        return stock && stock.companyName
     }
 
     function onMessageHandler(data, topic) {
@@ -34,8 +34,8 @@ export const StockDataProvider = (props) => {
             setStockData(data)
         }
         if (topic === stockDataTopic) {
-            setStockData(prevState =>
-                prevState.map(element => element.symbol === data.symbol ? data : element))
+            setStockData(prevState => prevState.map(
+                element => element.symbol === data.symbol ? data : element))
         }
     }
 

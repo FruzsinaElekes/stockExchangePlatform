@@ -7,7 +7,7 @@ export default function ListItem(props) {
     const stockRoute = process.env.REACT_APP_STOCK_PAGE
 
     const theme = {
-        color: (symbolData && symbolData.change >= 0) ? "green" : "red"
+        color: (symbolData && symbolData.changePercent >= 0) ? "green" : "red"
     }
 
     return (
