@@ -10,6 +10,7 @@ export default function History(props) {
             <Title>Transaction history for stock: <Symbol to={stockLink}>{props.symbol}</Symbol></Title>
             <HistoryTable>
                 <Header>
+                    <tr>
                     <HeaderCell>Date</HeaderCell>
                     <HeaderCell>Action</HeaderCell>
                     <HeaderCell>Amount</HeaderCell>
@@ -17,6 +18,7 @@ export default function History(props) {
                     <HeaderCell>Balance change ({props.currency})</HeaderCell>
                     <HeaderCell>Stock Count After</HeaderCell>
                     <HeaderCell>Balance After ({props.currency})</HeaderCell>
+                    </tr>
                 </Header>
                 <tbody>
                     {props.transactions && props.transactions.map(h => <HistoryItem key={h.id} transaction={h}></HistoryItem>)}
@@ -38,7 +40,7 @@ const ModalContent = styled.div`
     transform: translate(-50%, -50%);
 `
 
-const Header = styled.tr`
+const Header = styled.thead`
     border-bottom: 2px solid black;
     border-top: 2px solid black;
 
