@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Redirect } from 'react-router-dom';
 import { TextField, Button, Checkbox, Typography, FormControlLabel, Modal } from "@material-ui/core";
 
-export default function RegistrationForm(props) {
+export default function RegistrationForm() {
     const [hasTermsOfServiceError, setHasTermsOfServiceError] = useState(true)
     const [open, setOpen] = useState(false)
     const [redirect, setRedirect] = useState(false)
@@ -23,19 +23,18 @@ export default function RegistrationForm(props) {
     const [validFirstNameFeedback, setValidFirstName] = useState(true)
     const [validLastNameFeedback, setValidLastName] = useState(true)
     const [validPasswordFeedback, setValidPassword,] = useState(true)
+    const [passwordCharByChar, setPasswordCharByChar] = useState(false)
+    const [emailCharByChar, setEmailCharByChar] = useState(false)
 
     const messages = {
-        invalidInput: "Invalid data provided! Please check your inputs!",
         serverError: "Server could not complete the registration! Please try again later!",
         userExists: "Username already taken!"
     }
 
     const handleRegister = () => {
-
-        if (!validFormData()) {
-            alert(messages.invalidInput)
-            return
-        }
+        setPasswordCharByChar(true)
+        setEmailCharByChar(true)
+        if (!validFormData()) return
 
         const body = {
             firstName: registerFirstName.current.value,
@@ -97,10 +96,17 @@ export default function RegistrationForm(props) {
     }
 
     const validFormData = () => {
-        return fieldIsValid(registerFirstName.current.value) &&
-               fieldIsValid(registerLastName.current.value) &&
-               emailIsValid() &&
-               passwordIsValid()
+        const firstValid = fieldIsValid(registerFirstName.current.value)
+        const lastValid = fieldIsValid(registerLastName.current.value)
+        const emailValid = emailIsValid()
+        const passwordValid = passwordIsValid()
+
+        setValidFirstName(firstValid)
+        setValidLastName(lastValid)
+        setValidEmail(emailValid)
+        setValidPassword(passwordValid)
+
+        return firstValid && lastValid && emailValid && passwordValid
     }
 
     return(
@@ -145,7 +151,7 @@ export default function RegistrationForm(props) {
             autoComplete="off"
             type="email"
             error={!validEmailFeedback}
-            onChange={ ()=> setValidEmail(emailIsValid()) }
+            onChange={ ()=> { if (emailCharByChar) setValidEmail(emailIsValid())} }
             helperText={validEmailFeedback ? "" : "Invalid email"}
         />
         <TextField
@@ -158,7 +164,7 @@ export default function RegistrationForm(props) {
             inputRef={registerPassword}
             autoComplete="off"
             error={!validPasswordFeedback}
-            onChange={ ()=> setValidPassword(passwordIsValid()) }
+            onChange={ ()=> { if (passwordCharByChar) setValidPassword(passwordIsValid())} }
             helperText={validPasswordFeedback ? "" : "Invalid password input"}
         />
         <TextField
@@ -171,7 +177,7 @@ export default function RegistrationForm(props) {
             inputRef={registerPasswordRepeat}
             autoComplete="off"
             error={!validPasswordFeedback}
-            onChange={ ()=> setValidPassword(passwordIsValid()) }
+            onChange={ ()=> {if (passwordCharByChar) setValidPassword(passwordIsValid())} }
             helperText={validPasswordFeedback ? "" : "Invalid password input"}
         />
         <FormControlLabel
