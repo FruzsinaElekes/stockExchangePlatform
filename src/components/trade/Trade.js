@@ -18,7 +18,6 @@ export default function Trade(props) {
     const [error, setError] = useState("");
     const [confirmIsOpen, setConfirmOpen] = useState(false);
     const symbolList = useContext(StockDataContext)[3]
-    const [results, setResults] = useState([]);
     const tradeRoute = process.env.REACT_APP_ORIGIN + process.env.REACT_APP_TRADE_ROUTE
     const portfolioRoute = process.env.REACT_APP_PORTFOLIO_PAGE
 
@@ -26,10 +25,8 @@ export default function Trade(props) {
     const errorClose = () => setOpen(false);
     const confirmOpen = () => setConfirmOpen(true);
     const confirmClose = () => setConfirmOpen(false);
-    const selectSymbol = (symbol) => {
-        setSymbol(symbol);
-        setResults([]);
-    }
+    const selectSymbol = (symbol) => setSymbol(symbol);
+    
     
 
     const handleSubmit = () => {
@@ -67,11 +64,6 @@ export default function Trade(props) {
         switch (e.target.name){
             case "price":
                 setLimitPrice(data);
-                break;
-            case "symbol":
-                setSymbol(data);
-                if (!data) setResults([])
-                else setResults(symbolList.filter(item => item.toLowerCase().includes(data.toLowerCase())).slice(0, 10))
                 break;
             case "direction":
                 setDirection(data);
@@ -133,7 +125,7 @@ export default function Trade(props) {
             ? <Redirect to={portfolioRoute} /> 
             : <React.Fragment> 
                 <StyledH2>Place an order</StyledH2>
-                <TradeForm symbol={symbol} limitPrice={limitPrice} count={count} direction={direction} results={results}
+                <TradeForm symbol={symbol} symbolList={symbolList} limitPrice={limitPrice} count={count} direction={direction}
                             selectSymbol={selectSymbol} handleChange={handleChange} handleSubmit={confirmOpen} />
             </React.Fragment>
             }

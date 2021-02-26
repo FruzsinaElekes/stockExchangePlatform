@@ -7,7 +7,7 @@ export function Video(props) {
 
     return (
         <VideoContainer className="videoContainer">
-            <CustomReactPlayer url={`https://www.youtube.com/watch?v=${props.videos[random].videoId}`} />
+            <CustomReactPlayer url={`http://www.youtube.com/watch?v=${props.videos[random].videoId}`}/>
         </VideoContainer>
     )
 }
