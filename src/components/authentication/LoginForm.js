@@ -16,17 +16,20 @@ export default function LoginForm(props) {
     const loginPassword = useRef()
     const [validEmailFeedback, setValidEmail] = useState(true)
     const [validPasswordFeedback, setValidPassword,] = useState(true)
-    const [inputError, setInputError] = useState(true)
+    const [emailCharByChar, setEmailCharByChar] = useState(false)
+    const [anyEmpty, setAnyEmpty] = useState(true)
     const loginRoute = process.env.REACT_APP_ORIGIN + process.env.REACT_APP_LOGIN_ROUTE
     const portfolioRoute = process.env.REACT_APP_PORTFOLIO_PAGE
 
-    console.log(loginRoute)
 
     const messages = {
         invalidUser: "Invalid username or password!"
     }
 
     const handleLogin = () => {
+        
+        if (!validateInput()) return    
+
         const body = {
             username: loginEmail.current.value,
             password: loginPassword.current.value
@@ -63,17 +66,15 @@ export default function LoginForm(props) {
         }
     }
 
-    const emailIsValid = () => {
-        const email = loginEmail.current.value;
-        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
-    }
+    const emailIsValid = () => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(loginEmail.current.value)
+    const passwordIsValid = () => loginPassword.current.value.length !== 0
+    const isAnyEmpty = () => loginPassword.current.value.length === 0 || loginEmail.current.value.length === 0
 
-    const passwordIsValid = () => {
-        return loginPassword.current.value.length !== 0
-    }
-
-    const checkInput = () => {
-        setInputError(!emailIsValid() || !passwordIsValid())
+    const validateInput = () => {
+        setEmailCharByChar(true)
+        setValidEmail(emailIsValid())
+        setValidPassword(passwordIsValid())
+        return emailIsValid() && passwordIsValid()
     }
 
     return(
@@ -92,9 +93,9 @@ export default function LoginForm(props) {
             autoComplete="off"
             type="email"
             error={!validEmailFeedback}
-            onChange={ () => {
-                setValidEmail(emailIsValid())
-                checkInput()
+            onChange={ () => { 
+                setAnyEmpty(isAnyEmpty())
+                if (emailCharByChar) setValidEmail(emailIsValid())
             }}
             helperText={validEmailFeedback ? "" : "Invalid email"}
         />
@@ -109,8 +110,8 @@ export default function LoginForm(props) {
             autoComplete="off"
             error={!validPasswordFeedback}
             onChange={ () => {
+                setAnyEmpty(isAnyEmpty())
                 setValidPassword(passwordIsValid())
-                checkInput()
             }}
             helperText={validPasswordFeedback ? "" : "Invalid password input"}
         />
@@ -121,7 +122,7 @@ export default function LoginForm(props) {
             fullWidth
             variant="contained"
             color="secondary"
-            disabled={inputError}
+            disabled={anyEmpty}
             size="large"
             onClick={handleLogin}
         >
