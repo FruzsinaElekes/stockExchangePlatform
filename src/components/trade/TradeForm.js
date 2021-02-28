@@ -6,17 +6,19 @@ import MenuItem from '@material-ui/core/MenuItem';
 import { InputLabel } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
+import Button from '@material-ui/core/Button';
 
 
 export default function TradeForm(props) {
-    let {symbol, symbolList, limitPrice, count, direction, handleChange, handleSubmit, selectSymbol} = props
+    let {symbol, symbolList, limitPrice, count, direction, handleChange, handleSubmit, selectSymbol, notAllValid} = props
     const [value, setValue] = React.useState(symbol? symbol : symbolList[0]);
+    selectSymbol(value)
+    
 
     return (
         <StyledForm autoComplete="off">
-            <label>Symbol:</label>
-            
             <Autocomplete 
+            className="item"
             options={symbolList}
             value={value}
             onChange={(event, newValue) => {
@@ -28,41 +30,36 @@ export default function TradeForm(props) {
                 <TextField
                 {...params}
                 label="Symbol"
-                variant="outlined"
                 name="symbol"
                 />
             )}/>
             
-            <label>Action:</label> 
-            <FormControl>
+            <FormControl className="item" >
                 <InputLabel >Action</InputLabel>
-                <Select label="Action" name="direction" value={direction} onChange={handleChange}>
+                <Select label="Action" name="direction" value={direction} onChange = {handleChange}>
                     <MenuItem value="-">-</MenuItem>
                     <MenuItem value="BUY">BUY</MenuItem>
                     <MenuItem value="SELL">SELL</MenuItem>
                 </Select>
             </FormControl>
-            <label>Stock Count:</label>
             <TextField 
+                className="item"
                 label="Stock Count" 
-                id="standard-number" 
                 name="count" 
                 type="number" 
                 value={count} 
-                onChange={handleChange} 
+                onChange={handleChange}
                 InputProps={{ inputProps: { min: 1, step: 1 } }}/>
 
-            <label>Limit Price:</label>
             <TextField 
+                className="item"
                 label="Limit Price" 
-                id="standard-number" 
                 name="price" 
                 type="number" 
                 value={limitPrice} 
-                onChange={handleChange} 
+                onChange={handleChange}
                 InputProps={{ inputProps: { min: 0.01, step: 0.01 } }}/>
-            {/* <input name="price" type="number" min="0" step="0.01" value={limitPrice} onChange={handleChange}></input> */}
-            <TradeButton type="button" onClick={handleSubmit}>Trade!</TradeButton>
+            <Button disabled={notAllValid} onClick={handleSubmit} color="primary" variant="contained" >Trade!</Button>
 
         </StyledForm>
     )
@@ -70,21 +67,11 @@ export default function TradeForm(props) {
 
 
 const StyledForm = styled.form`
-    display: grid;
-    grid-template-columns: 4fr 1fr;
-    gap: 1em;
-    padding: 2em;
-`
-
-const TradeButton = styled.button`
-    grid-row: 5 / 6;
-    grid-column: 1 / 3;
-    background-color: #47485e;
-    color: white;
-    font-weight: bolder;
-    font-size: 1.2em;
-    cursor: pointer;
-    margin: 5px;
-    width: 30%;
-    justify-self: center
+    display: flex;
+    flex-direction: column;
+    margin: -1em, auto;
+    > .item {
+        width: 80%;
+        margin: 1em auto;
+    }
 `

@@ -1,5 +1,5 @@
 
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useRef } from 'react';
 import { Redirect } from 'react-router-dom';
 import styled from 'styled-components';
 import Modal from '@material-ui/core/Modal';
@@ -8,7 +8,6 @@ import ConfirmDialog from './ConfirmDialog';
 import {StockDataContext} from '../StockDataContext';
 
 export default function Trade(props) {
-
     const [symbol , setSymbol] = useState(props.match.params.symbol ? props.match.params.symbol : "");
     const [limitPrice, setLimitPrice] = useState(0);
     const [direction, setDirection] = useState("-");
@@ -17,6 +16,8 @@ export default function Trade(props) {
     const [open, setOpen] = useState(false);
     const [error, setError] = useState("");
     const [confirmIsOpen, setConfirmOpen] = useState(false);
+    const [notAllValid, setNotAllValid] = useState(true)
+    
     const symbolList = useContext(StockDataContext)[3]
     const tradeRoute = process.env.REACT_APP_ORIGIN + process.env.REACT_APP_TRADE_ROUTE
     const portfolioRoute = process.env.REACT_APP_PORTFOLIO_PAGE
@@ -25,9 +26,12 @@ export default function Trade(props) {
     const errorClose = () => setOpen(false);
     const confirmOpen = () => setConfirmOpen(true);
     const confirmClose = () => setConfirmOpen(false);
-    const selectSymbol = (symbol) => setSymbol(symbol);
-    
-    
+    const allValid = () => setNotAllValid(!symbolList.includes(symbol) || count <=0 || limitPrice <= 0 || direction==="-")
+
+    const selectSymbol = (symbol) => {
+        setSymbol(symbol);
+        allValid()
+    }
 
     const handleSubmit = () => {
         const body = {
@@ -74,6 +78,7 @@ export default function Trade(props) {
             default:
                 break;
         }
+        allValid()
     }
 
     const createFeedbackMessage = (data) => {
@@ -126,7 +131,7 @@ export default function Trade(props) {
             : <React.Fragment> 
                 <StyledH2>Place an order</StyledH2>
                 <TradeForm symbol={symbol} symbolList={symbolList} limitPrice={limitPrice} count={count} direction={direction}
-                            selectSymbol={selectSymbol} handleChange={handleChange} handleSubmit={confirmOpen} />
+                 notAllValid={notAllValid} selectSymbol={selectSymbol} handleChange={handleChange} handleSubmit={confirmOpen} />
             </React.Fragment>
             }
             <Modal open={open} onClose={errorClose}><ModalContent>{error}</ModalContent></Modal>
