@@ -48,13 +48,28 @@ export default function Portfolio() {
         {redirect && <Redirect to={loginRoute} />}
         {userData.loggedIn &&
             <PortfolioDiv>
-                {user !== 0 ? <Summary user={user}></Summary> : "Loading"}
-                {user !== 0 ? user.portfolio.map(s => <PortfolioItem 
-                    key={s.id} 
-                    item={s} 
-                    currency={user.account.currency}
-                    transactions={user.userHistoryList.filter(o => o.symbol === s.symbol)}></PortfolioItem>)
-                    : "Loading"}
+                {user !== 0 ? 
+                <React.Fragment>
+                    <Summary user={user} />
+                    {user.portfolio.filter(p => p.amount > 0).map(s => 
+                        <PortfolioItem 
+                            key={s.id} 
+                            item={s} 
+                            currency={user.account.currency}
+                            transactions={user.userHistoryList.filter(o => o.symbol === s.symbol)} />)
+                        }
+                    {user.portfolio.filter(item => item.amount === 0).length >= 1 ? 
+                        <React.Fragment> 
+                            <h2>Previously owned items</h2>
+                            {user.portfolio.filter(p => p.amount === 0).map(s => 
+                                <PortfolioItem 
+                                    key={s.id} 
+                                    item={s} 
+                                    currency={user.account.currency}
+                                    transactions={user.userHistoryList.filter(o => o.symbol === s.symbol)} />)
+                                }
+                        </React.Fragment> : <React.Fragment/>}
+                </React.Fragment> : "Loading"}
             </PortfolioDiv>}
         </Fragment>
     )
