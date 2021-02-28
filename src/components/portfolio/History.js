@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 export default function History(props) {
     const stockLink = process.env.REACT_APP_STOCK_PAGE + props.symbol
-
+    const compare = (a, b) => Date.parse(a.transactionTime) > Date.parse(b.transactionTime) ? -1 : 1;
     return (
         <ModalContent>
             <Title>Transaction history for stock: <Symbol to={stockLink}>{props.symbol}</Symbol></Title>
@@ -21,7 +21,7 @@ export default function History(props) {
                     </tr>
                 </Header>
                 <tbody>
-                    {props.transactions && props.transactions.map(h => <HistoryItem key={h.id} transaction={h}></HistoryItem>)}
+                    {props.transactions && props.transactions.sort(compare).map(h => <HistoryItem key={h.id} transaction={h}></HistoryItem>)}
                 </tbody>
             </HistoryTable>
         </ModalContent>
