@@ -90,5 +90,5 @@ export default function Portfolio() {
 
 const PortfolioDiv = styled.div`
     margin: auto;
-    width: 50%
+    width: 60%
 `

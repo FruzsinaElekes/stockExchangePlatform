@@ -1,5 +1,5 @@
 
-import React, { useState, useContext, useRef } from 'react';
+import React, { useState, useContext } from 'react';
 import { Redirect } from 'react-router-dom';
 import styled from 'styled-components';
 import Modal from '@material-ui/core/Modal';
