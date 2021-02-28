@@ -10,6 +10,8 @@ export default function Portfolio() {
     const userData = useContext(UserContext)[0]
     const [redirect, setRedirect] = useState(false)
     const [user, setUser] = useState(0)
+    const [owned, setOwned] = useState([])
+    const [previous, setPrevious] = useState([])
     const userRoute = process.env.REACT_APP_ORIGIN + process.env.REACT_APP_USER_ROUTE
     const loginRoute = process.env.REACT_APP_LOGIN_PAGE
 
@@ -25,7 +27,11 @@ export default function Portfolio() {
                 })
                 .then(handleBadRequest)
                 .then(resp => resp.json())
-                .then(data => setUser(data))
+                .then(data => {
+                    setUser(data)
+                    setOwned(data.portfolio.filter(i => i.amount > 0))
+                    setPrevious(data.portfolio.filter(i => i.amount === 0))
+                })
                 .catch(e => console.log(e))
         }
     }, [])
@@ -43,7 +49,7 @@ export default function Portfolio() {
     }
 
     return (
-
+    
         <Fragment>
         {redirect && <Redirect to={loginRoute} />}
         {userData.loggedIn &&
@@ -51,17 +57,21 @@ export default function Portfolio() {
                 {user !== 0 ? 
                 <React.Fragment>
                     <Summary user={user} />
-                    {user.portfolio.filter(p => p.amount > 0).map(s => 
-                        <PortfolioItem 
-                            key={s.id} 
-                            item={s} 
-                            currency={user.account.currency}
-                            transactions={user.userHistoryList.filter(o => o.symbol === s.symbol)} />)
-                        }
-                    {user.portfolio.filter(item => item.amount === 0).length >= 1 ? 
+                    {owned.length >= 1 ? 
                         <React.Fragment> 
-                            <h2>Previously owned items</h2>
-                            {user.portfolio.filter(p => p.amount === 0).map(s => 
+                        <h2>Currently on portfolio</h2>
+                        {owned.map(s => 
+                            <PortfolioItem 
+                                key={s.id} 
+                                item={s} 
+                                currency={user.account.currency}
+                                transactions={user.userHistoryList.filter(o => o.symbol === s.symbol)} />)
+                            }
+                        </React.Fragment> : <React.Fragment/>}
+                    {previous.length >= 1 ? 
+                        <React.Fragment> 
+                            <h2>Previously on portfolio</h2>
+                            {previous.map(s => 
                                 <PortfolioItem 
                                     key={s.id} 
                                     item={s} 
