@@ -7,7 +7,7 @@ import styled from 'styled-components';
 
 
 export default function Portfolio() {
-    const userData = useContext(UserContext)[0]
+    const [userData, setUserData] = useContext(UserContext)
     const [redirect, setRedirect] = useState(false)
     const [user, setUser] = useState(0)
     const [owned, setOwned] = useState([])
@@ -40,6 +40,7 @@ export default function Portfolio() {
         if (!response.ok) {
             if (response.status === 403) {
                 setRedirect(true)
+                setUserData({ loggedIn : false, userName : undefined })
             }
             throw Error(response.statusText)
         }
@@ -56,6 +57,7 @@ export default function Portfolio() {
             <PortfolioDiv>
                 {user !== 0 ? 
                 <React.Fragment>
+                    <h2>Account overview</h2>
                     <Summary user={user} />
                     {owned.length >= 1 ? 
                         <React.Fragment> 

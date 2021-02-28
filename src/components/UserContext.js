@@ -3,10 +3,10 @@ import React, { createContext, useState, useEffect } from 'react';
 export const UserContext = createContext();
 
 export const UserProvider = (props) => {
-    const [userData, setUserData] = useState([{
+    const [userData, setUserData] = useState({
         loggedIn: false,
         userName: undefined
-    }])
+    })
 
     useEffect(() => {
         if (document.cookie) {

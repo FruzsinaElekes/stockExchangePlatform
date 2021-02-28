@@ -6,6 +6,7 @@ import Modal from '@material-ui/core/Modal';
 import TradeForm from './TradeForm';
 import ConfirmDialog from './ConfirmDialog';
 import {StockDataContext} from '../StockDataContext';
+import { UserContext } from '../UserContext';
 
 export default function Trade(props) {
     const [symbol , setSymbol] = useState(props.match.params.symbol ? props.match.params.symbol : "");
@@ -19,6 +20,7 @@ export default function Trade(props) {
     const [notAllValid, setNotAllValid] = useState(true)
     
     const symbolList = useContext(StockDataContext)[3]
+    const setUserData = useContext(UserContext)[1]
     const tradeRoute = process.env.REACT_APP_ORIGIN + process.env.REACT_APP_TRADE_ROUTE
     const portfolioRoute = process.env.REACT_APP_PORTFOLIO_PAGE
 
@@ -106,6 +108,7 @@ export default function Trade(props) {
         if (!response.ok) {
             if (response.status === 403) {
                 setRedirect(true)
+                setUserData({ loggedIn : false, userName : undefined })
             } else if (response.status === 400){
                 response.json()
                     .then(err => showError(setError, err.message))
