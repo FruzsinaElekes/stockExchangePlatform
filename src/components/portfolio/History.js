@@ -1,33 +1,31 @@
+import React from 'react';
 import styled from 'styled-components';
 import HistoryItem from './HistoryItem';
 import { Link } from 'react-router-dom';
 
-export default function History(props) {
-    const stockLink = process.env.REACT_APP_STOCK_PAGE + props.symbol
-    const compare = (a, b) => Date.parse(a.transactionTime) > Date.parse(b.transactionTime) ? -1 : 1;
-    return (
-        <ModalContent>
-            <Title>Transaction history for stock: <Symbol to={stockLink}>{props.symbol}</Symbol></Title>
-            <HistoryTable>
-                <Header>
-                    <tr>
-                    <HeaderCell>Date</HeaderCell>
-                    <HeaderCell>Action</HeaderCell>
-                    <HeaderCell>Amount</HeaderCell>
-                    <HeaderCell>Stock Price</HeaderCell>
-                    <HeaderCell>Balance change ({props.currency})</HeaderCell>
-                    <HeaderCell>Stock Count After</HeaderCell>
-                    <HeaderCell>Balance After ({props.currency})</HeaderCell>
-                    </tr>
-                </Header>
-                <tbody>
-                    {props.transactions && props.transactions.sort(compare).map(h => <HistoryItem key={h.id} transaction={h}></HistoryItem>)}
-                </tbody>
-            </HistoryTable>
+export default History = React.forwardRef((props, ref) => (
+    <ModalContent>
+        <Title>Transaction history for stock: <Symbol to={process.env.REACT_APP_STOCK_PAGE + props.symbol}>{props.symbol}</Symbol></Title>
+        <HistoryTable>
+            <Header>
+                <tr>
+                <HeaderCell>Date</HeaderCell>
+                <HeaderCell>Action</HeaderCell>
+                <HeaderCell>Amount</HeaderCell>
+                <HeaderCell>Stock Price</HeaderCell>
+                <HeaderCell>Balance change ({props.currency})</HeaderCell>
+                <HeaderCell>Stock Count After</HeaderCell>
+                <HeaderCell>Balance After ({props.currency})</HeaderCell>
+                </tr>
+            </Header>
+            <tbody>
+                {props.transactions && props.transactions.sort(compare).map(h => <HistoryItem key={h.id} transaction={h}></HistoryItem>)}
+            </tbody>
+        </HistoryTable>
         </ModalContent>
-    )
-}
+))
 
+const compare = (a, b) => Date.parse(a.transactionTime) > Date.parse(b.transactionTime) ? -1 : 1;
 
 const ModalContent = styled.div`
     overflow: auto;

@@ -1,10 +1,9 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, createRef } from 'react';
 import Modal from '@material-ui/core/Modal';
 import History from './History';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { StockDataContext } from '../StockDataContext';
-
 
 
 export default function PortfolioItem(props) {
@@ -19,6 +18,7 @@ export default function PortfolioItem(props) {
         const dates = props.transactions.map(t => Date.parse(t.transactionTime))
         return new Date(dates.reduce((a, b) => Math.max(a, b))).toISOString();
     }, [props.transactions]);
+    const ref = createRef();
 
     return (
         <Fav>
@@ -47,7 +47,7 @@ export default function PortfolioItem(props) {
                     </Cell>
                 </Details>
                 <Modal open={open} onClose={handleClose}>
-                    <History transactions={props.transactions} currency={props.currency} symbol={props.item.symbol} />
+                    <History ref={ref} transactions={props.transactions} currency={props.currency} symbol={props.item.symbol} />
                 </Modal>
             </Content>
         </Fav>
