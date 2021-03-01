@@ -1,5 +1,5 @@
 
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
 import styled from 'styled-components';
 import Modal from '@material-ui/core/Modal';
@@ -9,7 +9,9 @@ import {StockDataContext} from '../StockDataContext';
 import { UserContext } from '../UserContext';
 
 export default function Trade(props) {
-    const [symbol , setSymbol] = useState(props.match.params.symbol ? props.match.params.symbol : "");
+    const symbolList = useContext(StockDataContext)[3]
+    const setUserData = useContext(UserContext)[1]
+    const [symbol , setSymbol] = useState(props.match.params.symbol ? props.match.params.symbol : symbolList[0]);
     const [limitPrice, setLimitPrice] = useState(0);
     const [direction, setDirection] = useState("-");
     const [count, setCount] = useState(1);
@@ -19,8 +21,6 @@ export default function Trade(props) {
     const [confirmIsOpen, setConfirmOpen] = useState(false);
     const [notAllValid, setNotAllValid] = useState(true)
     
-    const symbolList = useContext(StockDataContext)[3]
-    const setUserData = useContext(UserContext)[1]
     const tradeRoute = process.env.REACT_APP_ORIGIN + process.env.REACT_APP_TRADE_ROUTE
     const portfolioRoute = process.env.REACT_APP_PORTFOLIO_PAGE
 
@@ -28,13 +28,13 @@ export default function Trade(props) {
     const errorClose = () => setOpen(false);
     const confirmOpen = () => setConfirmOpen(true);
     const confirmClose = () => setConfirmOpen(false);
+    const selectSymbol = (symbol) => setSymbol(symbol);
     const allValid = () => setNotAllValid(!symbolList.includes(symbol) || count <=0 || limitPrice <= 0 || direction==="-")
 
-    const selectSymbol = (symbol) => {
-        setSymbol(symbol);
+    useEffect(() => {
         allValid()
-    }
-
+    }, [symbol, limitPrice, direction, count])
+    
     const handleSubmit = () => {
         const body = {
             symbol: symbol,
@@ -80,7 +80,6 @@ export default function Trade(props) {
             default:
                 break;
         }
-        allValid()
     }
 
     const createFeedbackMessage = (data) => {

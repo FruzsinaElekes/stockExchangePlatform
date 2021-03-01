@@ -11,9 +11,7 @@ import Button from '@material-ui/core/Button';
 
 export default function TradeForm(props) {
     let {symbol, symbolList, limitPrice, count, direction, handleChange, handleSubmit, selectSymbol, notAllValid} = props
-    const [value, setValue] = React.useState(symbol? symbol : symbolList[0]);
-    selectSymbol(value)
-    
+    const [value, setValue] = React.useState(symbol);    
 
     return (
         <StyledForm autoComplete="off">
