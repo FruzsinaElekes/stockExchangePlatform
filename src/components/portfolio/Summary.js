@@ -32,7 +32,7 @@ export default function Summary(props) {
 
 const TdLeft = styled.td`
     border-bottom: 1px solid #ddd;
-    padding: 10px;
+    padding: 10px 10px 10px 0;
     text-align: left;
 `
 
@@ -46,9 +46,9 @@ const StyledTr = styled.tr`
 `
 
 const Table = styled.table`
-    border-spacing: 20px;
+    margin: 2em 0;
     @media (max-width: 768px){
-        font-size: 1.2em;
-        margin-left: auto;
+        font-size: 1.3em;
+        margin-right: auto;
     }
 `

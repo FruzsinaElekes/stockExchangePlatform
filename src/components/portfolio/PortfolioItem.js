@@ -61,8 +61,8 @@ const Fav = styled.div`
     display: flex;
     flex-direction: row;
     @media (max-width: 768px) {
-        font-size: 1.2em;
-        width: 75%;
+        font-size: 1.3em;
+        width: 100%;
         margin: 3em auto;
     }
 `
@@ -91,9 +91,10 @@ const BlueButtonRight = styled.button`
 `
 
 const Cell = styled.div`
+    text-align:center;
     width: 25%;
     @media (max-width: 768px) {
-        width: 75%;
+        width: 85%;
         display: flex;
         flex-direction: row;
         justify-content: space-between;
