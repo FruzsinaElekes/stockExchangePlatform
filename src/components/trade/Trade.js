@@ -155,7 +155,7 @@ const TradeDiv = styled.div`
     margin: 5em auto;
     border: 2px solid #21255e;
     box-shadow: 5px 10px 5px #21255e;
-    width: 30vw
+    width: 450px;
 `
 
 const ModalContent = styled.div`
