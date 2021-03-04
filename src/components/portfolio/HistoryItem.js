@@ -20,5 +20,5 @@ export default function HistoryItem({transaction}) {
 
 const DataCell = styled.td`
     text-align: center;
-    padding: 1em 2em;
+    padding: 1em 1em;
 `

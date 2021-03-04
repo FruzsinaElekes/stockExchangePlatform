@@ -28,6 +28,7 @@ export default History = React.forwardRef((props, ref) => (
 const compare = (a, b) => Date.parse(a.transactionTime) > Date.parse(b.transactionTime) ? -1 : 1;
 
 const ModalContent = styled.div`
+    width: 80%;
     overflow: auto;
     max-height: 50vh;
     padding: 2em;
@@ -45,6 +46,7 @@ const Header = styled.thead`
 `
 
 const HistoryTable = styled.table`
+    width: 90%;
     margin: 2em auto 0;
     border-collapse: collapse;
     padding: 0 3em;
@@ -62,7 +64,7 @@ const Title = styled.div`
 
 const HeaderCell = styled.th`
     text-align: center;
-    padding: 1em 2em;
+    padding: 1em 1em;
     border-bottom: 1px solid black;
     border-top: 1px solid black;
     border-collapse: collapse;
