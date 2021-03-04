@@ -20,7 +20,7 @@ export default function AboutPage() {
 
 
 const AboutContainer = styled(ReactMarkdown)`
-    max-width: 900px;
+    width: min(80%, 900px);
     margin: 4em auto;
     line-height: 1.5em;
 `
