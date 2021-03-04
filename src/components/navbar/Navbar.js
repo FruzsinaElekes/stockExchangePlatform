@@ -1,18 +1,26 @@
-import React from 'react'
+import React, { useState} from 'react'
 import styled from 'styled-components';
 import { slide as Menu } from 'react-burger-menu';
 import '../../Nav.css'
 import NavLinks from './NavLinks'
 import useWindowSize from './useWindowSize';
 
-export function Navbar() {
+export function Navbar(props) {
     const [width, height] = useWindowSize();
+    const [isOpen, setIsOpen] = useState(false)
+    
+    const closeMenu = () => setIsOpen(false)
+    const handleStateChange = (state) => { setIsOpen(state.isOpen)} 
 
     return (
         <Container>
             {width > 768? 
-            <NavDiv className="navbar"><NavLinks/></NavDiv>
-            :<Menu className="burger"><NavLinks/></Menu>
+            <NavDiv className="navbar"><NavLinks menuType="nav"/></NavDiv>
+            :<Menu onStateChange={state => handleStateChange(state)} 
+            isOpen={isOpen} 
+            className="burger">
+                <NavLinks menuType="burger" closeMenu={closeMenu}/>
+            </Menu>
             }
         </Container>
     )

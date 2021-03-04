@@ -5,8 +5,12 @@ import { UserContext } from '../UserContext';
 
 
 
-export default function NavLinks() {
+export default function NavLinks(props) {
     const [userData, setUserData] = useContext(UserContext)
+    
+    const close = () => {
+        if (props.menuType === "burger") props.closeMenu()
+    }
 
     const handleLogout = () => {
         setUserData({
@@ -19,22 +23,23 @@ export default function NavLinks() {
     const removeCookie = (name) => {
         document.cookie = `${name}= ; expires = Thu, 01 Jan 1970 00:00:00 GMT`
     }
+
     return (
         <React.Fragment>
-            <StyledLink to={process.env.REACT_APP_HOME_PAGE}>Home</StyledLink>
-                <StyledLink to={process.env.REACT_APP_FAVOURITES_PAGE}>Favourites</StyledLink>
-                {userData.loggedIn
-                ?   <Fragment>
-                        <StyledLink to={process.env.REACT_APP_TRADE_PAGE}>Trade</StyledLink>
-                        <StyledLink to={process.env.REACT_APP_PORTFOLIO_PAGE}>Portfolio</StyledLink>
-                        <StyledLink to={process.env.REACT_APP_HOME_PAGE} onClick={handleLogout}>Logout</StyledLink>
-                    </Fragment>
-                :   <Fragment>
-                        <StyledLink to={process.env.REACT_APP_REGISTER_PAGE}>Register</StyledLink>
-                        <StyledLink to={process.env.REACT_APP_LOGIN_PAGE}>Login</StyledLink>
-                    </Fragment>
-                }
-                <StyledLink to={process.env.REACT_APP_ABOUT_PAGE}>About</StyledLink>
+            <StyledLink onClick={close} to={process.env.REACT_APP_HOME_PAGE}>Home</StyledLink>
+            <StyledLink onClick={close} to={process.env.REACT_APP_FAVOURITES_PAGE}>Favourites</StyledLink>
+            {userData.loggedIn
+            ?   <Fragment>
+                    <StyledLink onClick={close} to={process.env.REACT_APP_TRADE_PAGE}>Trade</StyledLink>
+                    <StyledLink onClick={close} to={process.env.REACT_APP_PORTFOLIO_PAGE}>Portfolio</StyledLink>
+                    <StyledLink onClick={close} to={process.env.REACT_APP_HOME_PAGE} onClick={handleLogout}>Logout</StyledLink>
+                </Fragment>
+            :   <Fragment>
+                    <StyledLink onClick={close} to={process.env.REACT_APP_REGISTER_PAGE}>Register</StyledLink>
+                    <StyledLink onClick={close} to={process.env.REACT_APP_LOGIN_PAGE}>Login</StyledLink>
+                </Fragment>
+            }
+            <StyledLink onClick={close} to={process.env.REACT_APP_ABOUT_PAGE}>About</StyledLink>
         </React.Fragment>
     )
 }
