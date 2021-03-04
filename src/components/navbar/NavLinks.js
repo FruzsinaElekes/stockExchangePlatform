@@ -18,6 +18,7 @@ export default function NavLinks(props) {
             username: undefined
         })
         removeCookie("access_token")
+        close()
     }
 
     const removeCookie = (name) => {
@@ -32,7 +33,7 @@ export default function NavLinks(props) {
             ?   <Fragment>
                     <StyledLink onClick={close} to={process.env.REACT_APP_TRADE_PAGE}>Trade</StyledLink>
                     <StyledLink onClick={close} to={process.env.REACT_APP_PORTFOLIO_PAGE}>Portfolio</StyledLink>
-                    <StyledLink onClick={close} to={process.env.REACT_APP_HOME_PAGE} onClick={handleLogout}>Logout</StyledLink>
+                    <StyledLink to={process.env.REACT_APP_HOME_PAGE} onClick={handleLogout}>Logout</StyledLink>
                 </Fragment>
             :   <Fragment>
                     <StyledLink onClick={close} to={process.env.REACT_APP_REGISTER_PAGE}>Register</StyledLink>
