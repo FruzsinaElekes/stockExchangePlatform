@@ -47,7 +47,7 @@ const WrapperDiv = styled.div`
     left: 50%;
     transform: translate(-25%, -50%);
     @media (max-width: 768px){
-        top: 75%;
+        top: 85%;
         left: 0%;
         transform: none;
     }
