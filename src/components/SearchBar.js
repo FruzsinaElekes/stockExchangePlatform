@@ -5,7 +5,7 @@ import img1 from '../themes/modern-business-buildings.jpg';
 import { StockDataContext } from './StockDataContext';
 
 export function SearchBar() {
-    const symbolList = useContext(StockDataContext)[0]
+    const symbolList = useContext(StockDataContext)[3]
     const [results, setResults] = useState([]);
 
     const ResultItem = (props) => (
