@@ -47,6 +47,8 @@ export default function NavLinks(props) {
 
 const StyledLink = styled(Link)`
     display: inline-block;
+    vertical-align:middle;
+    line-height:60px;
     font-family: source_sans_prosemibold, Helvetica, Arial, sans-serif;
     text-align: center;
     box-sizing: border-box; 
@@ -55,10 +57,6 @@ const StyledLink = styled(Link)`
     font-weight: 500;
     width: 140px;
     color: #fff;
-    padding-top: 1rem;
-    padding-bottom: 1rem;
-    height: 100%;
-    align-content: center;
     text-shadow: 0px 2px 3px rgba(0,0,0,0.4),
                 0px 6px 11px rgba(0,0,0,0.1),
                 0px 12px 21px rgba(0,0,0,0.1);
