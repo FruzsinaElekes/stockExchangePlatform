@@ -1,10 +1,24 @@
 # OVERVIEW - stock exhange platform
 
-This is a single page web application created in React. The app is a news site for stock market news that also allows you to simulate trading.
+This is a single page web application created in React. This repository contains the UI, all data presented on the site are retieved from our API.
 
-Back-end repository: https://github.com/dentman/stock-exchange-platform-backend.git
+Back-end repository is available here: https://github.com/dentman/stock-exchange-platform-backend.git
+
+# HOW TO RUN
+
+After cloning the repository, create a .env file based on the .env.template. If the backend server will not be running on http://localhost:8080, specify the required host and port in the REACT_APP_ORIGIN and REACT_APP_WEBSOCKET_ROUTE properties.
+
+<pre><code>
+cd stock_exchange_platform
+npm install
+npm start
+</code></pre>
+
+The React server will start at: http://localhost:3000
 
 # MAIN FEATURES
+
+The app is a news site for stock market news that also allows you to simulate trading.
 
 ## 1. News
 
