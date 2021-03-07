@@ -7,10 +7,11 @@ import TradeForm from './TradeForm';
 import ConfirmDialog from './ConfirmDialog';
 import {StockDataContext} from '../StockDataContext';
 import { UserContext } from '../UserContext';
+import LoginForm from '../authentication/LoginForm';
 
 export default function Trade(props) {
     const symbolList = useContext(StockDataContext)[3]
-    const setUserData = useContext(UserContext)[1]
+    const [userData, setUserData] = useContext(UserContext)
     const [symbol , setSymbol] = useState(props.match.params.symbol ? props.match.params.symbol : symbolList[0]);
     const [limitPrice, setLimitPrice] = useState(0);
     const [direction, setDirection] = useState("-");
@@ -23,6 +24,7 @@ export default function Trade(props) {
     
     const tradeRoute = process.env.REACT_APP_ORIGIN + process.env.REACT_APP_TRADE_ROUTE
     const portfolioRoute = process.env.REACT_APP_PORTFOLIO_PAGE
+    const loginRoute = process.env.REACT_APP_LOGIN_PAGE
 
     const errorOpen = () => setOpen(true);
     const errorClose = () => setOpen(false);
@@ -127,6 +129,8 @@ export default function Trade(props) {
     }
 
     return (
+        <React.Fragment>
+        {userData.loggedIn ? 
         <TradeDiv>
             {redirect === true 
             ? <Redirect to={portfolioRoute} /> 
@@ -146,6 +150,9 @@ export default function Trade(props) {
                 count={count} 
                 limitPrice={limitPrice}></ConfirmDialog>
         </TradeDiv>
+        : <Redirect to={loginRoute}></Redirect>}
+        </React.Fragment>
+        
     )
 }
 
