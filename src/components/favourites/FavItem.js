@@ -3,10 +3,12 @@ import { Link } from 'react-router-dom';
 import { FavContext } from './FavContext';
 import styled from 'styled-components';
 import { StockDataContext } from '../StockDataContext';
+import { UserContext } from '../UserContext';
 
 export default function FavItem(props) {
     const [favourites, addToFav, removeFromFav, move] = useContext(FavContext)
     const getData = useContext(StockDataContext)[2]
+    const userData = useContext(UserContext)
     const priceData = getData(props.data.symbol)
     const up = priceData ? priceData.change >= 0 : false; // TODO: This is probably not working now!
     const tradeRoute = process.env.REACT_APP_TRADE_PAGE
@@ -24,7 +26,7 @@ export default function FavItem(props) {
                         <Symbol to={stockRoute + props.data.symbol}>{props.data.symbol}</Symbol>
                         {up? <Icon up={up} className="fa fa-caret-up fa-lg"></Icon> : <Icon up={up} className="fa fa-caret-down fa-lg"></Icon>}                    
                         <UnFavButton onClick={()=>removeFromFav(props.data)}>Unfollow</UnFavButton>
-                        <TradeButton><StyledLink to={tradeRoute + "/" + props.data.symbol}>TRADE</StyledLink></TradeButton>
+                        {userData.loggedIn && <TradeButton><StyledLink to={tradeRoute + "/" + props.data.symbol}>TRADE</StyledLink></TradeButton>}
                     </div>
                     { priceData &&
                     <Details>
