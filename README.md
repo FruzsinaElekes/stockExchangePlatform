@@ -1,6 +1,6 @@
 # OVERVIEW - stock exhange platform
 
-This is a single page web application created in React. This repository contains the UI, all data presented on the site are retieved from our API.
+This is a single page web application created in React. This repository contains the UI, all data presented on the site are retieved from our dedicated API.
 
 Back-end repository is available here: https://github.com/dentman/stock-exchange-platform-backend.git
 
@@ -15,6 +15,14 @@ npm start
 </code></pre>
 
 The React server will start at: http://localhost:3000
+
+**DEPLOYMENT:**
+
+The below command will create an optimized build of the app in the build folder.
+
+<pre><code>npm run build</code></pre>
+
+By renaming the build folder to 'public' and pasting it into the resources folder of the back-end application, the whole application can be deployed as one.
 
 # MAIN FEATURES
 
@@ -49,3 +57,9 @@ You can buy or sell stock on the Trade page by specifying the symbol, the action
 On the Portfolio link you will find information about your account (username, current balance, and current total worth of your portfolio). Also, you will see the details of your portfolio, specifying the amount you own of each stock. Clicking on the History button, you can access the full transaction history for a given stock.
 
 # LAYOUT
+
+![home](src/themes/main.png)
+
+### Responsive design
+
+![detailed_view_mobile](src/themes/detailed_mobile.png) ![menu_mobile](src/themes/menu_mobile.png) ![news_mobile](src/themes/news_mobile.png)
