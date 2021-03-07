@@ -10,7 +10,7 @@ export default function FavItem(props) {
     const getData = useContext(StockDataContext)[2]
     const userData = useContext(UserContext)
     const priceData = getData(props.data.symbol)
-    const up = priceData ? priceData.change >= 0 : false; // TODO: This is probably not working now!
+    const up = priceData ? priceData.changePercent >= 0 : false;
     const tradeRoute = process.env.REACT_APP_TRADE_PAGE
     const stockRoute = process.env.REACT_APP_STOCK_PAGE
 
