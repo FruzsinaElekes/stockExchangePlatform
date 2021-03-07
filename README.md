@@ -1,70 +1,65 @@
-# Getting Started with Create React App
+# OVERVIEW - stock exhange platform
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is a single page web application created in React. This repository contains the UI, all data presented on the site are retieved from our dedicated API.
 
-## Available Scripts
+Back-end repository is available here: https://github.com/dentman/stock-exchange-platform-backend.git
 
-In the project directory, you can run:
+# HOW TO RUN
 
-### `npm start`
+After cloning the repository, create a .env file based on the .env.template. If the backend server will not be running on http://localhost:8080, specify the required host and port in the REACT_APP_ORIGIN and REACT_APP_WEBSOCKET_ROUTE properties.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+<pre><code>
+cd stock_exchange_platform
+npm install
+npm start
+</code></pre>
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+The React server will start at: http://localhost:3000
 
-### `npm test`
+**DEPLOYMENT:**
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+The below command will create an optimized build of the app in the build folder.
 
-### `npm run build`
+<pre><code>npm run build</code></pre>
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+By renaming the build folder to 'public' and pasting it into the resources folder of the back-end application, the whole application can be deployed as one.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+# MAIN FEATURES
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+The app is a news site for stock market news that also allows you to simulate trading.
 
-### `npm run eject`
+## 1. News
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+**Home**
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Access a certain stock's detailed page by looking for it in the search bar!
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+**Detailed View**
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+The detailed view contains information on the stock's price at previous market close, current price (simulated!), market cap, 52 week range, average volume, year to date change, and last trade time. There is also a graph showing stock prices for the last 30 days. Below, there are news related to the stock: a short video and excerpts from various articles from the last days.
 
-## Learn More
+**Favourites**
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+You can add stocks to the favourites, so you can have a quick overview of your favourite stocks' main statistics or easily access their detailed page. This feature does not require being a registered user of the site, but the content of your Favourites page will be limited to the browser you are using.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+_Note that historical prices shown on diagrams are valid data retrieved from the IEXCloud API. Intraday changes in stock prices are, however, simulated!_
 
-### Code Splitting
+## 2. Trading
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+To be able to simulate trading you need to **register** to the site and log in. Upon registration you will receive a mock account with 10 000 USD.
 
-### Analyzing the Bundle Size
+**Trade**
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+You can buy or sell stock on the Trade page by specifying the symbol, the action (buy/sell), the amount and the limit price for the transaction. When clicking Trade, a confirmation dialog is shown with the details of the order you are about to place. The order is only finalized when confirming the placement. If, for some reason, the transaction could not be made (insufficient funds or owned stock, mismatch between current stock price and the limit price) a modal window will notify you about the error. Upon making a successful transaction, you will be redirected to the portfolio page.
 
-### Making a Progressive Web App
+**Portfolio**
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+On the Portfolio link you will find information about your account (username, current balance, and current total worth of your portfolio). Also, you will see the details of your portfolio, specifying the amount you own of each stock. Clicking on the History button, you can access the full transaction history for a given stock.
 
-### Advanced Configuration
+# LAYOUT
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+![home](src/themes/main.png)
 
-### Deployment
+### Responsive design
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+![detailed_view_mobile](src/themes/detailed_mobile.png) ![menu_mobile](src/themes/menu_mobile.png) ![news_mobile](src/themes/news_mobile.png)
