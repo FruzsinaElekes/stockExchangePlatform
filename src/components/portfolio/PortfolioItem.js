@@ -22,7 +22,7 @@ export default function PortfolioItem(props) {
 
     return (
         <Fav>
-            <Content>
+            {priceData && <Content>
                 <div>
                     <Symbol to={stockRoute + props.item.symbol}>{props.item.symbol}</Symbol>
                     <BlueButtonRight><StyledLink to={tradeLink}>TRADE</StyledLink></BlueButtonRight>
@@ -49,7 +49,7 @@ export default function PortfolioItem(props) {
                 <Modal open={open} onClose={handleClose}>
                     <History ref={ref} transactions={props.transactions} currency={props.currency} symbol={props.item.symbol} />
                 </Modal>
-            </Content>
+            </Content>}
         </Fav>
     )
 }
